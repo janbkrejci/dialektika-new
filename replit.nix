@@ -1,6 +1,6 @@
 { pkgs }: {
     deps = [
-        pkgs.ruby_3_0
         pkgs.nodejs
+        pkgs.ruby_3_0
     ];
 }
