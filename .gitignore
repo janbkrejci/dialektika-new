@@ -1,8 +1,0 @@
-/_site
-/.bundle
-/node_modules
-/vendor
-/assets
-
-.jekyll-cache
-.eslintcache

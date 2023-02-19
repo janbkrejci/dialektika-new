@@ -1,16 +1,42 @@
----
-layout: default
-title: Home
----
-<p>Hello world hahaha!</p>
-{% for post in site.posts %}
+<!DOCTYPE html>
+<html lang="en" class="antialiased">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Home | Your awesome title</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Home" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="My awesome site" />
+<meta property="og:description" content="My awesome site" />
+<meta property="og:site_name" content="Your awesome title" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Home" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","description":"My awesome site","headline":"Home","name":"Your awesome title","url":"/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/app.css">
+</head>
+<body class="bg-gray-100 text-gray-900 font-sans tracking-wider leading-normal"><header>
+</header>
+<main aria-label="Content">
+    <p>Hello world hahaha!</p>
+
   <article>
     <h2>
-      <a href="{{ post.url }}">
-        {{ post.title }}
+      <a href="/test/">
+        Test
       </a>
     </h2>
-    <time datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date_to_long_string }}</time>
-    {{ post.content }}
+    <time datetime="2023-02-18">18 February 2023</time>
+    <h1 id="ahoj">ahoj</h1>
+
   </article>
-{% endfor %}
+
+  </main><footer>
+</footer>
+<script src="/assets/js/app.js"></script>
+</body>
+</html>
