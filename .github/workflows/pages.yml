@@ -11,16 +11,16 @@ jobs:
     env:
       JEKYLL_ENV: production
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '16'
           cache: npm
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7
+          ruby-version: 3.0
           bundler-cache: true
-      - run: npm install
+      - run: npm ci
       - run: npm run prod
       - run: bundle exec jekyll build
       - uses: peaceiris/actions-gh-pages@v3
