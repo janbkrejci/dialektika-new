@@ -5,11 +5,6 @@
         "/assets/js/app.js"
       ]
     },
-    "js/test.config": {
-      "js": [
-        "/assets/js/test.config.js"
-      ]
-    },
     "css/app": {
       "css": [
         "/assets/css/app.css"
