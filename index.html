@@ -2,10 +2,13 @@
 layout: default
 title: Home
 ---
+{% raw %}
 <div x-data="{name: 'test'}">
   <input x-model="name">
   <b>{name}</b>
 </div>
+{% endraw %}
+<hr />
 {% for post in site.posts %}
 <article>
   <h2>
