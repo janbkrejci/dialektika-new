@@ -1,5 +1,5 @@
-title: Your awesome title
-description: My awesome site
+title: Dialektika
+description: Blog serveru Dialektika.cz
 permalink: /:slugified_categories/:title/
 
 date_format: "%b %-d, %Y"
@@ -11,3 +11,5 @@ exclude:
   - README.md
   - LICENSE
   - Makefile
+  - replit.nix
+
