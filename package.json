@@ -8,7 +8,7 @@
         "watch:jekyll": "bundle exec jekyll serve --drafts --incremental --host 0.0.0.0 --port 3000",
         "lint": "eslint --cache .",
         "format": "npm run lint -- --fix",
-        "postinstall": "bundle install --path=vendor/bundle --jobs=4 --retry=3"
+        "postinstall": "bundle config set --local path 'vendor/bundle' && bundle install --jobs=4 --retry=3"
     },
     "dependencies": {
         "alpinejs": "^3.2.3"
