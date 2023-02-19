@@ -15,10 +15,4 @@ Encore
   .disableSingleRuntimeChunk()
   .enableSourceMaps(!Encore.isProduction());
 
-module.exports = {
-  ...Encore.getWebpackConfig(),
-  watchOptions: {
-    ignored: /assets/
-    //ignored: /node_modules/,
-  }
-};
+module.exports = Encore.getWebpackConfig();

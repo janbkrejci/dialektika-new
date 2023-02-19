@@ -5,6 +5,9 @@ permalink: /:slugified_categories/:title/
 date_format: "%b %-d, %Y"
 
 exclude:
+  - .cache
+  - assets/manifest.json
+  - assets/entrypoints.json
   - "package*.json"
   - "*.config.js"
   - netlify.toml

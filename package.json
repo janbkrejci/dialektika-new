@@ -1,7 +1,7 @@
 {
     "private": true,
     "scripts": {
-        "start": "concurrently -k --restart-tries 3 --restart-after 3000 -p [{name}] -n webpack,jekyll -c yellow,cyan npm:watch:webpack npm:watch:jekyll",
+        "start": "npm run dev && concurrently -k --restart-tries 3 --restart-after 3000 -p [{name}] -n webpack,jekyll -c yellow,cyan npm:watch:webpack npm:watch:jekyll",
         "dev": "encore dev",
         "prod": "encore prod",
         "watch:webpack": "encore dev --watch",
