@@ -1,5 +1,8 @@
+---
+---
+
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: "en" }}" class="antialiased">
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,7 +10,8 @@
   {%- seo -%}
   <link rel="stylesheet" href="{% link /assets/css/app.css %}">
 </head>
-<body class="bg-gray-100 text-gray-900 font-sans tracking-wider leading-normal">
+<body>
+  <div class="mx-auto max-w-5xl h-full flex flex-col">
   {%- include header.html -%}
 
   <main aria-label="Content">
@@ -15,7 +19,7 @@
   </main>
 
   {%- include footer.html -%}
-
+  </div>
   <script src="{% link /assets/js/app.js %}"></script>
 </body>
 </html>

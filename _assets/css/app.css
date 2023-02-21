@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply bg-gray-100 h-screen;
+}
+
+main {
+  @apply bg-white grow p-8;
+}
+
+nav {
+  @apply bg-blue-400 text-white p-0 m-0 space-x-0;
+}
+
+nav a {
+  @apply px-6 py-5 hover:bg-gray-300 hover:text-black leading-10;
+}
+
+nav a.active {
+  @apply bg-white text-black cursor-default;
+}
+
+footer {
+  @apply text-gray-500 py-2 px-4 text-xs text-right;
+}
+
+h2 {
+  @apply bg-gray-200 p-2 text-xl;
+}
+

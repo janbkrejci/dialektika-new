@@ -2,21 +2,24 @@
 layout: default
 title: Home
 ---
-{% raw %}
-<div x-data="{name: 'test'}">
-  <input x-model="name">
-  <b x-text="name"></b>
-</div>
-{% endraw %}
-<hr />
+
 {% for post in site.posts %}
+
+{% capture i18n_date %}
+{% assign day = post.date | date: "%-d" %}
+{% assign m = post.date | date: "%-m" | minus: 1 %}
+{% assign month = site.months[m] %}
+{% assign year = post.date | date: "%Y" %}
+{% assign datum = day | append: ". " | append: month | append: " " | append: year %}
+{% endcapture %}
+
 <article>
-  <h2>
     <a href="{{ post.url }}">
+  <h2 class="my-0">
       {{ post.title }}
-    </a>
   </h2>
-  <time datetime="{{ post.date | date: " %Y-%m-%d" }}">{{ post.date | date_to_long_string }}</time>
-  {{ post.content }}
+    </a>
+  <time datetime="{{ post.date | date_to_xmlschema}}">{{ datum }}</time>
+  {{ post.excerpt }}
 </article>
 {% endfor %}

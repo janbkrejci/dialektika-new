@@ -1,4 +1,5 @@
 title: Dialektika
+lang: cs
 description: Blog serveru Dialektika.cz
 permalink: /:slugified_categories/:title/
 
@@ -15,3 +16,17 @@ exclude:
   - LICENSE
   - Makefile
   - replit.nix
+
+months:
+  - "ledna"
+  - "února"
+  - "března"
+  - "dubna"
+  - "května"
+  - "června"
+  - "července"
+  - "srpna"
+  - "září"
+  - "října"
+  - "listopadu"
+  - "prosince"
