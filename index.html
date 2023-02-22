@@ -3,6 +3,10 @@ layout: default
 title: Home
 ---
 
+<header>
+  <h1>Nejnovější články</h1>
+</header>
+
 {% for post in site.posts %}
 
 {% capture i18n_date %}
@@ -19,7 +23,7 @@ title: Home
       {{ post.title }}
   </h2>
     </a>
-  <time datetime="{{ post.date | date_to_xmlschema}}">{{ datum }}</time>
+  <time datetime="{{ post.date | date: '%Y-%m-%d'}}">{{ datum }}</time>
   {{ post.excerpt }}
 </article>
 {% endfor %}
