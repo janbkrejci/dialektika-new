@@ -46,7 +46,7 @@ xthead xtr {
 }
 
 td, th {
-  @apply align-middle text-bottom p-2;
+  @apply align-middle p-1;
 }
 
 tbody tr {
