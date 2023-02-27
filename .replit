@@ -1,4 +1,8 @@
-run = "npm i && npm run start"
+run = "npm run start"
+
+hidden = ["*.lock*", "*.config.js", "netlify.toml", "LICENSE", ".*", "vendor", "package-lock.json", "assets", "_site"]
 
 [nix]
 channel = "stable-22_11"
+
+ 

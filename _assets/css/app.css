@@ -4,15 +4,26 @@
 
 [x-cloak] { display: none !important; }
 
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* custom macro styles */
+
 body {
-  @apply bg-gray-100 h-screen overflow-x-hidden;
+  @apply bg-gray-100 h-screen;
 }
 
 main {
   @apply bg-white grow p-8;
 }
-
-
 
 footer {
   @apply text-gray-500 py-2 px-4 text-xs text-right;
@@ -24,15 +35,4 @@ h2 {
 
 article {
   @apply prose-base lg:prose-lg xl:prose-xl mb-20 mx-auto max-w-prose;
-}
-
-/* For Webkit-based browsers (Chrome, Safari and Opera) */
-.scrollbar-hide::-webkit-scrollbar {
-    display: none;
-}
-
-/* For IE, Edge and Firefox */
-.scrollbar-hide {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
 }

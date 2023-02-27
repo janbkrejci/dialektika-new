@@ -1,6 +1,5 @@
 ---
 ---
-
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
 <head>
@@ -10,7 +9,7 @@
   {%- seo -%}
   <link rel="stylesheet" href="{% link /assets/css/app.css %}">
 </head>
-<body class="scrollbar-hide">
+<body x-cloak x-data="" class="scrollbar-hide">
   <div class="mx-auto max-w-5xl h-full flex flex-col">
   {%- include header.html -%}
 

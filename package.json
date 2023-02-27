@@ -1,15 +1,14 @@
 {
     "private": true,
     "scripts": {
-        "start": "concurrently -k --restart-tries 3 --restart-after 3000 -p [{name}] -n webpack,jekyll -c yellow,cyan npm:watch:webpack npm:watch:jekyll",
+        "start": "concurrently -p [{name}] -n jekyll,webpack -c cyan,yellow npm:watch:webpack npm:watch:jekyll",
         "dev": "encore dev",
         "prod": "encore prod",
         "watch:webpack": "encore dev --watch",
-        "jekyll": "encore prod && bundle exec jekyll serve --drafts --incremental --host 0.0.0.0 --port 3000",
         "watch:jekyll": "bundle exec jekyll serve --drafts --incremental --host 0.0.0.0 --port 3000",
         "lint": "eslint --cache .",
         "format": "npm run lint -- --fix",
-        "postinstall": "bundle install --jobs=4 --retry=3"
+        "postinstall": "bundle config set --local path 'vendor/bundle'; bundle install --jobs=4 --retry=3"
     },
     "dependencies": {
         "alpinejs": "^3.2.3"
@@ -23,10 +22,10 @@
         "eslint": "^8.0.0",
         "eslint-config-airbnb-base": "^15.0.0",
         "eslint-plugin-import": "^2.23.4",
+        "file-loader": "^6.2.0",
         "postcss-import": "^15.1.0",
-        "postcss-loader": "^7.0.0",
-        "tailwindcss": "^3.2.7",
-        "w3-css": "^4.1.0"
+        "postcss-loader": "^7.0.2",
+        "tailwindcss": "^3.2.7"
     },
     "browserslist": [
         "> 0.5%",

@@ -3,7 +3,7 @@ lang: cs
 description: Blog serveru Dialektika.cz
 permalink: /:slugified_categories/:title/
 
-date_format: "%b %-d, %Y"
+include: ["_pages"]
 
 exclude:
   - .cache
@@ -30,3 +30,16 @@ months:
   - "října"
   - "listopadu"
   - "prosince"
+
+plugins:
+  - jekyll-paginate-v2
+
+pagination:
+  enabled: true
+  per_page: 12
+  sort_reverse: true
+  sort_field: 'date'
+  title: ':title'
+  trail:
+    before: 2
+    after: 2
