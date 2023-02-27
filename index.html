@@ -27,154 +27,50 @@
     <div class="flex lg:flex-1">
       <a href="/" class="-m-1.5 p-1.5">
         <span class="sr-only">Dialektika</span>
-        <!--img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt=""-->
-        <img class="w-8 h-auto" src="/assets/img/logo.svg"/>
+        <img class="w-8 h-auto" src="/assets/img/logo.svg" />
       </a>
     </div>
     <div class="flex lg:hidden">
-      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" @click="showSidebar = true">
-        <span class="sr-only">Open main menu</span>
-        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+        @click="showSidebar = true">
+        <span class="sr-only">Hlavní nabídka</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
         </svg>
       </button>
     </div>
     <div class="hidden lg:flex lg:gap-x-12">
-      <div class="relative">
-        <button type="button" class="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900" aria-expanded="false" @click="showMenu = !showMenu">
-          Product
-          <svg :class="{'h-5':true, 'w-5':true, 'flex-none':true, 'text-gray-400':true, 'rotate-[270deg]': !showMenu}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-          </svg>
-        </button>
-
-        <!--
-          'Product' flyout menu, show/hide based on flyout menu state.
-
-          Entering: "transition ease-out duration-200"
-            From: "opacity-0 translate-y-1"
-            To: "opacity-100 translate-y-0"
-          Leaving: "transition ease-in duration-150"
-            From: "opacity-100 translate-y-0"
-            To: "opacity-0 translate-y-1"
-        -->
-        <div x-show="showMenu" class="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5" @click.outside="showMenu = false">
-          <div class="p-4">
-            <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
-              <div class="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                <svg class="h-6 w-6 text-gray-600 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
-                </svg>
-              </div>
-              <div class="flex-auto">
-                <a href="#" class="block font-semibold text-gray-900">
-                  Analytics
-                  <span class="absolute inset-0"></span>
-                </a>
-                <p class="mt-1 text-gray-600">Get a better understanding of your traffic</p>
-              </div>
-            </div>
-
-            <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
-              <div class="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                <svg class="h-6 w-6 text-gray-600 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zM12 2.25V4.5m5.834.166l-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243l-1.59-1.59" />
-                </svg>
-              </div>
-              <div class="flex-auto">
-                <a href="#" class="block font-semibold text-gray-900">
-                  Engagement
-                  <span class="absolute inset-0"></span>
-                </a>
-                <p class="mt-1 text-gray-600">Speak directly to your customers</p>
-              </div>
-            </div>
-
-            <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
-              <div class="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                <svg class="h-6 w-6 text-gray-600 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M7.864 4.243A7.5 7.5 0 0119.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 004.5 10.5a7.464 7.464 0 01-1.15 3.993m1.989 3.559A11.209 11.209 0 008.25 10.5a3.75 3.75 0 117.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 01-3.6 9.75m6.633-4.596a18.666 18.666 0 01-2.485 5.33" />
-                </svg>
-              </div>
-              <div class="flex-auto">
-                <a href="#" class="block font-semibold text-gray-900">
-                  Security
-                  <span class="absolute inset-0"></span>
-                </a>
-                <p class="mt-1 text-gray-600">Your customers’ data will be safe and secure</p>
-              </div>
-            </div>
-
-            <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
-              <div class="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                <svg class="h-6 w-6 text-gray-600 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 002.25-2.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v2.25A2.25 2.25 0 006 10.5zm0 9.75h2.25A2.25 2.25 0 0010.5 18v-2.25a2.25 2.25 0 00-2.25-2.25H6a2.25 2.25 0 00-2.25 2.25V18A2.25 2.25 0 006 20.25zm9.75-9.75H18a2.25 2.25 0 002.25-2.25V6A2.25 2.25 0 0018 3.75h-2.25A2.25 2.25 0 0013.5 6v2.25a2.25 2.25 0 002.25 2.25z" />
-                </svg>
-              </div>
-              <div class="flex-auto">
-                <a href="#" class="block font-semibold text-gray-900">
-                  Integrations
-                  <span class="absolute inset-0"></span>
-                </a>
-                <p class="mt-1 text-gray-600">Connect with third-party tools</p>
-              </div>
-            </div>
-
-            <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
-              <div class="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                <svg class="h-6 w-6 text-gray-600 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                </svg>
-              </div>
-              <div class="flex-auto">
-                <a href="#" class="block font-semibold text-gray-900">
-                  Automations
-                  <span class="absolute inset-0"></span>
-                </a>
-                <p class="mt-1 text-gray-600">Build strategic funnels that will convert</p>
-              </div>
-            </div>
-          </div>
-          <div class="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-            <a href="#" class="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100">
-              <svg class="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm6.39-2.908a.75.75 0 01.766.027l3.5 2.25a.75.75 0 010 1.262l-3.5 2.25A.75.75 0 018 12.25v-4.5a.75.75 0 01.39-.658z" clip-rule="evenodd" />
-              </svg>
-              Watch demo
-            </a>
-
-            <a href="#" class="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100">
-              <svg class="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.43A13.022 13.022 0 012.43 8.326 13.019 13.019 0 012 5V3.5z" clip-rule="evenodd" />
-              </svg>
-              Contact sales
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Features</a>
-      <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Marketplace</a>
-      <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Company</a>
+      <a href="/program" class="text-sm font-semibold leading-6 text-gray-900">Program</a>
+      <a href="/stanovy" class="text-sm font-semibold leading-6 text-gray-900">Stanovy</a>
+      <a href="/stanoviska" class="text-sm font-semibold leading-6 text-gray-900">Přijatá stanoviska</a>
+      <a href="/blog" class="text-sm font-semibold leading-6 text-gray-900">Blog</a>
+      <!-- for logged-in users -->
+      <a href="/aktivity" class="text-sm font-semibold leading-6 text-gray-900">Aktivity</a>
+      <a href="/organizace" class="text-sm font-semibold leading-6 text-gray-900">Organizace</a>
+      <a href="/lide" class="text-sm font-semibold leading-6 text-gray-900">Lidé</a>
+      <a href="/ja" class="text-sm font-semibold leading-6 text-gray-900">Já</a>
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-      <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Log in <span aria-hidden="true">&rarr;</span></a>
+      <a href="/login" class="text-sm font-semibold leading-6 text-gray-900">Přihlášení <span
+          aria-hidden="true">&rarr;</span></a>
     </div>
   </nav>
   <!-- Mobile menu, show/hide based on menu open state. -->
   <div x-show="showSidebar" class="lg:hidden" role="dialog" aria-modal="true">
     <!-- Background backdrop, show/hide based on slide-over state. -->
     <div class="fixed inset-0 z-10" @click="showSidebar = false"></div>
-    <div focus="true" class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10  scrollbar-hide">
+    <div focus="true"
+      class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10  scrollbar-hide">
       <div class="flex items-center justify-between">
         <a href="/" class="-m-1.5 p-1.5 visible sm:invisible">
           <span class="sr-only">Dialektika</span>
-           <img class="w-8 h-auto" src="/assets/img/logo.svg" />
+          <img class="w-8 h-auto" src="/assets/img/logo.svg" />
         </a>
         <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" @click="showSidebar = false">
-          <span class="sr-only">Close menu</span>
-          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <span class="sr-only">Zavřít nabídku</span>
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
@@ -182,60 +78,137 @@
       <div class="mt-6 flow-root">
         <div class="-my-6 divide-y divide-gray-500/10">
           <div class="space-y-2 py-6">
-            <div class="-mx-3">
-              <button type="button" class="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 hover:bg-gray-50" aria-controls="disclosure-1" aria-expanded="false" @click="showMenu = !showMenu">
-                Product
-                <!--
-                  Expand/collapse icon, toggle classes based on menu open state.
-
-                  Open: "rotate-180", Closed: ""
-                -->
-                <svg :class="{'h-5':true, 'w-5':true, 'flex-none':true, 'text-gray-400':true, 'rotate-[270deg]': !showMenu}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                </svg>
-              </button>
-              <!-- 'Product' sub-menu, show/hide based on menu state. -->
-              <div x-show="showMenu" class="mt-2 space-y-2" id="disclosure-1" @click.outside="showMenu = false">
-                <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50">Analytics</a>
-
-                <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50">Engagement</a>
-
-                <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50">Security</a>
-
-                <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50">Integrations</a>
-
-                <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50">Automations</a>
-
-                <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50">Watch demo</a>
-
-                <a href="#" class="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50">Contact sales</a>
-              </div>
-            </div>
-            <a href="#" class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Features</a>
-            <a href="#" class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Marketplace</a>
-            <a href="#" class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Company</a>
+            <a href="/program"
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Program</a>
+            <a href="/stanovy"
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Stanovy</a>
+            <a href="/stanoviska"
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Přijatá
+              stanoviska</a>
+            <a href="/blog"
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Blog</a>
+          </div>
+          <!-- for logged-in users -->
+          <div class="space-y-2 py-6">
+            <a href="/aktivity"
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Aktivity</a>
+            <a href="/organizace"
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Organizace</a>
+            <a href="/lide"
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Lidé</a>
+            <a href="/ja"
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Já</a>
           </div>
           <div class="py-6">
-            <a href="#" class="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log in</a>
+            <a href="/login"
+              class="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Přihlášení</a>
           </div>
         </div>
       </div>
     </div>
   </div>
-</header>
-<main>
-      <p><a href="neex">neexistující stránka</a></p>
+</header><main>
+      <div class="common">
+        <div class="alert mb-8">
+  <p class="title">Upozornění</p>
+  <p>
+    Tento web je ve vývoji.<br />
+    Spousta věcí zde může chybět nebo nemusí správně fungovat.
+  </p>
+</div>
 
-<div class="bg-red-200 p-2">test</div>
+<h1 id="vítejte">Vítejte!</h1>
 
-<p>text</p>
+<p>Toto jsou stránky dobrovolného sdružení občanů České republiky <strong>Dialektika</strong>, založeného se záměrem naučit se provozovat pravou demokracii. Bez přívlastků, v její nejčistší podobě.</p>
 
-<ul>
-  <li>list</li>
-  <li>list</li>
-  <li>list</li>
-</ul>
+<p>V budoucnosti se možná společně rozhodneme založit spolek a posléze první opravdu demokratickou politickou stranu. Tak daleko ale zatím nejsme. Teď se učíme a vytváříme zázemí pro budoucí fungování.</p>
 
+<h1 id="co-je-dialektika">Co je Dialektika</h1>
+
+<p>Základní pilíře celého našeho snažení jsou <strong>Svoboda</strong>, <strong>Demokracie</strong> a <strong>Diskuse</strong>.</p>
+
+<h2 id="svoboda">Svoboda</h2>
+
+<blockquote>
+  <p>Svoboda je možnost volit, rozhodovat a jednat podle své vůle, ať je jakákoli, a nést za to odpovědnost.</p>
+</blockquote>
+
+<p>Šíře svobody je určena množstvím alternativ volby. Vnímaná šíře svobody je pak závislá na množství alternativ, které umíme nalézt.</p>
+
+<p>Svoboda ve společnosti je možná jen v rámci souhrnu podmínek, za nichž lze libovůli jednoho sloučit s libovůlí druhého. Tyto podmínky jsou stanoveny právními normami, které jsme povinni všichni dodržovat, a také morálními normami, které bychom dodržovat měli.</p>
+
+<p>Pro zastánce svobody je důležité vědomí, že se dokáží postarat sami o sebe, případně o své nejbližší, a že svojí obživou na nikom nezávisí. Současně ale chápou svobody a potřeby okolí a akceptují zodpovědnosti a povinnosti, které z nich vyplývají.</p>
+
+<h2 id="demokracie">Demokracie</h2>
+
+<blockquote>
+  <p>Demokracie je forma vlády.</p>
+</blockquote>
+
+<p>Prvotní formou demokracie je přímá demokracie, kde občané hlasováním rozhodují o jednotlivých otázkách. Demokracie je charakterizována principem rovnosti pro všechny zúčastněné. Pravidlem rozhodování v demokraciích je právo většiny, kterému se menšina musí podřídit.</p>
+
+<p>Výsledkem demokratického hlasování není pravda, ale zjištění převažujícího názoru. Pravda nevzniká hlasováním, to je argumentační chyba.</p>
+
+<p>Základem a ideálem demokracie je svobodné formování veřejného mínění v diskusi, které je současně základem autentické svobody občanů.</p>
+
+<p>Způsob, jak občané své mínění v demokratickém státě uplatňují, určuje ústava.</p>
+
+<h2 id="diskuse">Diskuse</h2>
+
+<blockquote>
+  <p>Diskuse je věcný rozhovor několika osob o určitém tématu, jehož cílem není rozhodovat, nýbrž věc pečlivě rozebrat z různých stránek, shromáždit argumenty a případně připravit půdu pro racionální rozhodnutí.</p>
+</blockquote>
+
+<p>Cílem takového rozhovoru je přiblížit se pravému poznání tím, že účastníci si navzájem vyvracejí nesprávná, neobhajitelná mínění. Zkušenost ukazuje, že taková diskuse může být pro hlubší poznání složitých jevů velmi užitečná, protože překonává přirozené jednostrannosti účastníků a zvyšuje pravděpodobnost, že se na nic důležitého nezapomnělo.</p>
+
+<p>Diskuse od účastníků vyžaduje věcnost, otevřenost, poctivost, trpělivost a zdvořilost.</p>
+
+<p>Největší překážkou diskuse je používání tzv. Argumentačních faulů viz <a href="http://www.obcanskevzdelavani.cz/work/ke-stazeni/argumentacni-fauly-A3-barva.pdf" target="_blank">zde</a>.</p>
+
+<h1 id="jak-pracujeme">Jak pracujeme?</h1>
+
+<p>Od samého počátku se věnujeme sestavení programového prohlášení. V něm jsou zakotveny naše cíle. Programovým prohlášením říkáme, v jaké zemi si přejeme žít a pracovat.</p>
+
+<p>Při své činnosti se řídíme stanovami, které si můžete přečíst pod odkazem nahoře v navigačním pruhu.</p>
+
+<p>Jak programové prohlášení, tak i stanovy vytváříme a zdokonalujeme společně, prostřednictvím diskuse a demokratického hlasování. S jedinou výjimkou. Ve stanovách máme ukotveny základní principy a pravidla aplikace a zachování demokracie pro samotnou Dialektiku. Ty jsou neměnné. Bez nich by to už totiž nebyla ta Dialektika, kterou jsme založili.</p>
+
+<h1 id="chcete-se-přidat">Chcete se přidat?</h1>
+
+<p>Skvěle! Vše potřebné najdete ve stanovách.</p>
+
+<h1 id="přijatá-stanoviska">Přijatá stanoviska</h1>
+
+<p>Zde si můžete přečíst nejnovější odhlasovaná stanoviska Dialektiky. Kompletní seznam najdete pod odkazem nahoře v navigačním pruhu.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Přijato</th>
+      <th>Na úrovni</th>
+      <th>Stanovisko (pro detail klikněte)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>01. 01. 2023</td>
+      <td>Česká republika</td>
+      <td>Sněhulákům by se mělo zakázat dělat loužičky</td>
+    </tr>
+    <tr>
+      <td>31. 12. 2022</td>
+      <td>Severomoravský kraj</td>
+      <td>Topit uhlím je nutnost</td>
+    </tr>
+    <tr>
+      <td>06. 11. 2022</td>
+      <td>obec Toušice<br />(volební okrsek 533742)</td>
+      <td>Nechceme stavět hráz na potoce uprostřed obce</td>
+    </tr>
+  </tbody>
+</table>
+
+      </div>
     </main><footer>
   <a href="/gdpr">Prohlášení o ochraně osobních údajů</a>
 </footer>
