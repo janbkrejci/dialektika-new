@@ -1,32 +1,25 @@
+# TODO
+
+- přenést navigaci z .cz
+- zprovoznit login/register/reset password s lepším formulářem
+- hlasování prototyp
+- naučit se MD
+- přenést obsah titulní stránky
+- stránka 404
+- stránka /blog
+- layout postu
+- stránka /program
+- stránka /stanovy
+- ostatní stránky
+- language server HTML, JS, CSS, MD
+
+  
 # Jekyll Starter
 
-> Starting point for Jekyll sites using [Tailwind CSS](https://tailwindcss.com/)
+Starting point for Jekyll sites using [Tailwind CSS](https://tailwindcss.com/)
 and [Alpine.js](https://github.com/alpinejs/alpine/).
 
-[![Use this template](https://img.shields.io/badge/template-Generate-green?style=for-the-badge)](https://github.com/mloberg/jekyll-starter/generate)
-[![Unlicense](https://img.shields.io/badge/license-Unlicense-blue?style=for-the-badge)](https://choosealicense.com/licenses/unlicense/)
-
-## Getting Started
-
-You'll need [Ruby](https://www.ruby-lang.org/en/), [Bundler](https://bundler.io/),
-and [Node.js](https://nodejs.org/en/) installed. Then install build dependencies
-with
-
-    npm install
-
-_Tip_: Be sure to commit the generated `package-lock.json` and `Gemfile.lock` files.
-
-Then to build and serve the dev site, run
-
-    npm start
-
 ## What's Included
-
-This is not a Jekyll theme. It's a starting point to create a website using
-[Jekyll](https://jekyllrb.com/), [Tailwind CSS](https://tailwindcss.com/), and
-[Alpine.js](https://github.com/alpinejs/alpine/). The layout includes almost
-nothing, allowing you to start building right away instead of having to remove
-code you won't use.
 
 If you want to start creating posts and pages, we've included the
 [Jekyll::Compose](https://github.com/jekyll/jekyll-compose) plugin.
@@ -34,14 +27,7 @@ If you want to start creating posts and pages, we've included the
     bundle exec jekyll page "My New Page"
     bundle exec jekyll post "My New Post"
 
-## Deploying
-
-Includes configuration for deploying to [Netlify](https://www.netlify.com/) and
-[GitHub Pages](https://pages.github.com/) (via GitHub Actions).
-
 # Configuring a Repl
-
-Every new repl comes with a `.replit` and a `replit.nix` file that let you configure your repl to do just about anything in any language!
 
 ### `replit.nix`
 
@@ -56,23 +42,6 @@ The `replit.nix` file should look something like the example below. The `deps` a
     ];
 }
 ```
-### Learn More About Nix
-
-If you'd like to learn more about Nix, here are some great resources:
-
-#### Written Guides
-- [Getting started with Nix](/programming-ide/getting-started-nix) — Our own getting started guide
-- [Building with Nix on Replit](https://docs.replit.com/tutorials/30-build-with-nix) — Deploy a production web stack on Replit with Nix
-- [Nix Pills](https://nixos.org/guides/nix-pills/) — Guided introduction to Nix
-- [Nix Package Manager Guide](https://nixos.org/manual/nix/stable/) — A comprehensive guide of the Nix Package Manager
-- [A tour of Nix](https://nixcloud.io/tour) — Learn the nix language itself
-
-#### Video Guides
-- [Nixology](https://www.youtube.com/playlist?list=PLRGI9KQ3_HP_OFRG6R-p4iFgMSK1t5BHs) — A series of videos introducing Nix in a practical way
-- [Taking the Nix pill](https://www.youtube.com/watch?v=QwLWIy2KleE) — An introduction to what Nix is, how it works, and a walkthrough of publishing several new languages to Replit within an hour.
-- [Nix: A Deep Dive](https://www.youtube.com/watch?v=TsZte_9GfPE) — A deep dive on Nix: what Nix is, why you should use it, and how it works.
-
-
 ### `.replit`
 
 The `.replit` file allows you to configure many options for your repl, most basic of which is the `run` command.
