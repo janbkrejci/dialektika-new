@@ -11,7 +11,7 @@ Encore
   .setPublicPath('/assets')
   .addStyleEntry('css/app', './_assets/css/app.css')
   .addEntry('js/app', './_assets/js/app.js')
-  //.copyFiles({from: './_assets/img', to: 'img/[path][name].[ext]'})
+  .copyFiles({from: './_assets/img', to: 'img/[path][name].[ext]'})
   .enablePostCssLoader()
   .disableSingleRuntimeChunk()
   .enableSourceMaps(!Encore.isProduction());
