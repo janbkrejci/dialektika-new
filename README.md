@@ -5,13 +5,13 @@
 - hlasování prototyp
 - naučit se MD
 - přenést obsah titulní stránky
-- stránka 404
+- ~~stránka 404~~
 - stránka /blog
 - layout postu
 - stránka /program
 - stránka /stanovy
 - ostatní stránky
-- language server HTML, JS, CSS, MD
+- ~~language server HTML, JS, CSS~~
 
   
 # Jekyll Starter

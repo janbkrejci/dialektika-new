@@ -36,9 +36,8 @@ plugins:
 
 pagination:
   enabled: true
-  per_page: 12
-  sort_reverse: true
-  sort_field: 'date'
+  per_page: 5
+  locale: 'cs'
   title: ':title'
   trail:
     before: 2

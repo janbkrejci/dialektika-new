@@ -1,0 +1,3 @@
+---
+permalink: /organizace
+---

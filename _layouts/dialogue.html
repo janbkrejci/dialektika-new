@@ -11,17 +11,13 @@
   <link rel="stylesheet" href="{% link /assets/css/app.css %}">
 </head>
 
-<body x-cloak x-data="" class="scrollbar-hide">
-  <div class="mx-auto max-w-5xl h-full flex flex-col">
-    {%- include header.html -%}
+<body x-cloak x-data="" class="scrollbar-hide flex flex-col">
+  <div class="grid place-content-center h-full">
 
-    <main>
-      <div class="common">
-        {{ content }}
-      </div>
-    </main>
+    <div class="common bg-red-50 p-8 drop-shadow-md rounded-lg">
+      {{ content }}
+    </div>
 
-    {%- include footer.html -%}
   </div>
   <script src="{% link /assets/js/app.js %}"></script>
 </body>

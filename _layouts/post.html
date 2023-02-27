@@ -9,7 +9,7 @@ layout: default
 {% assign datum = day | append: ". " | append: month | append: " " | append: year %}
 {% endcapture %}
 
-<article itemscope class="px-10 prose prose-sm lg:prose-lg xl:prose-xl" itemtype="http://schema.org/BlogPosting">
+<article itemscope class="px-10" itemtype="http://schema.org/BlogPosting">
   <header>
     <h1 itemprop="name headline">{{ page.title | escape }}</h1>
     <p>
@@ -19,7 +19,7 @@ layout: default
     </p>
   </header>
 
-  <div class="prose prose-base lg:prose-lg xl:prose-xl mb-20 mx-auto max-w-prose" itemprop="articleBody">
+  <div itemprop="articleBody">
     {{ content }}
   </div>
 

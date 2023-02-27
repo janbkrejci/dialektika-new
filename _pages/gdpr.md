@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Ochrana osobních údajů
 permalink: /gdpr
 date: 1.1.2023
