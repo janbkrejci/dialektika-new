@@ -52,7 +52,7 @@ Cílem takového rozhovoru je přiblížit se pravému poznání tím, že úča
 
 Diskuse od účastníků vyžaduje věcnost, otevřenost, poctivost, trpělivost a zdvořilost.
 
-Největší překážkou diskuse je používání tzv. Argumentačních faulů viz <a href="http://www.obcanskevzdelavani.cz/work/ke-stazeni/argumentacni-fauly-A3-barva.pdf" target="_blank">zde</a>.
+Největší překážkou diskuse je používání tzv. Argumentačních faulů, viz <a href="http://www.obcanskevzdelavani.cz/work/ke-stazeni/argumentacni-fauly-A3-barva.pdf" target="_blank">zde</a>.
 
 # Jak pracujeme?
 
@@ -70,8 +70,33 @@ Skvěle! Vše potřebné najdete ve stanovách.
 
 Zde si můžete přečíst nejnovější odhlasovaná stanoviska Dialektiky. Kompletní seznam najdete pod odkazem nahoře v navigačním pruhu.
 
-| Přijato      | Na úrovni                                | Stanovisko (pro detail klikněte)              |
-| ------------ | ---------------------------------------- | --------------------------------------------- |
-| 01. 01. 2023 | Česká republika                          | Sněhulákům by se mělo zakázat dělat loužičky  |
-| 31. 12. 2022 | Severomoravský kraj                      | Topit uhlím je nutnost                        |
-| 06. 11. 2022 | obec Toušice<br/>(volební okrsek 533742) | Nechceme stavět hráz na potoce uprostřed obce |
+<div class="overflow-x-auto">
+<table class="table table-auto">
+  <thead>
+    <tr>
+      <th>Přijato</th>
+      <th>Na úrovni</th>
+      <th>Stanovisko</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>01. 01. 2023</td>
+      <td>Česká republika</td>
+      <td>Sněhulákům by se mělo zakázat dělat loužičky</td>
+    </tr>
+    <tr>
+      <td>31. 12. 2022</td>
+      <td>Severomoravský kraj</td>
+      <td>Topit uhlím je nutnost</td>
+    </tr>
+    <tr>
+      <td>06. 11. 2022</td>
+      <td>obec Toušice<br/>(volební okrsek 533742)</td>
+      <td>Nechceme stavět hráz na potoce uprostřed obce</td>
+    </tr>
+    
+  </tbody>
+</table>
+
+</div>

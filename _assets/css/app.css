@@ -18,7 +18,7 @@
 /* custom macro styles */
 
 body {
-  @apply bg-gray-100 h-screen;
+  @apply bg-gray-100 h-screen overflow-x-hidden;
 }
 
 main {
@@ -41,8 +41,12 @@ footer {
   @apply text-2xl font-bold;
 }
 
-thead tr {
+xthead xtr {
   @apply bg-blue-50;
+}
+
+td, th {
+  @apply align-middle text-bottom p-2;
 }
 
 tbody tr {
