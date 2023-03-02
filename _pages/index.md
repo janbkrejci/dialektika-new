@@ -1,7 +1,7 @@
 ---
 title: Hlavní stránka
 permalink: /
-layout: default
+layout: page
 ---
 
 <div class="alert mb-8">

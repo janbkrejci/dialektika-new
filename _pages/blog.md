@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 title: Blog
 permalink: /blog
 paginator:
@@ -8,8 +8,8 @@ paginator:
 
 # Články
 
-
-{% for post in paginator.posts %}
+<img class="stroke-red-400" src="{% link /assets/img/separator.svg %}"/>
+{% for post in site.posts %}
   {% capture i18n_date %}
   {% assign day = post.date | date: "%-d" %}
   {% assign m = post.date | date: "%-m" | minus: 1 %}
@@ -25,12 +25,14 @@ paginator:
 
 <div class="card">
 <h3 class="title">{{ post.title }}</h3>
-<div class="date">{{ datum }}</div>
-<div class="author">autor: {{ author }}</div>
+  <div class="flex w-full text-gray-500 justify-between">
+    <span class="date">{{ datum }}</span>
+    <span class="author text-right">autor: {{ author }}</span>
+  </div>
 <div class="perex">{{ post.excerpt }}</div>
 <div class="more"><a href="{{ post.url }}">Číst dál...</a>
 </div>
-
+<img src="{% link /assets/img/separator.svg %}"/>
 {% endfor %}
 
 

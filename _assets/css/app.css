@@ -18,19 +18,15 @@
 /* custom macro styles */
 
 body {
-  @apply bg-gray-100 h-screen overflow-x-hidden;
+  @apply scrollbar-hide flex flex-col h-screen;
 }
 
 main {
-  @apply bg-white grow px-8;
+  @apply my-8 mx-auto w-full px-6 grow prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-xl max-w-prose;
 }
 
 footer {
-  @apply text-gray-500 py-2 px-4 text-xs text-right;
-}
-
-.common {
-  @apply mx-auto prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-xl max-w-prose;
+  @apply bg-gray-100 text-gray-500 py-2 px-4 text-xs flex flex-row items-center whitespace-nowrap;
 }
 
 .alert {
@@ -41,15 +37,21 @@ footer {
   @apply text-2xl font-bold;
 }
 
-xthead xtr {
+/*
+thead tr {
   @apply bg-blue-50;
 }
 
-td, th {
-  @apply align-middle p-1;
+td {
+  @apply p-4;
 }
 
 tbody tr {
   cursor: pointer;
   @apply hover:bg-gray-100 whitespace-nowrap;
+}
+*/
+
+td {
+  @apply whitespace-nowrap;
 }

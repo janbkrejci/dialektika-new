@@ -1,25 +1,10 @@
 ---
+layout: default
 ---
-<!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: " en" }}">
+<main class="grid place-content-center h-full">
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  {%- seo -%}
-  <link rel="stylesheet" href="{% link /assets/css/app.css %}">
-</head>
-
-<body x-cloak x-data="" class="scrollbar-hide flex flex-col">
-  <div class="grid place-content-center h-full">
-
-    <div class="common bg-red-50 p-8 drop-shadow-md rounded-lg">
-      {{ content }}
-    </div>
-
+  <div class="common bg-red-50 p-8 drop-shadow-md rounded-lg">
+    {{ content }}
   </div>
-  <script src="{% link /assets/js/app.js %}"></script>
-</body>
 
-</html>
+</main>

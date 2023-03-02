@@ -1,6 +1,6 @@
 title: Dialektika
 lang: cs
-description: Blog serveru Dialektika.cz
+description: Web dobrovolného sdružení občanů České republiky Dialektika.
 permalink: /:slugified_categories/:title/
 
 include: ["_pages"]

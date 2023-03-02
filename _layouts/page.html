@@ -1,7 +1,14 @@
 ---
 layout: default
 ---
-<article>
+  {%- include header.html -%}
+
+<main>
+  {{ content }}
+</main>
+
+  {%- include footer.html -%}
+<!-- article>
   <header>
     <h1>{{ page.title | escape }}</h1>
   </header>
@@ -9,4 +16,4 @@ layout: default
   <div class="prose prose-sm lg:prose-lg xl:prose-xl">
     {{ content }}
   </div>
-</article>
+</article -->

@@ -9,20 +9,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {%- seo -%}
   <link rel="stylesheet" href="{% link /assets/css/app.css %}">
+  <script type='text/javascript'
+    src='https://platform-api.sharethis.com/js/sharethis.js#property=602a9e560cf79300112b0f9c&product=inline-share-buttons'
+    async='async'></script>
+ 
 </head>
 
-<body x-cloak x-data="" class="scrollbar-hide">
-  <div class="mx-auto max-w-5xl h-full flex flex-col">
-    {%- include header.html -%}
-
-    <main>
-      <div class="common">
-        {{ content }}
-      </div>
-    </main>
-
-    {%- include footer.html -%}
-  </div>
+<body x-cloak x-data="">
+  {{ content }}
   <script src="{% link /assets/js/app.js %}"></script>
 </body>
 
