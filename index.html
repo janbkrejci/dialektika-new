@@ -26,7 +26,7 @@
 </head>
 
 <body x-cloak x-data="">
-  <header class="bg-white" x-data="{ showMenu: false, showSidebar: false }">
+  <header x-data="user">
   <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Globální navigace">
     <div class="flex lg:flex-1">
       <a href="/" class="-m-1.5 p-1.5">
@@ -50,14 +50,16 @@
       <a href="/stanoviska" class="text-sm font-semibold leading-6 text-gray-900">Přijatá stanoviska</a>
       <a href="/blog" class="text-sm font-semibold leading-6 text-gray-900">Blog</a>
       <!-- for logged-in users -->
-      <a href="/aktivity" class="text-sm font-semibold leading-6 text-gray-900">Aktivity</a>
-      <a href="/organizace" class="text-sm font-semibold leading-6 text-gray-900">Organizace</a>
-      <a href="/lide" class="text-sm font-semibold leading-6 text-gray-900">Lidé</a>
-      <a href="/ja" class="text-sm font-semibold leading-6 text-gray-900">Já</a>
+      <a x-show="id" href="/aktivity" class="text-sm font-semibold leading-6 text-gray-900">Aktivity</a>
+      <a x-show="id" href="/organizace" class="text-sm font-semibold leading-6 text-gray-900">Organizace</a>
+      <a x-show="id" href="/lide" class="text-sm font-semibold leading-6 text-gray-900">Lidé</a>
+      <a x-show="id" href="/ja" class="text-sm font-semibold leading-6 text-gray-900">Já</a>
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-      <a href="/login" class="text-sm font-semibold leading-6 text-gray-900">Přihlášení <span
-          aria-hidden="true">&rarr;</span></a>
+      <a x-show="!id" href="/login" @click.prevent="window.location.replace($el.href)"
+        class="text-sm font-semibold leading-6 text-gray-900">Přihlášení <span aria-hidden="true">&rarr;</span></a>
+      <a x-show="id" href="#" @click.prevent="logout" class="text-sm font-semibold leading-6 text-gray-900">Odhlášení
+        <span aria-hidden="true">&rarr;</span></a>
     </div>
   </nav>
   <!-- Mobile menu, show/hide based on menu open state. -->
@@ -93,7 +95,7 @@
               class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Blog</a>
           </div>
           <!-- for logged-in users -->
-          <div class="space-y-2 py-6">
+          <div x-show="id" class="space-y-2 py-6">
             <a href="/aktivity"
               class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Aktivity</a>
             <a href="/organizace"
@@ -104,8 +106,10 @@
               class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Já</a>
           </div>
           <div class="py-6">
-            <a href="/login"
+            <a x-show="!id" href="/login" @click.prevent="window.location.replace($el.href)"
               class="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Přihlášení</a>
+            <a x-show="id" @click.prevent="logout"
+              class="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Odhlášení</a>
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@
  <title>Dialektika</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2023-03-02T14:58:07+00:00</updated>
+ <updated>2023-03-03T06:24:19+00:00</updated>
  <id></id>
  <author>
    <name></name>
@@ -13,28 +13,31 @@
 
  
  <entry>
-   <title>Welcome to Jekyll!</title>
-   <link href="/jekyll/welcome/"/>
-   <updated>2023-02-17T00:00:00+00:00</updated>
-   <id>/jekyll/welcome</id>
-   <content type="html">&lt;p&gt;You’ll sure find this post in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+   <title>Nehodí se do krámu?</title>
+   <link href="/n%C3%A1zory/nehodi-se-do-kramu/"/>
+   <updated>2023-03-02T00:00:00+00:00</updated>
+   <id>/n%C3%A1zory/nehodi-se-do-kramu</id>
+   <content type="html">&lt;p&gt;Nehodí se nám programové prohlášení do krámu? Tak si ho přepíšeme, ne? To tedy zírám…&lt;/p&gt;
 
-&lt;p&gt;Jekyll requires blog post files to be named according to the following format:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;1.3.2023 16:18
+Vláda Petra Fialy schválila 6. ledna 2022 Programové prohlášení vlády České republiky. Jeho upravenou podobu schválil kabinet na jednání ve středu 1. března 2023.
+(převzato z webu &lt;a href=&quot;https://www.vlada.cz/cz/programove-prohlaseni-vlady-193547/&quot;&gt;www.vlada.cz&lt;/a&gt;)&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YEAR-MONTH-DAY-title.MARKUP&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Programové prohlášení strany nebo vlády je veřejný příslib voličům a partnerům - tohle budeme prosazovat, když nás zvolíte, když nám vyjádříte důvěru.&lt;/p&gt;
 
-&lt;p&gt;Where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YEAR&lt;/code&gt; is a four-digit number, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MONTH&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DAY&lt;/code&gt; are both two-digit numbers, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MARKUP&lt;/code&gt; is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+&lt;p&gt;Pominu-li, že jde většinou o nekonkrétní tlachání, které nejde měřit a kontrolovat, pořád zůstává fakt, že když něco slíbím, tak to mám dodržet. A když to nemůžu dodržet, tak odstoupím, nebo se to aspoň pokusím vysvětlit. Vyjednat. Obhájit. S omluvou. Nevysvětlím to zmateným žvaněním v televizi o tom, že jde o krok směrem k důchodové reformě, kterou svět neviděl (a nejspíš ani neuvidí, protože ladění parametrů nefungujícího systému není žádná reforma), ale argumenty. A otevřu veřejnou diskusi, abych zjistil, co na to ostatní.&lt;/p&gt;
 
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+&lt;p&gt;Mimochodem, není to prosím tak, že vláda na začátku své práce žádá o vyslovení důvěry na základě právě programového prohlášení?&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;Tom&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints &apos;Hi, Tom&apos; to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;p&gt;Cituji z preambule samotného &lt;a href=&quot;https://www.vlada.cz/cz/programove-prohlaseni-vlady-193547/&quot;&gt;programováho prohlášení vlády&lt;/a&gt;:&lt;/p&gt;
 
-&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Nová vláda České republiky přichází požádat o důvěru Poslaneckou sněmovnu Parlamentu v době, která bez nadsázky patří mezi nejsložitější a nejnáročnější období naší novodobé historie.&lt;/p&gt;
+&lt;/blockquote&gt;
 
+&lt;p&gt;Tak doufám, že si to vláda s tou důvěrou půjde hezky zopakovat, když své prohlášení upravila. Snad se to nepokusí přejít se slovy “jsou to jen drobné úpravy”. Kdo umí posoudit, co je to drobná, a co je zásadní změna?&lt;/p&gt;
 </content>
  </entry>
  

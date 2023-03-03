@@ -26,7 +26,7 @@
 </head>
 
 <body x-cloak x-data="">
-  <header class="bg-white" x-data="{ showMenu: false, showSidebar: false }">
+  <header x-data="user">
   <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Globální navigace">
     <div class="flex lg:flex-1">
       <a href="/" class="-m-1.5 p-1.5">
@@ -50,14 +50,16 @@
       <a href="/stanoviska" class="text-sm font-semibold leading-6 text-gray-900">Přijatá stanoviska</a>
       <a href="/blog" class="text-sm font-semibold leading-6 text-gray-900">Blog</a>
       <!-- for logged-in users -->
-      <a href="/aktivity" class="text-sm font-semibold leading-6 text-gray-900">Aktivity</a>
-      <a href="/organizace" class="text-sm font-semibold leading-6 text-gray-900">Organizace</a>
-      <a href="/lide" class="text-sm font-semibold leading-6 text-gray-900">Lidé</a>
-      <a href="/ja" class="text-sm font-semibold leading-6 text-gray-900">Já</a>
+      <a x-show="id" href="/aktivity" class="text-sm font-semibold leading-6 text-gray-900">Aktivity</a>
+      <a x-show="id" href="/organizace" class="text-sm font-semibold leading-6 text-gray-900">Organizace</a>
+      <a x-show="id" href="/lide" class="text-sm font-semibold leading-6 text-gray-900">Lidé</a>
+      <a x-show="id" href="/ja" class="text-sm font-semibold leading-6 text-gray-900">Já</a>
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-      <a href="/login" class="text-sm font-semibold leading-6 text-gray-900">Přihlášení <span
-          aria-hidden="true">&rarr;</span></a>
+      <a x-show="!id" href="/login" @click.prevent="window.location.replace($el.href)"
+        class="text-sm font-semibold leading-6 text-gray-900">Přihlášení <span aria-hidden="true">&rarr;</span></a>
+      <a x-show="id" href="#" @click.prevent="logout" class="text-sm font-semibold leading-6 text-gray-900">Odhlášení
+        <span aria-hidden="true">&rarr;</span></a>
     </div>
   </nav>
   <!-- Mobile menu, show/hide based on menu open state. -->
@@ -93,7 +95,7 @@
               class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Blog</a>
           </div>
           <!-- for logged-in users -->
-          <div class="space-y-2 py-6">
+          <div x-show="id" class="space-y-2 py-6">
             <a href="/aktivity"
               class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Aktivity</a>
             <a href="/organizace"
@@ -104,8 +106,10 @@
               class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Já</a>
           </div>
           <div class="py-6">
-            <a href="/login"
+            <a x-show="!id" href="/login" @click.prevent="window.location.replace($el.href)"
               class="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Přihlášení</a>
+            <a x-show="id" @click.prevent="logout"
+              class="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Odhlášení</a>
           </div>
         </div>
       </div>
@@ -117,17 +121,16 @@
 <p><img class="stroke-red-400" src="/assets/img/separator.svg" /></p>
 
 <div class="card">
-<h3 class="title">Welcome to Jekyll!</h3>
+<h3 class="title">Nehodí se do krámu?</h3>
   <div class="flex w-full text-gray-500 justify-between">
-    <span class="date">17. února 2023</span>
-    <span class="author text-right">autor: Anonym</span>
+    <span class="date">2. března 2023</span>
+    <span class="author text-right">autor: .:jbk:.</span>
   </div>
-<div class="perex"><p>You’ll sure find this post in your <code class="language-plaintext highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="language-plaintext highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+<div class="perex"><p>Nehodí se nám programové prohlášení do krámu? Tak si ho přepíšeme, ne? To tedy zírám…</p>
 </div>
-<div class="more"><a href="/jekyll/welcome/">Číst dál...</a>
+<div class="more"><a href="/n%C3%A1zory/nehodi-se-do-kramu/">Číst dál...</a>
 </div>
 <img src="/assets/img/separator.svg" />
-
 
 
 </div>
@@ -148,17 +151,16 @@
 <p><img class="stroke-red-400" src="/assets/img/separator.svg" /></p>
 
 <div class="card">
-<h3 class="title">Welcome to Jekyll!</h3>
+<h3 class="title">Nehodí se do krámu?</h3>
   <div class="flex w-full text-gray-500 justify-between">
-    <span class="date">17. února 2023</span>
-    <span class="author text-right">autor: Anonym</span>
+    <span class="date">2. března 2023</span>
+    <span class="author text-right">autor: .:jbk:.</span>
   </div>
-<div class="perex"><p>You’ll sure find this post in your <code class="language-plaintext highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="language-plaintext highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+<div class="perex"><p>Nehodí se nám programové prohlášení do krámu? Tak si ho přepíšeme, ne? To tedy zírám…</p>
 </div>
-<div class="more"><a href="/jekyll/welcome/">Číst dál...</a>
+<div class="more"><a href="/n%C3%A1zory/nehodi-se-do-kramu/">Číst dál...</a>
 </div>
 <img src="/assets/img/separator.svg" />
-
 
 
 </div>
