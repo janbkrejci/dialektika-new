@@ -11,16 +11,18 @@
         "postinstall": "bundle config set --local path 'vendor/bundle'; bundle install --jobs=4 --retry=3"
     },
     "devDependencies": {
-        "alpinejs": "^3.2.3",
+        "@alpinejs/focus": "^3.11.1",
         "@symfony/webpack-encore": "^4.2.0",
         "@tailwindcss/forms": "^0.5.3",
         "@tailwindcss/typography": "^0.5.9",
+        "alpinejs": "^3.2.3",
         "autoprefixer": "^10.3.1",
         "concurrently": "^7.6.0",
         "eslint": "^8.35.0",
         "eslint-config-airbnb-base": "^15.0.0",
         "eslint-plugin-import": "^2.23.4",
         "file-loader": "^6.2.0",
+        "pocketbase": "^0.12.0",
         "postcss-import": "^15.1.0",
         "postcss-loader": "^7.0.2",
         "tailwindcss": "^3.2.7"

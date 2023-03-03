@@ -22,7 +22,7 @@ body {
 }
 
 main {
-  @apply my-8 mx-auto w-full px-6 grow prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-xl max-w-prose;
+  @apply my-8 mx-auto w-full px-6 grow prose prose-sm sm:prose-base lg:prose-lg xl:prose-xl max-w-prose;
 }
 
 footer {
@@ -54,4 +54,9 @@ tbody tr {
 
 td {
   @apply whitespace-nowrap;
+}
+
+tbody tr {
+  cursor: pointer;
+  @apply hover:bg-gray-100 whitespace-nowrap;
 }

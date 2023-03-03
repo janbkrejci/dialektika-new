@@ -22,7 +22,6 @@ paginator:
   {% endif %}
   {% endcapture %}
 
-
 <div class="card">
 <h3 class="title">{{ post.title }}</h3>
   <div class="flex w-full text-gray-500 justify-between">
@@ -34,7 +33,6 @@ paginator:
 </div>
 <img src="{% link /assets/img/separator.svg %}"/>
 {% endfor %}
-
 
 {% if paginator.total_pages > 1 %}
 <ul>
