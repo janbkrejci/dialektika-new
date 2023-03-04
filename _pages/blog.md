@@ -8,7 +8,7 @@ paginator:
 
 # Články
 
-<img class="stroke-red-400" src="{% link /assets/img/separator.svg %}"/>
+<div class="separator bg-gray-200 dark:bg-gray-800 h-8"></div>
 {% for post in site.posts %}
   {% capture i18n_date %}
   {% assign day = post.date | date: "%-d" %}
@@ -26,12 +26,12 @@ paginator:
 <h3 class="title">{{ post.title }}</h3>
   <div class="flex w-full text-gray-500 justify-between">
     <span class="date">{{ datum }}</span>
-    <span class="author text-right">autor: {{ author }}</span>
+    <span class="author text-right">{{ author }}</span>
   </div>
 <div class="perex">{{ post.excerpt }}</div>
 <div class="more"><a href="{{ post.url }}">Číst dál...</a>
 </div>
-<img src="{% link /assets/img/separator.svg %}"/>
+<div class="separator mt-8 bg-gray-200 dark:bg-gray-800 h-8"></div>
 {% endfor %}
 
 {% if paginator.total_pages > 1 %}

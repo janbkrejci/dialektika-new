@@ -2,15 +2,15 @@
 layout: post
 title: "Nehodí se do krámu?"
 date: 2023-03-02
-author: .:jbk:.
+author: Jan B. Krejčí
 category: názory
 ---
 
 Nehodí se nám programové prohlášení do krámu? Tak si ho přepíšeme, ne? To tedy zírám...
 
-> 1.3.2023 16:18
 > Vláda Petra Fialy schválila 6. ledna 2022 Programové prohlášení vlády České republiky. Jeho upravenou podobu schválil kabinet na jednání ve středu 1. března 2023.
-> (převzato z webu [www.vlada.cz](https://www.vlada.cz/cz/programove-prohlaseni-vlady-193547/))
+
+*(převzato z webu <a target="_blank" href="https://www.vlada.cz/cz/programove-prohlaseni-vlady-193547">www.vlada.cz</a>, zveřejněno 1. 3. 2023)*
 
 Programové prohlášení strany nebo vlády je veřejný příslib voličům a partnerům - tohle budeme prosazovat, když nás zvolíte, když nám vyjádříte důvěru. 
 

@@ -217,7 +217,7 @@ Alpine.data("login", () => ({
     }
 
   },
-  async register() {
+  async doRegister() {
     this.disabled = true
     if (this.validate()) {
       try {
@@ -250,13 +250,5 @@ Alpine.data("login", () => ({
     }
   }
 }))
-
-function back() {
-  let target = document.referrer
-  if (!target || target.match("login")) target = "/"
-  window.location.replace(target)
-}
-
-window.back = back
 
 Alpine.start()

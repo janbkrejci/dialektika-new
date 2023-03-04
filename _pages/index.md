@@ -4,7 +4,7 @@ permalink: /
 layout: page
 ---
 
-<div class="alert mb-8">
+<div class="alert error px-8 py-1 mb-8">
   <p class="title">Upozornění</p>
   <p>
     Tento web je ve vývoji.<br/>

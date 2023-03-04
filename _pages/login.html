@@ -4,87 +4,82 @@ layout: dialogue
 ---
 <script>
   // return back if already logged in
+  function back() {
+    let target = document.referrer
+    if (!target || target.match("login")) target = "/"
+    window.location.replace(target)
+  }
+
   if (localStorage.pocketbase_auth) {
     back()
   }
 </script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-  type="text/css">
 
-<div class="w3-light-grey" @keyup.escape.window="back()" x-data="login" @keydown.enter="next">
-  <div class="w3-white w3-card w3-display-middle" style="min-width: 320px;">
-    <div class="w3-bar w3-blue">
-      <div x-show="form == 'login'" class="w3-bar-item">Přihlášení</div>
-      <div x-show="form == 'register'" class="w3-bar-item">Registrace</div>
-      <div x-show="form == 'reset'" class="w3-bar-item">Obnova hesla</div>
-    </div>
-    <div class="w3-container w3-section">
-      <div x-show="resetSuccess" class="w3-alert w3-container w3-margin-bottom w3-padding w3-pale-green"
-        x-text="resetSuccess"></div>
-      <div x-show="loginError" class="w3-alert w3-container w3-margin-bottom w3-padding w3-pale-red"
-        x-text="loginError"></div>
-      <div x-show="registrationError" class="w3-alert w3-container w3-margin-bottom w3-padding w3-pale-red"
-        x-text="registrationError"></div>
-      <div x-show="resetError" class="w3-alert w3-container w3-margin-bottom w3-padding w3-pale-red"
-        x-text="resetError"></div>
+<div @keyup.escape.window="back()" x-data="login" @keydown.enter.prevent="next"
+  class="w-80 bg-white dark:bg-gray-800 rounded-lg shadow border dark:border-gray-700" sm:max-w-md>
+  <div class="p-6 space-y-4">
+    <!-- title -->
+    <h1 class="text-2xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white">
+      <span x-show="form == 'login'">Přihlášení</span>
+      <span x-show="form == 'register'">Registrace</span>
+      <span x-show="form == 'reset'">Obnova hesla</span>
+    </h1>
+    <!-- form -->
+    <form class="space-y-4" action="" method="POST" novalidate @submit.prevent="">
+      <!-- results -->
+      <div x-show="resetSuccess" class="success px-2 py-1" x-text="resetSuccess">
+      </div>
+      <div x-show="loginError" class="alert px-2 py-1" x-text="loginError"></div>
+      <div x-show="registrationError" class="alert px-2 py-1" x-text="registrationError"></div>
+      <div x-show="resetError" class="alert px-2 py-1" x-text="resetError"></div>
+      <!-- inputs -->
       <div x-show="form != 'reset'">
-        <label>Uživatel *</label>
-        <input id="alias" :class="{'w3-input': true, 'w3-pale-red': aliasError}" type="text" x-model="alias"
+        <label for="alias">Uživatel *</label>
+        <input id="alias" :class="{'input': true, 'error': aliasError}" type="text" x-model="alias"
           @input="alias = $el.value">
-        <div class="w3-small w3-text-red" x-text="aliasError"></div>
+        <div class="error-text" x-text="aliasError"></div>
       </div>
       <div x-show="form != 'login'">
-        <label>E-mail *</label>
-        <input id="email" :class="{'w3-input': true, 'w3-pale-red': emailError}" type="text" x-model="email"
+        <label for="email">E-mail *</label>
+        <input id="email" :class="{'input': true, 'error': emailError}" type="text" x-model="email"
           :disabled="form == 'login'">
-        <div class="w3-small w3-text-red" x-text="emailError"></div>
+        <div class="error-text" x-text="emailError"></div>
       </div>
       <div x-show="form != 'reset'" class="w3-section">
-        <label>Heslo *</label>
-        <input id="password" :class="{'w3-input': true, 'w3-pale-red': passwordError}" type="password"
-          x-model="password" @input="password = $el.value" />
-        <div class="w3-small w3-text-red" x-text="passwordError"></div>
+        <label for="password">Heslo *</label>
+        <input id="password" :class="{'input': true, 'error': passwordError}" type="password" x-model="password"
+          @input="password = $el.value" />
+        <div class="error-text" x-text="passwordError"></div>
       </div>
       <div class="w3-section" x-show="form == 'register'">
-        <label>Heslo podruhé *</label>
-        <input id="password2" :class="{'w3-input': true, 'w3-pale-red': password2Error}" type="password"
-          x-model="password2">
-        <div class="w3-small w3-text-red" x-text="password2Error"></div>
+        <label for="password2">Heslo podruhé *</label>
+        <input id="password2" :class="{'input': true, 'error': password2Error}" type="password" x-model="password2">
+        <div class="error-text" x-text="password2Error"></div>
       </div>
-      <div class="w3-section">
-        <button :disabled="disabled" x-show="form == 'login'" class="w3-button w3-blue" style="width:40%"
-          @click="doLogin">
-          <span x-show="!disabled">
-            Přihlásit
-          </span>
-          <i x-show="disabled" class="fa fa-refresh w3-spin"></i>
+      <!-- submit buttons -->
+      <div class="flex items-center justify-between">
+        <button class="primary" :disabled="disabled" x-show="form == 'login'" @click="doLogin">
+          Přihlásit
         </button>
-        <button :disabled="disabled" x-show="form == 'reset'" class="w3-button w3-blue" style="width:40%"
-          @click="doReset">
-          <span x-show="!disabled">
-            Odeslat
-          </span>
-          <i x-show="disabled" class="fa fa-refresh w3-spin"></i>
+        <button class="primary" :disabled="disabled" x-show="form == 'reset'" @click="doReset">
+          Odeslat kód
         </button>
-        <button :disabled="disabled" x-show="form == 'register'" class="w3-button w3-blue" style="width:40%"
-          @click="register">
-          <span x-show="!disabled">
-            Registrovat
-          </span>
-          <i x-show="disabled" class="fa fa-refresh w3-spin"></i>
+        <button class="primary" :disabled="disabled" x-show="form == 'register'" @click="doRegister">
+          Registrovat
         </button>
-        <button class="w3-right w3-button w3-transparent w3-red" style="width:40%" @click="back()">Storno</button>
+        <button class="transparent" @click="back">Storno</button>
       </div>
-      <div x-show="form != 'register'" class="w3-text-gray w3-small">
-        Nemáte ještě účet? <a href="" @click.stop.prevent="switchForm( 'register')">Registrujte se</a>
-      </div>
-      <div x-show="form != 'login'" class="w3-text-gray w3-small">
+      <!-- form switchers -->
+      <div x-show="form != 'login'" class="form-switch">
         Máte už svůj účet? <a href="" @click.stop.prevent="switchForm('login')">Přihlašte se</a>
       </div>
-      <div x-show="form != 'reset'" class="w3-text-gray w3-small">
-        Ztratili jste heslo? <a href="" @click.stop.prevent="switchForm('reset')">Obnovte si ho</a>
+      <div x-show="form != 'register'" class="form-switch">
+        Nemáte ještě účet? <a href="" @click.stop.prevent="switchForm( 'register')">Registrujte se</a>
       </div>
-    </div>
+      <div x-show="form != 'reset'" class="form-switch">
+        Ztratili jste heslo?
+        <a href="" @click.stop.prevent="switchForm('reset')">Obnovte si ho</a>
+      </div>
+    </form>
   </div>
-
 </div>
