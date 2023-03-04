@@ -26,16 +26,17 @@
 </head>
 
 <body x-cloak x-data="">
-  <header x-data="user">
+  <header x-data="user" class="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">
   <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Globální navigace">
     <div class="flex lg:flex-1">
       <a href="/" class="-m-1.5 p-1.5">
         <span class="sr-only">Dialektika</span>
-        <img class="w-8 h-auto" src="/assets/img/logo.svg" />
+        <div class="logo w-8 h-8 bg-gray-900 dark:bg-gray-100"></div>
       </a>
     </div>
     <div class="flex lg:hidden">
-      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+      <button type="button"
+        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5  text-gray-700 dark:text-gray-100"
         @click="showSidebar = true">
         <span class="sr-only">Hlavní nabídka</span>
         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -45,20 +46,20 @@
       </button>
     </div>
     <div class="hidden lg:flex lg:gap-x-12">
-      <a href="/program" class="text-sm font-semibold leading-6 text-gray-900">Program</a>
-      <a href="/stanovy" class="text-sm font-semibold leading-6 text-gray-900">Stanovy</a>
-      <a href="/stanoviska" class="text-sm font-semibold leading-6 text-gray-900">Přijatá stanoviska</a>
-      <a href="/blog" class="text-sm font-semibold leading-6 text-gray-900">Blog</a>
+      <a href="/program">Program</a>
+      <a href="/stanovy">Stanovy</a>
+      <a href="/stanoviska">Přijatá stanoviska</a>
+      <a href="/blog">Blog</a>
       <!-- for logged-in users -->
-      <a x-show="id" href="/aktivity" class="text-sm font-semibold leading-6 text-gray-900">Aktivity</a>
-      <a x-show="id" href="/organizace" class="text-sm font-semibold leading-6 text-gray-900">Organizace</a>
-      <a x-show="id" href="/lide" class="text-sm font-semibold leading-6 text-gray-900">Lidé</a>
-      <a x-show="id" href="/ja" class="text-sm font-semibold leading-6 text-gray-900">Já</a>
+      <a x-show="id" href="/aktivity">Aktivity</a>
+      <a x-show="id" href="/organizace">Organizace</a>
+      <a x-show="id" href="/lide">Lidé</a>
+      <a x-show="id" href="/ja">Já</a>
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-      <a x-show="!id" href="/login" @click.prevent="window.location.replace($el.href)"
-        class="text-sm font-semibold leading-6 text-gray-900">Přihlášení <span aria-hidden="true">&rarr;</span></a>
-      <a x-show="id" href="#" @click.prevent="logout" class="text-sm font-semibold leading-6 text-gray-900">Odhlášení
+      <a x-show="!id" href="/login" @click.prevent="window.location.replace($el.href)">Přihlášení <span
+          aria-hidden="true">&rarr;</span></a>
+      <a x-show="id" href="#" @click.prevent="logout">Odhlášení
         <span aria-hidden="true">&rarr;</span></a>
     </div>
   </nav>
@@ -67,56 +68,56 @@
     <!-- Background backdrop, show/hide based on slide-over state. -->
     <div class="fixed inset-0 z-10" @click="showSidebar = false"></div>
     <div focus="true"
-      class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10  scrollbar-hide">
+      class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 dark:sm:ring-gray-100/10 scrollbar-hide ">
       <div class="flex items-center justify-between">
         <a href="/" class="-m-1.5 p-1.5 visible sm:invisible">
           <span class="sr-only">Dialektika</span>
-          <img class="w-8 h-auto" src="/assets/img/logo.svg" />
+          <div class="logo w-8 h-8 bg-gray-900 dark:bg-gray-100"></div>
         </a>
-        <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" @click="showSidebar = false">
+        <button type="button" class="-m-2.5 rounded-md p-2.5" @click="showSidebar = false">
           <span class="sr-only">Zavřít nabídku</span>
-          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            aria-hidden="true">
+          <svg class="h-6 w-6 text-gray-700 dark:text-gray-100" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
       <div class="mt-6 flow-root">
-        <div class="-my-6 divide-y divide-gray-500/10">
+        <div class="-my-6 divide-y divide-gray-500/10 dark:divide-gray-300/10">
           <div class="space-y-2 py-6">
             <a href="/program"
-              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Program</a>
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Program</a>
             <a href="/stanovy"
-              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Stanovy</a>
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Stanovy</a>
             <a href="/stanoviska"
-              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Přijatá
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Přijatá
               stanoviska</a>
             <a href="/blog"
-              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Blog</a>
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Blog</a>
           </div>
           <!-- for logged-in users -->
           <div x-show="id" class="space-y-2 py-6">
             <a href="/aktivity"
-              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Aktivity</a>
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Aktivity</a>
             <a href="/organizace"
-              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Organizace</a>
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Organizace</a>
             <a href="/lide"
-              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Lidé</a>
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Lidé</a>
             <a href="/ja"
-              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Já</a>
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Já</a>
           </div>
           <div class="py-6">
             <a x-show="!id" href="/login" @click.prevent="window.location.replace($el.href)"
-              class="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Přihlášení</a>
+              class="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Přihlášení</a>
             <a x-show="id" @click.prevent="logout"
-              class="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Odhlášení</a>
+              class="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Odhlášení</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 </header><main>
-  <div class="alert mb-8">
+  <div class="alert error px-8 py-1 mb-8">
   <p class="title">Upozornění</p>
   <p>
     Tento web je ve vývoji.<br />
@@ -230,7 +231,7 @@
   </header>
 
   <div class="prose prose-sm lg:prose-lg xl:prose-xl">
-    <div class="alert mb-8">
+    <div class="alert error px-8 py-1 mb-8">
   <p class="title">Upozornění</p>
   <p>
     Tento web je ve vývoji.<br />
