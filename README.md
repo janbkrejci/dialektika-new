@@ -1,15 +1,16 @@
 # TODO
 
-- přenést navigaci z .cz
-- zprovoznit login/register/reset password s lepším formulářem
+- ~~přenést navigaci z .cz~~
+- ~~zprovoznit login/register/reset password s lepším formulářem~~
 - hlasování prototyp
-- naučit se MD
-- přenést obsah titulní stránky
+- ~~naučit se MD~~
+- ~~přenést obsah titulní stránky~~
 - ~~stránka 404~~
-- stránka /blog
-- layout postu
-- stránka /program
-- stránka /stanovy
+- stránka /blog autogenerovaná
+- ~~layout postu~~
+- triggery v databázi, cron job
+- stránka /program - autogenerovaná z databáze
+- stránka /stanovy - autogenerovaná z databáze
 - ostatní stránky
 - ~~language server HTML, JS, CSS~~
 

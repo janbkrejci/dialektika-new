@@ -2,12 +2,9 @@
 layout: page
 title: Blog
 permalink: /blog
-paginator:
-  paginate: enable
 ---
 
 # Články
-
 
 <div class="separator"></div>
 {% for post in site.posts %}

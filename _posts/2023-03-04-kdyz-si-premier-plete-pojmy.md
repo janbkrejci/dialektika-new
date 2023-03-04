@@ -22,7 +22,10 @@ To, že koalice má většinu křesel v Poslanecké sněmovně Parlamentu ČR,
 
 Koalice SPOLU má pro své záměry podporu necelé třetiny voličů, tak velké máte tedy **právo něco prosadit**. Zbytek si musíte **vyjednat, odpracovat a zasloužit**. 
 
-Většinové odhlasování ad-hoc změny Jednacího řádu nepovažuji za standardní ani demokratický postup. Zákony platí pro všechny. I pro ty, kteří mají většinu. Není možné ve jménu pravdy a silnější pozice v Parlamentu ČR omezovat demokracii. To je totiž jednoznačně proti Ústavě ČR.
+Zneužití institutu legislativní nouze nepovažuji za standardní ani demokratický postup. Třicet miliard je desetina schodku rozpočtu, to nejsou značné hospodářské škody. A inflace je jev, který se vyskytuje od té doby, co máme peníze. Takže to není neočekávaná událost. Při sestavování rozpočtu jste věděli a museli vědět, že se bude valorizovat.
+
+Zákony platí pro všechny. I pro ty, kteří mají většinu. Není možné ve jménu pravdy a silnější pozice v Parlamentu ČR omezovat demokracii. To je totiž jednoznačně proti Ústavě ČR.
 
 Všechny strany koalice SPOLU se ve svém programu i ve svých stanovách hrdě hlásí k demokratickým principům. Nejde mi tedy na rozum, že takovýto pokus demokracii obejít nechávají bez reakce, či se na něm dobrovolně podílejí.
 
+Účel nesvětí prostředky. A v demokratickém státě není výsledek, ať sebeprospěšnější, omluvou pro špatný postup k němu.
