@@ -89,13 +89,13 @@ tbody tr {
 }
 
 .separator {
-  -webkit-mask: url(/assets/img/separator.svg) no-repeat center;
-  mask: url(/assets/img/separator.svg) no-repeat center;
+  -webkit-mask: url(../img/separator.svg) no-repeat center;
+  mask: url(../img/separator.svg) no-repeat center;
 }
 
 .logo {
-  -webkit-mask: url(/assets/img/logo.svg) no-repeat center;
-  mask: url(/assets/img/logo.svg) no-repeat center;
+  -webkit-mask: url(../img/logo.svg) no-repeat center;
+  mask: url(../img/logo.svg) no-repeat center;
 
 }
 
