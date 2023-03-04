@@ -290,10 +290,7 @@ Alpine.data('reset', () => ({
     return false;
   },
   init() {
-    this.token = window.location.pathname.replace('/reset', '');
-    if (this.token.startsWith('/')) {
-      this.token = this.token.substring(1);
-    }
+    this.token = window.location.hash.substring(1);
     if (this.token === '') {
       back();
     }
