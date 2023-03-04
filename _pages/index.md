@@ -14,7 +14,7 @@ layout: page
       
 # Vítejte!
 
-Toto jsou stránky dobrovolného sdružení občanů České republiky **Dialektika**, založeného se záměrem naučit se provozovat pravou demokracii. Bez přívlastků, v její nejčistší podobě.
+Toto jsou stránky dobrovolného sdružení občanů České republiky [**Dialektika**](/dialektika), založeného se záměrem naučit se provozovat pravou demokracii. Bez přívlastků, v její nejčistší podobě.
 
 V budoucnosti se možná společně rozhodneme založit spolek a posléze první opravdu demokratickou politickou stranu. Tak daleko ale zatím nejsme. Teď se učíme a vytváříme zázemí pro budoucí fungování.
 

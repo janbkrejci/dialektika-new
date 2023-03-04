@@ -8,7 +8,8 @@ paginator:
 
 # Články
 
-<div class="separator bg-gray-200 dark:bg-gray-800 h-8"></div>
+
+<div class="separator"></div>
 {% for post in site.posts %}
   {% capture i18n_date %}
   {% assign day = post.date | date: "%-d" %}
@@ -31,7 +32,7 @@ paginator:
 <div class="perex">{{ post.excerpt }}</div>
 <div class="more"><a href="{{ post.url }}">Číst dál...</a>
 </div>
-<div class="separator mt-8 bg-gray-200 dark:bg-gray-800 h-8"></div>
+<div class="separator mt-8"></div>
 {% endfor %}
 
 {% if paginator.total_pages > 1 %}

@@ -91,6 +91,7 @@ tbody tr {
 .separator {
   -webkit-mask: url(../img/separator.svg) no-repeat center;
   mask: url(../img/separator.svg) no-repeat center;
+  @apply  bg-gray-200 dark:bg-gray-800 h-8;
 }
 
 .logo {

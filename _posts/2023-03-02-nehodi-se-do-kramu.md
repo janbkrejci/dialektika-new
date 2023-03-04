@@ -4,13 +4,13 @@ title: "Nehodí se do krámu?"
 date: 2023-03-02
 author: Jan B. Krejčí
 category: názory
+sources:
+  - 'VLÁDA ČESKÉ REPUBLIKY, 2023. Programové prohlášení vlády [online]. Praha: Vláda České republiky [cit. 2023-03-02]. Dostupné z: <a target="_blank" href="https://www.vlada.cz/cz/programove-prohlaseni-vlady-193547">https://www.vlada.cz/cz/programove-prohlaseni-vlady-193547</a>'
 ---
 
 Nehodí se nám programové prohlášení do krámu? Tak si ho přepíšeme, ne? To tedy zírám...
 
-> Vláda Petra Fialy schválila 6. ledna 2022 Programové prohlášení vlády České republiky. Jeho upravenou podobu schválil kabinet na jednání ve středu 1. března 2023.
-
-*(převzato z webu <a target="_blank" href="https://www.vlada.cz/cz/programove-prohlaseni-vlady-193547">www.vlada.cz</a>, zveřejněno 1. 3. 2023)*
+> Vláda Petra Fialy schválila 6. ledna 2022 Programové prohlášení vlády České republiky. Jeho upravenou podobu schválil kabinet na jednání ve středu 1. března 2023. (Vláda České republiky, 2023)
 
 Programové prohlášení strany nebo vlády je veřejný příslib voličům a partnerům - tohle budeme prosazovat, když nás zvolíte, když nám vyjádříte důvěru. 
 
@@ -18,7 +18,7 @@ Pominu-li, že jde většinou o nekonkrétní tlachání, které nejde měřit a
 
 Mimochodem, není to prosím tak, že vláda na začátku své práce žádá o vyslovení důvěry na základě právě programového prohlášení?
 
-Cituji z preambule samotného [programováho prohlášení vlády](https://www.vlada.cz/cz/programove-prohlaseni-vlady-193547/):
+Cituji z preambule samotného programováho prohlášení vlády (Vláda České republiky, 2023):
 
 > Nová vláda České republiky přichází požádat o důvěru Poslaneckou sněmovnu Parlamentu v době, která bez nadsázky patří mezi nejsložitější a nejnáročnější období naší novodobé historie.
 

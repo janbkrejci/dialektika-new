@@ -4,12 +4,6 @@ layout: dialogue
 ---
 <script>
   // return back if already logged in
-  function back() {
-    let target = document.referrer
-    if (!target || target.match("login")) target = "/"
-    window.location.replace(target)
-  }
-
   if (localStorage.pocketbase_auth) {
     back()
   }
@@ -27,11 +21,11 @@ layout: dialogue
     <!-- form -->
     <form class="space-y-4" action="" method="POST" novalidate @submit.prevent="">
       <!-- results -->
-      <div x-show="resetSuccess" class="success px-2 py-1" x-text="resetSuccess">
+      <div x-show="resetSuccess" class="alert success p-2 text-sm" x-text="resetSuccess">
       </div>
-      <div x-show="loginError" class="alert px-2 py-1" x-text="loginError"></div>
-      <div x-show="registrationError" class="alert px-2 py-1" x-text="registrationError"></div>
-      <div x-show="resetError" class="alert px-2 py-1" x-text="resetError"></div>
+      <div x-show="loginError" class="alert error p-2 text-sm" x-text="loginError"></div>
+      <div x-show="registrationError" class="alert error p-2 text-sm" x-text="registrationError"></div>
+      <div x-show="resetError" class="alert error p-2 text-sm" x-text="resetError"></div>
       <!-- inputs -->
       <div x-show="form != 'reset'">
         <label for="alias">Uživatel *</label>
@@ -45,13 +39,13 @@ layout: dialogue
           :disabled="form == 'login'">
         <div class="error-text" x-text="emailError"></div>
       </div>
-      <div x-show="form != 'reset'" class="w3-section">
+      <div x-show="form != 'reset'">
         <label for="password">Heslo *</label>
         <input id="password" :class="{'input': true, 'error': passwordError}" type="password" x-model="password"
           @input="password = $el.value" />
         <div class="error-text" x-text="passwordError"></div>
       </div>
-      <div class="w3-section" x-show="form == 'register'">
+      <div x-show="form == 'register'">
         <label for="password2">Heslo podruhé *</label>
         <input id="password2" :class="{'input': true, 'error': password2Error}" type="password" x-model="password2">
         <div class="error-text" x-text="password2Error"></div>

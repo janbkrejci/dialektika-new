@@ -17,21 +17,30 @@ layout: page
   <header>
     <h1 itemprop="name headline">{{ page.title | escape }}</h1>
 
+    {% if page.date %}
     <span datetime="{{ page.date | date_to_xmlschema }}" class="date text-gray-500" itemprop="datePublished">{{ datum
       }}</span>
+    {% endif %}
 
 
   </header>
 
   <div itemprop="articleBody">
     {{ content }}
-
+    {% if page.author %}
     {{author}}
+    {% endif %}
   </div>
 
   <a href="{{ page.url | relative_url }}" hidden></a>
 
-
-
-
+  {% if page.sources %}
+  <div class="separator mt-8"></div>
+  <p>
+    <i>Použité zdroje:</i>
+  </p>
+  {% for source in page.sources %}
+  <p>{{ source }}</p>
+  {% endfor %}
+  {% endif %}
 </article>

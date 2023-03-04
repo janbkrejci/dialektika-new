@@ -4,11 +4,11 @@ title: "Když si premiér plete parlamentní většinu s demokratickou větši
 date: 2023-03-04
 author: Jaroslava Krejčí
 category: názory
+sources:
+  - 'IDNES, 2023. Kolabující poslanec, halucinace, únava. O penzích se má hlasovat nad ránem [online]. Praha: iDnes.cz [cit. 2023-03-04]. Dostupné z: <a target="_blank" href="https://www.idnes.cz/zpravy/domaci/snemovna-unava-poslancu-nizsi-rust-penzi-vlada-obstrukce.A230303_160026_domaci_kop">https://www.idnes.cz/zpravy/domaci/snemovna-unava-poslancu-nizsi-rust-penzi-vlada-obstrukce.A230303_160026_domaci_kop</a>'
 ---
 
-> Musí se najít nějaká rovnováha mezi právem opozice použít tento krajní nástroj a právem většiny prosadit svou vůli v souladu s výsledkem parlamentních voleb...
-
-*(převzato z webu <a target="_blank" href="https://www.idnes.cz/zpravy/domaci/snemovna-unava-poslancu-nizsi-rust-penzi-vlada-obstrukce.A230303_160026_domaci_kop">iDnes.cz</a>. zveřejněno 3. 3. 2023)*
+> Musí se najít nějaká rovnováha mezi právem opozice použít tento krajní nástroj a právem většiny prosadit svou vůli v souladu s výsledkem parlamentních voleb... (iDnes, 2023)
 
 Vážený pane premiére, 
 

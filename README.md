@@ -13,6 +13,7 @@
 - ostatní stránky
 - ~~language server HTML, JS, CSS~~
 
+{APP_URL}/_/#/auth/confirm-password-reset/{TOKEN}
   
 # Jekyll Starter
 
