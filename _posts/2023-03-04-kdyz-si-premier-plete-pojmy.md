@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Když si premiér plete parlamentní většinu s demokratickou většinou..."
-date: 2023-03-02
+date: 2023-03-04
 author: Jaroslava Krejčí
 category: názory
 ---
