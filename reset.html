@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Dialektika | Web dobrovolného sdružení občanů České republiky Dialektika.</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Dialektika" />
+<meta property="og:locale" content="cs" />
+<meta name="description" content="Web dobrovolného sdružení občanů České republiky Dialektika." />
+<meta property="og:description" content="Web dobrovolného sdružení občanů České republiky Dialektika." />
+<meta property="og:site_name" content="Dialektika" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Dialektika" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Web dobrovolného sdružení občanů České republiky Dialektika.","headline":"Dialektika","url":"/reset"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/app.css">
+  <script type='text/javascript'
+    src='https://platform-api.sharethis.com/js/sharethis.js#property=602a9e560cf79300112b0f9c&product=inline-share-buttons'
+    async='async'></script>
+</head>
+
+<body x-cloak x-data="">
+  <main class="grid place-content-center h-full">
+
+  <div @keyup.escape.window="back()" x-data="reset" @keydown.enter.prevent="next"
+  class="w-80 bg-white dark:bg-gray-800 rounded-lg shadow border dark:border-gray-700" sm:max-w-md>
+  <div class="p-6 space-y-4">
+    <!-- title -->
+    <h1 class="text-2xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white">
+      Reset hesla
+    </h1>
+    <!-- form -->
+    <form class="space-y-4" action="" method="POST" novalidate @submit.prevent="">
+      <!-- results -->
+      <div x-show="resetSuccess" class="alert success p-2 text-sm" x-text="resetSuccess">
+      </div>
+      <div x-show="resetError" class="alert error p-2 text-sm" x-text="resetError"></div>
+      <!-- inputs -->
+      <div>
+        <label for="password">Heslo *</label>
+        <input id="password" :class="{'input': true, 'error': passwordError}" type="password" x-model="password"
+          @input="password = $el.value" :disabled="disabled || resetSuccess" />
+        <div class="error-text" x-text="passwordError"></div>
+      </div>
+      <div>
+        <label for="password2">Heslo podruhé *</label>
+        <input id="password2" :class="{'input': true, 'error': password2Error}" type="password" x-model="password2"
+          :disabled="disabled || resetSuccess">
+        <div class="error-text" x-text="password2Error"></div>
+      </div>
+
+      <button class="primary w-full" x-show="!resetSuccess" :disabled="disabled" @click="doReset">
+        Resetovat heslo
+      </button>
+      <button class="primary w-full" x-show="resetSuccess" :disabled="disabled"
+        @click="window.location.replace('/login');">
+        Přihlásit se
+      </button>
+
+    </form>
+  </div>
+</div>
+
+</main>
+  <script src="/assets/js/app.js"></script>
+</body>
+
+</html>
