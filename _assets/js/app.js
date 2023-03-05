@@ -285,7 +285,7 @@ Alpine.data('reset', () => ({
   init() {
     this.token = window.location.hash.substring(1);
     if (this.token === '') {
-      back();
+      window.back();
     }
     this.$focus.first();
   },
@@ -332,35 +332,46 @@ Alpine.data('aktivity', () => ({
   state: 'hlasovani',
   lastState: null,
   selectedID: null,
+  selectedItem: null,
   items: {
-    "H0": {state: 'closed'},
-    "H1": {state: 'closed'},
-    "H2": {state: 'voting'},
-    "H3": {state: 'suggested'},
-    "H4": {state: 'elaboration'}
-  },
-  selectedItem() {
-    return this.selectedID ? this.items(this.selectedID) : {state: 'suggested'}
+    H0: { state: 'closed' },
+    H1: { state: 'closed' },
+    H2: { state: 'voting' },
+    H3: { state: 'suggested' },
+    H4: { state: 'elaborating' },
+    H5: { state: 'rejected' },
+    H6: { state: 'rejected' },
   },
   switchState(s) {
     this.state = s;
   },
   showDetail(id) {
     this.selectedID = id;
+    this.selectedItem = this.items[id] || { state: 'suggested' };
     this.lastState = this.state;
-    this.state = 'detail';
+    this.switchState('detail');
   },
   hideDetail() {
-    this.state = this.lastState;
+    this.switchState(this.lastState);
     this.lastState = null;
     this.selectedID = null;
+    this.selectedItem = null;
   },
   reOpen(id) {
-    // TODO
+    this.selectedID = null;
+    const orig = { ...this.items[id] };
+    delete orig.id;
+    delete orig.created;
+    delete orig.updated;
+    orig.state = 'suggested';
+    this.selectedItem = orig;
+    this.lastState = this.state;
+    this.switchState('detail');
   },
   vote(id, value) {
     // TODO
-  }
-}))
+    return (id === value);
+  },
+}));
 
 Alpine.start();

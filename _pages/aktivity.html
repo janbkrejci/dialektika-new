@@ -61,18 +61,18 @@ permalink: /aktivity
         </tr>
       </thead>
       <tbody>
-        <tr id="H4" @click="showDetail($el.id)">
+        <tr id="H5" @click="showDetail($el.id)">
           <td>31. 3. 2023</td>
           <td>Úprava Stanov - zrušení čl. 2.2</td>
           <td class="text-center">
-            <button id="H4" class="primary" @click.stop="reOpen($el.id)">Znovu otevřít</button>
+            <button id="H5" class="primary" @click.stop="reOpen($el.id)">Znovu otevřít</button>
           </td>
         </tr>
-        <tr id="H5" @click="showDetail($el.id)">
+        <tr id="H6" @click="showDetail($el.id)">
           <td>15. 3. 2023</td>
           <td>Svolání mimořádné členské schůze</td>
           <td class="text-center">
-            <button id="H5" class="primary" @click.stop="reOpen($el.id)">Znovu otevřít</button>
+            <button id="H6" class="primary" @click.stop="reOpen($el.id)">Znovu otevřít</button>
           </td>
         </tr>
       </tbody>
@@ -135,8 +135,9 @@ permalink: /aktivity
   </div>
 
   <div x-show="state === 'detail'">
-    <h2>Detail...<span x-text="selectedID"></span></h2>
+    <h2>Detail...</h2>
     <button class="primary" @click="hideDetail()">&lt;&lt; Zpět</button>
+    <div x-text="selectedItem.state"></div>
   </div>
 
   <div x-show="state === 'other'">
