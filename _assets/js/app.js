@@ -15,13 +15,6 @@ const pb = new PocketBase(BACKEND_SERVER);
 // TODO delete later
 window.pb = pb;
 
-function back() {
-  let target = document.referrer;
-  if (!target || target.match('login') || target.match('reset')) target = '/';
-  window.location.replace(target);
-}
-window.back = back;
-
 Alpine.data('user', () => ({
   showMenu: false,
   showSidebar: false,
@@ -334,5 +327,40 @@ Alpine.data('reset', () => ({
     }
   },
 }));
+
+Alpine.data('aktivity', () => ({
+  state: 'hlasovani',
+  lastState: null,
+  selectedID: null,
+  items: {
+    "H0": {state: 'closed'},
+    "H1": {state: 'closed'},
+    "H2": {state: 'voting'},
+    "H3": {state: 'suggested'},
+    "H4": {state: 'elaboration'}
+  },
+  selectedItem() {
+    return this.selectedID ? this.items(this.selectedID) : {state: 'suggested'}
+  },
+  switchState(s) {
+    this.state = s;
+  },
+  showDetail(id) {
+    this.selectedID = id;
+    this.lastState = this.state;
+    this.state = 'detail';
+  },
+  hideDetail() {
+    this.state = this.lastState;
+    this.lastState = null;
+    this.selectedID = null;
+  },
+  reOpen(id) {
+    // TODO
+  },
+  vote(id, value) {
+    // TODO
+  }
+}))
 
 Alpine.start();

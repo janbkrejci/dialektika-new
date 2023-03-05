@@ -1,0 +1,145 @@
+---
+layout: page
+permalink: /aktivity
+---
+<script>
+  // return back if already logged in
+  if (!localStorage.pocketbase_auth) {
+    back()
+  }
+</script>
+<div x-data="aktivity">
+  <h1>Aktivity</h1>
+
+  <!-- navigation -->
+  <div class="flex grow justify-between">
+    <a href="" @click.prevent="switchState('hlasovani')">Hlasování</a>
+    <a href="" @click.prevent="switchState('vysledky')">Výsledky</a>
+    <a href="" @click.prevent="switchState('other')">Něco jiného...</a>
+  </div>
+
+  <div class="separator mt-8"></div>
+
+  <!-- results -->
+  <div x-show="state === 'vysledky'">
+    <h2>Výsledky hlasování</h2>
+
+    <table class="table-auto">
+      <thead>
+        <tr>
+          <th>Odhlasováno</th>
+          <th>Návrh</th>
+          <th class="text-center">Výsledek</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="H0" @click="showDetail($el.id)">
+          <td>31. 3. 2023</td>
+          <td>Úprava Stanov - zrušení čl. 2.2</td>
+          <td class="text-center">
+            <div class="btn success">Schváleno</div>
+          </td>
+        </tr>
+        <tr id="H1" @click="showDetail($el.id)">
+          <td>15. 3. 2023</td>
+          <td>Svolání mimořádné členské schůze</td>
+          <td class="text-center">
+            <div class="btn error">Zamítnuto</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Zamítnutá témata</h2>
+
+    <table class="table-auto">
+      <thead>
+        <tr>
+          <th>Zamítnuto</th>
+          <th>Návrh</th>
+          <th class="text-center">Akce</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="H4" @click="showDetail($el.id)">
+          <td>31. 3. 2023</td>
+          <td>Úprava Stanov - zrušení čl. 2.2</td>
+          <td class="text-center">
+            <button id="H4" class="primary" @click.stop="reOpen($el.id)">Znovu otevřít</button>
+          </td>
+        </tr>
+        <tr id="H5" @click="showDetail($el.id)">
+          <td>15. 3. 2023</td>
+          <td>Svolání mimořádné členské schůze</td>
+          <td class="text-center">
+            <button id="H5" class="primary" @click.stop="reOpen($el.id)">Znovu otevřít</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <div x-show="state === 'hlasovani'">
+    <h2>Moje hlasování:</h2>
+
+    <table class="table-auto">
+      <thead>
+        <tr>
+          <th>Termín</th>
+          <th>Návrh</th>
+          <th class="text-center">Hlasovat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="H2" @click="showDetail($el.id)">
+          <td>31. 3. 2023</td>
+          <td>Aktualizace Stanov - čl. 2.3</td>
+          <td class="text-center">
+            <button class="success" @click.stop="vote($el.id, true)">PRO</button>
+            <button class="error" @click.stop="vote($el.id, false)">PROTI</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Témata v diskusi:</h2>
+
+    <div class="alert success p-2">
+      V tuto chvíli žádná diskuse neprobíhá.
+    </div>
+
+    <h2>Navržená témata:</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Termín</th>
+          <th>Návrh</th>
+          <th class="text-center">Pustit k diskusi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="H3" @click="showDetail($el.id)">
+          <td>31. 3. 2023</td>
+          <td>Aktualizace Stanov - čl. 2.3</td>
+          <td class="text-center">
+            <button class="success" @click.stop="vote($el.id, true)">ANO</button>
+            <button class="error" @click.stop="vote($el.id, false)">NE</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button class="primary" @click="showDetail(null)">Podat návrh na téma</button>
+  </div>
+
+  <div x-show="state === 'detail'">
+    <h2>Detail...<span x-text="selectedID"></span></h2>
+    <button class="primary" @click="hideDetail()">&lt;&lt; Zpět</button>
+  </div>
+
+  <div x-show="state === 'other'">
+    <h2>Něco jiného</h2>
+  </div>
+</div>
