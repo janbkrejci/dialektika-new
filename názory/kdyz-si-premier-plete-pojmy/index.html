@@ -24,6 +24,14 @@
   <script type='text/javascript'
     src='https://platform-api.sharethis.com/js/sharethis.js#property=602a9e560cf79300112b0f9c&product=inline-share-buttons'
     async='async'></script>
+  <script>
+    function back() {
+      let target = document.referrer;
+      if (!target || target.match('login') || target.match('reset')) target = '/';
+      window.location.replace(target);
+    }
+    window.back = back;
+  </script>
 </head>
 
 <body x-cloak x-data="">
@@ -178,69 +186,7 @@
   <div class="sharethis-inline-share-buttons grow"></div>
   <!-- ShareThis END -->
   <a href="/gdpr">Ochrana osobních údajů</a>
-</footer><!-- article>
-  <header>
-    <h1>Když si premiér plete parlamentní většinu s demokratickou většinou...</h1>
-  </header>
-
-  <div class="prose prose-sm lg:prose-lg xl:prose-xl">
-    
-
-<article itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    <h1 itemprop="name headline">Když si premiér plete parlamentní většinu s demokratickou většinou...</h1>
-
-    
-    <span datetime="2023-03-04T00:00:00+00:00" class="date text-gray-500" itemprop="datePublished">4. března 2023</span>
-    
-
-
-  </header>
-
-  <div itemprop="articleBody">
-    <blockquote>
-  <p>Musí se najít nějaká rovnováha mezi právem opozice použít tento krajní nástroj a právem většiny prosadit svou vůli v souladu s výsledkem parlamentních voleb… (iDnes, 2023)</p>
-</blockquote>
-
-<p>Vážený pane premiére,</p>
-
-<p>přestože jsem v posledních parlamentních volbách volila koalici SPOLU, a přestože nesouhlasím s nadměrnými obstrukcemi v Poslanecké sněmovně, musím se ohradit proti Vašemu výše citovanému prohlášení.</p>
-
-<p>Zachování demokracie je totiž pro mě to nejdůležitější. To, že jste byli demokraticky zvoleni, Vám (koalici) zároveň přináší povinnost se demokraticky chovat při výkonu propůjčeného mandátu.</p>
-
-<p>Nevím, jaké výsledky posledních parlamentních voleb máte k dispozici Vy, ale podle těch zveřejněných na ČSÚ dostala koalice SPOLU pozitivní mandát od cca 28,2 % registrovaných voličů, což rozhodně není většina národa.</p>
-
-<p>To, že koalice má většinu křesel v Poslanecké sněmovně Parlamentu ČR, z ní činí silnějšího partnera pro opozici, ale nedává jí to právo prosazovat své záměry silou ve jménu většiny lidu, a to ani v případě, že se jedná o rozumná opatření.</p>
-
-<p>Koalice SPOLU má pro své záměry podporu necelé třetiny voličů, tak velké máte tedy <strong>právo něco prosadit</strong>. Zbytek si musíte <strong>vyjednat, odpracovat a zasloužit</strong>.</p>
-
-<p>Zneužití institutu legislativní nouze nepovažuji za standardní ani demokratický postup. Třicet miliard je desetina schodku rozpočtu, to nejsou značné hospodářské škody. A inflace je jev, který se vyskytuje od té doby, co máme peníze. Takže to není neočekávaná událost. Při sestavování rozpočtu jste věděli a museli vědět, že se bude valorizovat.</p>
-
-<p>Zákony platí pro všechny. I pro ty, kteří mají většinu. Není možné ve jménu pravdy a silnější pozice v Parlamentu ČR omezovat demokracii. To je totiž jednoznačně proti Ústavě ČR.</p>
-
-<p>Všechny strany koalice SPOLU se ve svém programu i ve svých stanovách hrdě hlásí k demokratickým principům. Nejde mi tedy na rozum, že takovýto pokus demokracii obejít nechávají bez reakce, či se na něm dobrovolně podílejí.</p>
-
-<p>Účel nesvětí prostředky. A v demokratickém státě není výsledek, ať sebeprospěšnější, omluvou pro špatný postup k němu.</p>
-
-    
-    Jaroslava Krejčí
-    
-  </div>
-
-  <a href="/n%C3%A1zory/kdyz-si-premier-plete-pojmy/" hidden></a>
-
-  
-  <div class="separator mt-8"></div>
-  <p>
-    <i>Použité zdroje:</i>
-  </p>
-  
-  <p>IDNES, 2023. Kolabující poslanec, halucinace, únava. O penzích se má hlasovat nad ránem [online]. Praha: iDnes.cz [cit. 2023-03-04]. Dostupné z: <a target="_blank" href="https://www.idnes.cz/zpravy/domaci/snemovna-unava-poslancu-nizsi-rust-penzi-vlada-obstrukce.A230303_160026_domaci_kop">https://www.idnes.cz/zpravy/domaci/snemovna-unava-poslancu-nizsi-rust-penzi-vlada-obstrukce.A230303_160026_domaci_kop</a></p>
-  
-  
-</article>
-  </div>
-</article -->
+</footer>
   <script src="/assets/js/app.js"></script>
 </body>
 

@@ -22,6 +22,14 @@
   <script type='text/javascript'
     src='https://platform-api.sharethis.com/js/sharethis.js#property=602a9e560cf79300112b0f9c&product=inline-share-buttons'
     async='async'></script>
+  <script>
+    function back() {
+      let target = document.referrer;
+      if (!target || target.match('login') || target.match('reset')) target = '/';
+      window.location.replace(target);
+    }
+    window.back = back;
+  </script>
 </head>
 
 <body x-cloak x-data="">
@@ -156,49 +164,7 @@
   <div class="sharethis-inline-share-buttons grow"></div>
   <!-- ShareThis END -->
   <a href="/gdpr">Ochrana osobních údajů</a>
-</footer><!-- article>
-  <header>
-    <h1>Co je to dialektika?</h1>
-  </header>
-
-  <div class="prose prose-sm lg:prose-lg xl:prose-xl">
-    
-
-<article itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    <h1 itemprop="name headline">Co je to dialektika?</h1>
-
-    
-
-
-  </header>
-
-  <div itemprop="articleBody">
-    <p>Těžko říci, význam tohoto pojmu se časem hodně měnil a i dnes je nejednoznačný.</p>
-
-<p>Nám je nejbližší, jak dialektiku vnímali antičtí filozofové:</p>
-
-<blockquote>
-  <p>Výraz <em>dialektika</em> znamenal původně umění rozhovoru či diskuse, kde se střídají tvrzení a námitky, podepřené racionálními argumenty. Cílem takového rozhovoru je přiblížit se pravému poznání tím, že účastníci si navzájem vyvracejí nesprávná, neobhajitelná mínění. „Umění“ spočívá v tom, že každý účastník musí správně pochopit smysl tvrzení a odpovídat na ně v souladu s pravidly logiky. (Wikipedie, c2021)</p>
-</blockquote>
-
-    
-  </div>
-
-  <a href="/dialektika" hidden></a>
-
-  
-  <div class="separator mt-8"></div>
-  <p>
-    <i>Použité zdroje:</i>
-  </p>
-  
-  <p>Wikipedie: Otevřená encyklopedie: Dialektika [online]. c2021 [citováno 4. 03. 2023]. Dostupný z WWW: <a target="_blank" href="https://cs.wikipedia.org/w/index.php?title=Dialektika&oldid=20561687">https://cs.wikipedia.org/w/index.php?title=Dialektika&oldid=20561687</a></p>
-  
-  
-</article>
-  </div>
-</article -->
+</footer>
   <script src="/assets/js/app.js"></script>
 </body>
 

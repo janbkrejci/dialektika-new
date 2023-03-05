@@ -22,6 +22,14 @@
   <script type='text/javascript'
     src='https://platform-api.sharethis.com/js/sharethis.js#property=602a9e560cf79300112b0f9c&product=inline-share-buttons'
     async='async'></script>
+  <script>
+    function back() {
+      let target = document.referrer;
+      if (!target || target.match('login') || target.match('reset')) target = '/';
+      window.location.replace(target);
+    }
+    window.back = back;
+  </script>
 </head>
 
 <body x-cloak x-data="">
@@ -156,49 +164,7 @@
   <div class="sharethis-inline-share-buttons grow"></div>
   <!-- ShareThis END -->
   <a href="/gdpr">Ochrana osobních údajů</a>
-</footer><!-- article>
-  <header>
-    <h1>Blog</h1>
-  </header>
-
-  <div class="prose prose-sm lg:prose-lg xl:prose-xl">
-    <h1 id="články">Články</h1>
-
-<div class="separator"></div>
-
-<div class="card">
-<h3 class="title">Když si premiér plete parlamentní většinu s demokratickou většinou...</h3>
-  <div class="flex w-full text-gray-500 justify-between">
-    <span class="date">4. března 2023</span>
-    <span class="author text-right">Jaroslava Krejčí</span>
-  </div>
-<div class="perex"><blockquote>
-  <p>Musí se najít nějaká rovnováha mezi právem opozice použít tento krajní nástroj a právem většiny prosadit svou vůli v souladu s výsledkem parlamentních voleb… (iDnes, 2023)</p>
-</blockquote>
-</div>
-<div class="more"><a href="/n%C3%A1zory/kdyz-si-premier-plete-pojmy/">Číst dál...</a>
-</div>
-<div class="separator mt-8"></div>
-
-  
-
-<div class="card">
-<h3 class="title">Nehodí se do krámu?</h3>
-  <div class="flex w-full text-gray-500 justify-between">
-    <span class="date">2. března 2023</span>
-    <span class="author text-right">Jan B. Krejčí</span>
-  </div>
-<div class="perex"><p>Nehodí se nám programové prohlášení do krámu? Tak si ho přepíšeme, ne? To tedy zírám…</p>
-</div>
-<div class="more"><a href="/n%C3%A1zory/nehodi-se-do-kramu/">Číst dál...</a>
-</div>
-<div class="separator mt-8"></div>
-
-
-</div></div>
-
-  </div>
-</article -->
+</footer>
   <script src="/assets/js/app.js"></script>
 </body>
 
