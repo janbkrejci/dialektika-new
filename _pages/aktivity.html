@@ -8,7 +8,7 @@ permalink: /aktivity
     back()
   }
 </script>
-<div x-data="aktivity">
+<div x-data="aktivity" x-show="user_id" x-effect="if (!user_id) back();">
   <h1>Aktivity</h1>
 
   <!-- navigation -->
@@ -80,6 +80,7 @@ permalink: /aktivity
 
   </div>
 
+  <!-- voting -->
   <div x-show="state === 'hlasovani'">
     <h2>Moje hlasování:</h2>
 
@@ -105,7 +106,7 @@ permalink: /aktivity
 
     <h2>Témata v diskusi:</h2>
 
-    <div class="alert success p-2">
+    <div class="alert success px-2">
       V tuto chvíli žádná diskuse neprobíhá.
     </div>
 
@@ -120,24 +121,52 @@ permalink: /aktivity
         </tr>
       </thead>
       <tbody>
-        <tr id="H3" @click="showDetail($el.id)">
-          <td>31. 3. 2023</td>
-          <td>Aktualizace Stanov - čl. 2.3</td>
-          <td class="text-center">
-            <button class="success" @click.stop="vote($el.id, true)">ANO</button>
-            <button class="error" @click.stop="vote($el.id, false)">NE</button>
-          </td>
-        </tr>
+        <template x-for="item in suggestedItems">
+          <tr :id="item.id" @click="showDetail(item.id)">
+            <td>31. 3. 2023</td>
+            <td x-text="item.subject"></td>
+            <td class="text-center">
+              <button class="success" @click.stop="vote(item.id, true)">ANO</button>
+              <button class="error" @click.stop="vote(item.id, false)">NE</button>
+            </td>
+          </tr>
+        </template>
       </tbody>
     </table>
 
     <button class="primary" @click="showDetail(null)">Podat návrh na téma</button>
   </div>
 
-  <div x-show="state === 'detail'">
-    <h2>Detail...</h2>
+  <!-- detail -->
+  <div x-show="state === 'detail'" @keyup.escape.window="hideDetail()" @keydown.enter.stop="next"
+    @keyup.ctrl.enter.stop="next">
     <button class="primary" @click="hideDetail()">&lt;&lt; Zpět</button>
-    <div x-text="selectedItem.state"></div>
+    <h2 class="mt-4">
+      <span x-show="selectedItem.state === 'closed'">Uzavřené hlasování</span>
+      <span x-show="selectedItem.state === 'voting'">Hlasování</span>
+      <span x-show="selectedItem.state === 'elaborating'">Téma v diskusi</span>
+      <span x-show="selectedItem.state === 'rejected'">Zamítnuté téma</span>
+      <span x-show="selectedItem.state === 'suggested'">Navržené téma</span>
+      <span x-show="selectedItem.state === 'new'">Nové téma</span>
+    </h2>
+
+    <div class="alert error px-2" x-show="errors.submitError" x-text="errors.submitError"></div>
+
+    <div x-show="selectedItem.state === 'new'">
+      <label for="subject">Předmět *</label>
+      <input id="subject" :class="{'input': true, 'error': errors.subjectError}" type="text"
+        x-model="selectedItem.subject" @input="selectedItem.subject = $el.value" @blur="validate($el.id)">
+      <div class="error-text" x-text="errors.subjectError"></div>
+    </div>
+
+    <div x-show="selectedItem.state === 'new'">
+      <label for="description">Popis *</label>
+      <textarea id="description" :class="{'input': true, 'error': errors.descriptionError}"
+        x-model="selectedItem.description" @input="selectedItem.description = $el.value" @keydown.enter.stop="() => {}"
+        @blur="validate($el.id)"></textarea>
+      <div class="error-text" x-text="errors.descriptionError"></div>
+    </div>
+
   </div>
 
   <div x-show="state === 'other'">

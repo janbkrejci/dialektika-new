@@ -15,14 +15,14 @@
   <script>
     function back() {
       let target = document.referrer;
-      if (!target || target.match('login') || target.match('reset')) target = '/';
+      if (!target || target.match(window.location.href)) target = '/';
       window.location.replace(target);
     }
     window.back = back;
   </script>
 </head>
 
-<body x-cloak x-data="">
+<body x-cloak x-data="user">
   {{ content }}
   <script src="{% link /assets/js/app.js %}"></script>
 </body>

@@ -16,44 +16,33 @@ const pb = new PocketBase(BACKEND_SERVER);
 window.pb = pb;
 
 Alpine.data('user', () => ({
-  showMenu: false,
-  showSidebar: false,
-  model: null,
-  error: null,
-  name() {
-    return this.model?.name;
+  user_showMenu: false,
+  user_showSidebar: false,
+  user_model: null,
+  get user_name() {
+    const fullName = [this.user_model?.firstName, this.user_model?.lastName].join(' ').trim();
+    return fullName || this.user_model?.username;
   },
-  get id() {
-    return this.model?.id;
+  get user_email() {
+    return this.user_model?.email;
   },
-  avatar() {
-    return this.model
+  get user_id() {
+    return this.user_model?.id;
+  },
+  get user_avatar() {
+    return this.user_model
       ? `${BACKEND_SERVER}/api/files/users/${
-        this.model.id}/${this.model.avatar}`
+        this.user_model.id}/${this.user_model.avatar}`
       : null;
   },
+  async user_refresh() {
+    // TODO make user_name reactive?
+    await pb.collection('users').authRefresh();
+    this.init();
+    // console.log("ref", this, localStorage.getItem('pocketbase_auth'))
+  },
   init() {
-    const obj = JSON.parse(localStorage.getItem('pocketbase_auth'));
-    // console.log("localStorage.pocketbase_auth", obj)
-    // console.log("obj", obj)
-    this.parse(obj);
-  },
-  parse(obj) {
-    if (obj?.model) {
-      this.model = obj.model;
-      this.error = null;
-    } else {
-      this.model = null;
-      this.error = null;
-    }
-  },
-  async login(name, password) {
-    try {
-      await pb.collection('users').authWithPassword(name, password);
-      this.init();
-    } catch (err) {
-      this.error = 'Neúspěšný pokus o přihlášení';
-    }
+    this.user_model = (JSON.parse(localStorage.getItem('pocketbase_auth')))?.model;
   },
   logout() {
     pb.authStore.clear();
@@ -108,19 +97,19 @@ Alpine.data('login', () => ({
         case 'alias':
           this.aliasError = required(this.alias)
             || minLength(this.alias, 3, 'Minimální délka jsou 3 znaky');
-          return !this.aliasError;
+          break;
         case 'password':
           this.passwordError = required(this.password)
             || minLength(this.password, 6, 'Minimální délka hesla je 6 znaků')
             || maxLength(this.password, 72, 'Maximální délka hesla je 72 znaků');
-          return !this.passwordError;
+          break;
         case 'password2':
           this.password2Error = required(this.password2)
             || equalStrings(this.password, this.password2, 'Hesla se neshodují');
-          return !this.password2Error;
+          break;
         case 'email':
           this.emailError = required(this.email) || validEmail(this.email);
-          return this.emailError;
+          break;
         default:
           break;
       }
@@ -143,9 +132,8 @@ Alpine.data('login', () => ({
         default:
           break;
       }
-      return !(this.aliasError || this.emailError || this.passwordError || this.password2Error);
     }
-    return false;
+    return !(this.aliasError || this.emailError || this.passwordError || this.password2Error);
   },
   init() {
     this.$focus.first();
@@ -155,24 +143,26 @@ Alpine.data('login', () => ({
     if (id) {
       this.validate(id);
     }
-    if (this.form === 'register') {
-      if (id === 'password2') {
-        if (!this.disabled) {
-          this.doRegister();
-        }
-      }
-    } else if (this.form === 'login') {
-      if (id === 'password') {
-        if (!this.disabled) {
-          this.doLogin();
-        }
-      }
-    } else if (id === 'email') {
-      if (!this.disabled) {
-        this.doReset();
-      }
+    let last = null;
+    let functor = null;
+    switch (this.form) {
+      case 'register':
+        last = 'password2';
+        functor = this.doRegister;
+        break;
+      case 'login':
+        last = 'password';
+        functor = this.doLogin;
+        break;
+      default:
+        last = 'email';
+        functor = this.doReset;
     }
-    this.$focus.next();
+    if (last === id) {
+      if (!this.disabled && functor) functor.apply(this);
+    } else {
+      this.$focus.next();
+    }
   },
   focusFirstError() {
     let first = null;
@@ -332,30 +322,65 @@ Alpine.data('aktivity', () => ({
   state: 'hlasovani',
   lastState: null,
   selectedID: null,
-  selectedItem: null,
+  selectedItem: {},
+  errors: {},
   items: {
-    H0: { state: 'closed' },
-    H1: { state: 'closed' },
-    H2: { state: 'voting' },
-    H3: { state: 'suggested' },
-    H4: { state: 'elaborating' },
-    H5: { state: 'rejected' },
-    H6: { state: 'rejected' },
+    H0: { id: 'H0', state: 'closed', subject: 'H0' },
+    H1: { id: 'H1', state: 'closed', subject: 'H1' },
+    H2: { id: 'H2', state: 'voting', subject: 'H2' },
+    H3: {
+      id: 'H3',
+      state: 'suggested',
+      subject: 'H3',
+      description: 'test H3',
+      preselectors: ['kyqfosmd2ld162c'],
+      preselections: {
+        // kyqfosmd2ld162c: false,
+      },
+    },
+    H4: { id: 'H4', state: 'elaborating', subject: 'H4' },
+    H5: { id: 'H5', state: 'rejected', subject: 'H5' },
+    H6: { id: 'H6', state: 'rejected', subject: 'H6' },
+  },
+  suggestedItems() {
+    return Object.values(this.items).filter((i) => i.state === 'suggested'
+        && [...(i.preselectors || [])].includes(this.user_id)
+        && !(Object.keys(i.preselections || {})).includes(this.user_id));
+  },
+  preselectors() {
+    // TODO from users collection and scope
+    return [this.user_id];
   },
   switchState(s) {
+    this.reset();
     this.state = s;
+  },
+  firstInput() {
+    function e(id) {
+      return document.getElementById(id);
+    }
+    let result = null;
+    switch (this.selectedItem.state) {
+      case 'new':
+        result = e('subject');
+        break;
+      default:
+        break;
+    }
+    return result;
   },
   showDetail(id) {
     this.selectedID = id;
-    this.selectedItem = this.items[id] || { state: 'suggested' };
+    this.selectedItem = this.items[id] || { state: 'new' };
     this.lastState = this.state;
     this.switchState('detail');
+    this.$focus.focus(this.firstInput());
   },
   hideDetail() {
     this.switchState(this.lastState);
     this.lastState = null;
     this.selectedID = null;
-    this.selectedItem = null;
+    this.selectedItem = {};
   },
   reOpen(id) {
     this.selectedID = null;
@@ -363,14 +388,115 @@ Alpine.data('aktivity', () => ({
     delete orig.id;
     delete orig.created;
     delete orig.updated;
-    orig.state = 'suggested';
+    delete orig.preselection;
+    orig.state = 'new';
     this.selectedItem = orig;
     this.lastState = this.state;
     this.switchState('detail');
+    this.$focus.focus(this.firstInput());
   },
   vote(id, value) {
-    // TODO
-    return (id === value);
+    if (!confirm('Opravdu?')) return;
+    const item = this.items[id];
+    if (item.state === 'suggested') {
+      if ((item.preselectors || []).includes(this.user_id)) {
+        if (!item.preselections) {
+          item.preselections = {};
+        }
+        if (!item.preselections[this.user_id]) {
+          item.preselections[this.user_id] = value;
+        }
+      }
+    }
+  },
+  reset() {
+    this.errors = {};
+  },
+  validate(id = null) {
+    if (id) {
+      switch (id) {
+        case 'subject':
+          this.errors.subjectError = required(this.selectedItem.subject);
+          break;
+        case 'description':
+          this.errors.descriptionError = required(this.selectedItem.description);
+          break;
+        /* case 'password':
+          this.passwordError = required(this.password)
+            || minLength(this.password, 6, 'Minimální délka hesla je 6 znaků')
+            || maxLength(this.password, 72, 'Maximální délka hesla je 72 znaků');
+          return !this.passwordError;
+        case 'password2':
+          this.password2Error = required(this.password2)
+            || equalStrings(this.password, this.password2, 'Hesla se neshodují');
+          return !this.password2Error;
+        case 'email':
+          this.emailError = required(this.email) || validEmail(this.email);
+          return this.emailError; */
+        default:
+          this.submitError = `Nenastavená validace pro pole'${id}'`;
+          break;
+      }
+    } else {
+      this.reset();
+      switch (this.selectedItem.state) {
+        case 'new':
+          this.validate('subject');
+          this.validate('description');
+          break;
+        default:
+          break;
+      }
+    }
+    return !(this.errors.subjectError || this.errors.descriptionError);
+  },
+  next() {
+    const id = this.$focus.focused()?.id;
+    let last = null;
+    let functor = null;
+    switch (this.selectedItem.state) {
+      case 'new':
+        last = 'description';
+        functor = this.doCreateTopic;
+        break;
+      default:
+        break;
+    }
+    if (last === id) {
+      if (!this.disabled && functor) functor.apply(this);
+    } else {
+      this.$focus.next();
+    }
+  },
+  focusFirstError() {
+    let first = null;
+    if (this.errors.subjectError) { first = 'subject'; }
+    /* else if (this.emailError) { first = 'email'; }
+    else if (this.passwordError) { first = 'password'; }
+    else if (this.password2Error) { first = 'password2'; } */
+    if (first) {
+      this.$focus.focus(document.getElementById(first));
+    }
+  },
+  async doCreateTopic() {
+    this.disabled = true;
+    if (this.validate()) {
+      try {
+        const newId = Math.floor(Math.random() * 1000000);
+        this.selectedItem.id = newId;
+        this.selectedItem.state = 'suggested';
+        this.selectedItem.preselectors = this.preselectors();
+        this.items[newId] = { id: newId, ...this.selectedItem };
+        this.hideDetail();
+        // await pb.collection('votes').create(this.selectedItem);
+      } catch (err) {
+        this.errors.submitError = JSON.stringify(err, 2, null);
+        this.disabled = false;
+      }
+    } else {
+      this.focusFirstError();
+      this.disabled = false;
+    }
   },
 }));
 
