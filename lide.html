@@ -25,15 +25,15 @@
   <script>
     function back() {
       let target = document.referrer;
-      if (!target || target.match('login') || target.match('reset')) target = '/';
+      if (!target || target.match(window.location.href)) target = '/';
       window.location.replace(target);
     }
     window.back = back;
   </script>
 </head>
 
-<body x-cloak x-data="">
-  <header x-data="user" class="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">
+<body x-cloak x-data="user">
+  <header class="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">
   <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Globální navigace">
     <div class="flex lg:flex-1">
       <a href="/" class="-m-1.5 p-1.5">
@@ -44,7 +44,7 @@
     <div class="flex lg:hidden">
       <button type="button"
         class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5  text-gray-700 dark:text-gray-100"
-        @click="showSidebar = true">
+        @click="user_showSidebar = true">
         <span class="sr-only">Hlavní nabídka</span>
         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
           aria-hidden="true">
@@ -58,22 +58,22 @@
       <a href="/stanoviska">Přijatá stanoviska</a>
       <a href="/blog">Blog</a>
       <!-- for logged-in users -->
-      <a x-show="id" href="/aktivity">Aktivity</a>
-      <a x-show="id" href="/organizace">Organizace</a>
-      <a x-show="id" href="/lide">Lidé</a>
-      <a x-show="id" href="/ja">Já</a>
+      <a x-show="user_id" href="/aktivity">Aktivity</a>
+      <a x-show="user_id" href="/organizace">Organizace</a>
+      <a x-show="user_id" href="/lide">Lidé</a>
+      <a x-show="user_id" href="/ja">Já</a>
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-      <a x-show="!id" href="/login" @click.prevent="window.location.replace($el.href)">Přihlášení <span
+      <a x-show="!user_id" href="/login" @click.prevent="window.location.replace($el.href)">Přihlášení <span
           aria-hidden="true">&rarr;</span></a>
-      <a x-show="id" href="#" @click.prevent="logout">Odhlášení
+      <a x-show="user_id" href="#" @click.prevent="logout">Odhlášení
         <span aria-hidden="true">&rarr;</span></a>
     </div>
   </nav>
   <!-- Mobile menu, show/hide based on menu open state. -->
-  <div x-show="showSidebar" class="lg:hidden" role="dialog" aria-modal="true">
+  <div x-show="user_showSidebar" class="lg:hidden" role="dialog" aria-modal="true">
     <!-- Background backdrop, show/hide based on slide-over state. -->
-    <div class="fixed inset-0 z-10" @click="showSidebar = false"></div>
+    <div class="fixed inset-0 z-10" @click="user_showSidebar = false"></div>
     <div focus="true"
       class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 dark:sm:ring-gray-100/10 scrollbar-hide ">
       <div class="flex items-center justify-between">
@@ -81,7 +81,7 @@
           <span class="sr-only">Dialektika</span>
           <div class="logo w-8 h-8 bg-gray-900 dark:bg-gray-100"></div>
         </a>
-        <button type="button" class="-m-2.5 rounded-md p-2.5" @click="showSidebar = false">
+        <button type="button" class="-m-2.5 rounded-md p-2.5" @click="user_showSidebar = false">
           <span class="sr-only">Zavřít nabídku</span>
           <svg class="h-6 w-6 text-gray-700 dark:text-gray-100" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" aria-hidden="true">
@@ -103,7 +103,7 @@
               class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Blog</a>
           </div>
           <!-- for logged-in users -->
-          <div x-show="id" class="space-y-2 py-6">
+          <div x-show="user_id" class="space-y-2 py-6">
             <a href="/aktivity"
               class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Aktivity</a>
             <a href="/organizace"
@@ -114,9 +114,9 @@
               class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Já</a>
           </div>
           <div class="py-6">
-            <a x-show="!id" href="/login" @click.prevent="window.location.replace($el.href)"
+            <a x-show="!user_id" href="/login" @click.prevent="window.location.replace($el.href)"
               class="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Přihlášení</a>
-            <a x-show="id" @click.prevent="logout"
+            <a x-show="user_id" @click.prevent="logout"
               class="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Odhlášení</a>
           </div>
         </div>
