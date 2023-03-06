@@ -338,12 +338,26 @@ Alpine.data('aktivity', () => ({
         // kyqfosmd2ld162c: false,
       },
     },
-    H4: { id: 'H4', state: 'elaborating', subject: 'H4' },
+    H4: {
+      id: 'H4',
+      state: 'elaborating',
+      subject: 'H4',
+      description: 'test H3',
+      preselectors: ['kyqfosmd2ld162c'],
+      preselections: {
+        // kyqfosmd2ld162c: false,
+      },
+    },
     H5: { id: 'H5', state: 'rejected', subject: 'H5' },
     H6: { id: 'H6', state: 'rejected', subject: 'H6' },
   },
   suggestedItems() {
     return Object.values(this.items).filter((i) => i.state === 'suggested'
+        && [...(i.preselectors || [])].includes(this.user_id)
+        && !(Object.keys(i.preselections || {})).includes(this.user_id));
+  },
+  elaboratingItems() {
+    return Object.values(this.items).filter((i) => i.state === 'elaborating'
         && [...(i.preselectors || [])].includes(this.user_id)
         && !(Object.keys(i.preselections || {})).includes(this.user_id));
   },
@@ -388,7 +402,7 @@ Alpine.data('aktivity', () => ({
     delete orig.id;
     delete orig.created;
     delete orig.updated;
-    delete orig.preselection;
+    delete orig.preselections;
     orig.state = 'new';
     this.selectedItem = orig;
     this.lastState = this.state;
@@ -396,7 +410,6 @@ Alpine.data('aktivity', () => ({
     this.$focus.focus(this.firstInput());
   },
   vote(id, value) {
-    if (!confirm('Opravdu?')) return;
     const item = this.items[id];
     if (item.state === 'suggested') {
       if ((item.preselectors || []).includes(this.user_id)) {
@@ -405,6 +418,19 @@ Alpine.data('aktivity', () => ({
         }
         if (!item.preselections[this.user_id]) {
           item.preselections[this.user_id] = value;
+          // TODO item.save
+          // TODO close if last
+        }
+      }
+    } else if (item.state === 'voting') {
+      if ((item.voters || []).includes(this.user_id)) {
+        if (!item.votes) {
+          item.votes = {};
+        }
+        if (!item.votes[this.user_id]) {
+          item.votes[this.user_id] = value;
+          // TODO item.save
+          // TODO close if last
         }
       }
     }
@@ -471,6 +497,7 @@ Alpine.data('aktivity', () => ({
   focusFirstError() {
     let first = null;
     if (this.errors.subjectError) { first = 'subject'; }
+    if (this.errors.descriptionError) { first = 'description'; }
     /* else if (this.emailError) { first = 'email'; }
     else if (this.passwordError) { first = 'password'; }
     else if (this.password2Error) { first = 'password2'; } */
@@ -482,13 +509,20 @@ Alpine.data('aktivity', () => ({
     this.disabled = true;
     if (this.validate()) {
       try {
+        // TODO delete when saving to DB
         const newId = Math.floor(Math.random() * 1000000);
+        const created = new Date();
         this.selectedItem.id = newId;
+        this.selectedItem.created = created;
+
         this.selectedItem.state = 'suggested';
         this.selectedItem.preselectors = this.preselectors();
+
+        // TODO delete when saving to DB
         this.items[newId] = { id: newId, ...this.selectedItem };
-        this.hideDetail();
         // await pb.collection('votes').create(this.selectedItem);
+
+        this.hideDetail();
       } catch (err) {
         this.errors.submitError = JSON.stringify(err, 2, null);
         this.disabled = false;
