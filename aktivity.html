@@ -210,7 +210,7 @@
       <thead>
         <tr>
           <th>Termín</th>
-          <th>Návrh</th>
+          <th class="w-full">Návrh</th>
           <th class="text-center">Hlasovat</th>
         </tr>
       </thead>
@@ -219,8 +219,8 @@
           <td>31. 3. 2023</td>
           <td>Aktualizace Stanov - čl. 2.3</td>
           <td class="text-center">
-            <button class="success" @click.stop="vote($el.id, true)">PRO</button>
-            <button class="error" @click.stop="vote($el.id, false)">PROTI</button>
+            <button class="success w-1/2" @click.stop="vote($el.id, true)">PRO</button>
+            <button class="error w-1/2" @click.stop="vote($el.id, false)">PROTI</button>
           </td>
         </tr>
       </tbody>
@@ -228,17 +228,36 @@
 
     <h2>Témata v diskusi:</h2>
 
-    <div class="alert success px-2">
+    <div x-show="!elaboratingItems().length" class="alert success px-2 mb-8">
       V tuto chvíli žádná diskuse neprobíhá.
     </div>
-
-    <h2>Navržená témata:</h2>
-
-    <table>
+    <table x-show="elaboratingItems().length">
       <thead>
         <tr>
           <th>Termín</th>
-          <th>Návrh</th>
+          <th class="w-full">Předmět</th>
+        </tr>
+      </thead>
+      <tbody>
+        <template x-for="item in elaboratingItems">
+          <tr :id="item.id" @click="showDetail(item.id)">
+            <td>TODO</td>
+            <td x-text="item.subject"></td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+
+    <h2>Navržená témata:</h2>
+
+    <div x-show="!suggestedItems().length" class="alert success px-2 mb-8">
+      V tuto chvíli žádná diskuse neprobíhá.
+    </div>
+    <table x-show="suggestedItems().length">
+      <thead>
+        <tr>
+          <th>Termín</th>
+          <th class="w-full">Předmět</th>
           <th class="text-center">Pustit k diskusi</th>
         </tr>
       </thead>
@@ -248,8 +267,8 @@
             <td>31. 3. 2023</td>
             <td x-text="item.subject"></td>
             <td class="text-center">
-              <button class="success" @click.stop="vote(item.id, true)">ANO</button>
-              <button class="error" @click.stop="vote(item.id, false)">NE</button>
+              <button class="success w-1/2" @click.stop="vote(item.id, true)">ANO</button>
+              <button class="error w-1/2" @click.stop="vote(item.id, false)">NE</button>
             </td>
           </tr>
         </template>
