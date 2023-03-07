@@ -1,1 +1,138 @@
+<!DOCTYPE html>
+<html lang="cs">
 
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Dialektika | Web dobrovolného sdružení občanů České republiky Dialektika.</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Dialektika" />
+<meta property="og:locale" content="cs" />
+<meta name="description" content="Web dobrovolného sdružení občanů České republiky Dialektika." />
+<meta property="og:description" content="Web dobrovolného sdružení občanů České republiky Dialektika." />
+<meta property="og:site_name" content="Dialektika" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Dialektika" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Web dobrovolného sdružení občanů České republiky Dialektika.","headline":"Dialektika","url":"/stanovy"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/app.css">
+  <script type='text/javascript'
+    src='https://platform-api.sharethis.com/js/sharethis.js#property=602a9e560cf79300112b0f9c&product=inline-share-buttons'
+    async='async'></script>
+  <script>
+    function back() {
+      let target = document.referrer;
+      if (!target || target.match(window.location.href)) target = '/';
+      window.location.replace(target);
+    }
+    window.back = back;
+  </script>
+</head>
+
+<body x-cloak x-data="user">
+  <header class="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">
+  <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Globální navigace">
+    <div class="flex lg:flex-1">
+      <a href="/" class="-m-1.5 p-1.5">
+        <span class="sr-only">Dialektika</span>
+        <div class="logo w-8 h-8 bg-gray-900 dark:bg-gray-100"></div>
+      </a>
+    </div>
+    <div class="flex lg:hidden">
+      <button type="button"
+        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5  text-gray-700 dark:text-gray-100"
+        @click="user_showSidebar = true">
+        <span class="sr-only">Hlavní nabídka</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden lg:flex lg:gap-x-12">
+      <a href="/program">Program</a>
+      <a href="/stanovy">Stanovy</a>
+      <a href="/stanoviska">Přijatá stanoviska</a>
+      <a href="/blog">Blog</a>
+      <!-- for logged-in users -->
+      <a x-show="user_id" href="/aktivity">Aktivity</a>
+      <a x-show="user_id" href="/organizace">Organizace</a>
+      <a x-show="user_id" href="/lide">Lidé</a>
+      <a x-show="user_id" href="/ja">Já</a>
+    </div>
+    <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+      <a x-show="!user_id" href="/login" @click.prevent="window.location.replace($el.href)">Přihlášení <span
+          aria-hidden="true">&rarr;</span></a>
+      <a x-show="user_id" href="#" @click.prevent="logout">Odhlášení
+        <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </nav>
+  <!-- Mobile menu, show/hide based on menu open state. -->
+  <div x-show="user_showSidebar" class="lg:hidden" role="dialog" aria-modal="true">
+    <!-- Background backdrop, show/hide based on slide-over state. -->
+    <div class="fixed inset-0 z-10" @click="user_showSidebar = false"></div>
+    <div focus="true"
+      class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 dark:sm:ring-gray-100/10 scrollbar-hide ">
+      <div class="flex items-center justify-between">
+        <a href="/" class="-m-1.5 p-1.5 visible sm:invisible">
+          <span class="sr-only">Dialektika</span>
+          <div class="logo w-8 h-8 bg-gray-900 dark:bg-gray-100"></div>
+        </a>
+        <button type="button" class="-m-2.5 rounded-md p-2.5" @click="user_showSidebar = false">
+          <span class="sr-only">Zavřít nabídku</span>
+          <svg class="h-6 w-6 text-gray-700 dark:text-gray-100" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="mt-6 flow-root">
+        <div class="-my-6 divide-y divide-gray-500/10 dark:divide-gray-300/10">
+          <div class="space-y-2 py-6">
+            <a href="/program"
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Program</a>
+            <a href="/stanovy"
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Stanovy</a>
+            <a href="/stanoviska"
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Přijatá
+              stanoviska</a>
+            <a href="/blog"
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Blog</a>
+          </div>
+          <!-- for logged-in users -->
+          <div x-show="user_id" class="space-y-2 py-6">
+            <a href="/aktivity"
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Aktivity</a>
+            <a href="/organizace"
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Organizace</a>
+            <a href="/lide"
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Lidé</a>
+            <a href="/ja"
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Já</a>
+          </div>
+          <div class="py-6">
+            <a x-show="!user_id" href="/login" @click.prevent="window.location.replace($el.href)"
+              class="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Přihlášení</a>
+            <a x-show="user_id" @click.prevent="logout"
+              class="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700">Odhlášení</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header><main>
+  <h1 id="stanovy">Stanovy</h1>
+
+</main><footer>
+  <!-- ShareThis BEGIN -->
+  <div class="sharethis-inline-share-buttons grow"></div>
+  <!-- ShareThis END -->
+  <a href="/gdpr">Ochrana osobních údajů</a>
+</footer>
+  <script src="/assets/js/app.js"></script>
+</body>
+
+</html>
