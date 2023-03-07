@@ -277,8 +277,8 @@
   </div>
 
   <!-- detail -->
-  <div x-show="state === 'detail'" @keyup.escape.window="hideDetail()" @keydown.enter.stop="next"
-    @keyup.ctrl.enter.stop="next">
+  <div x-show="state === 'detail'" @keyup.escape.window="hideDetail()" @keydown.enter.stop.prevent="next"
+    @keyup.ctrl.enter.stop.prevent="next">
     <button class="primary" @click="hideDetail()">&lt;&lt; Zpět</button>
     <h2 class="mt-4">
       <span x-show="selectedItem.state === 'closed'">Uzavřené hlasování</span>
@@ -311,7 +311,7 @@
         <textarea rows=10 id="description" style="resize: none" x-show="!preview"
           :class="{'input': true, 'error': errors.descriptionError, 'hidescrollbar': true}"
           x-model="selectedItem.description" @input="selectedItem.description = $el.value"
-          @keydown.enter.stop="() => {}" @blur="validate($el.id)"></textarea>
+          @keydown.enter.stop.prevent="() => {}" @blur="validate($el.id)"></textarea>
         <div class="error-text" x-text="errors.descriptionError"></div>
         <div class="border rounded-lg shadow-md px-8 py-0" x-html="utils.convertMD(selectedItem?.description || '')"
           x-show="preview"></div>
