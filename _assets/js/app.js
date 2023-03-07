@@ -47,7 +47,7 @@ Alpine.data('user', () => ({
   }, */
   async init() {
     try {
-      awaut pb.collection('users').authRefresh();
+      await pb.collection('users').authRefresh();
     } catch (e) {
       pb.authStore.clear();
     }
