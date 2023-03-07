@@ -2,6 +2,8 @@ import Alpine from 'alpinejs';
 import PocketBase from 'pocketbase';
 import focus from '@alpinejs/focus';
 import _ from 'lodash';
+import * as DOMPurify from 'dompurify';
+import { marked } from 'marked';
 import {
   required, validEmail, minLength, maxLength, equalStrings,
 } from './validators';
@@ -462,7 +464,9 @@ Alpine.data('aktivity', () => ({
     let functor = null;
     switch (this.selectedItem.state) {
       case 'new':
-        last = 'description';
+        last = document.getElementById('description').style.display === 'none'
+          ? 'subject'
+          : 'description';
         functor = this.doCreateTopic;
         break;
       default:
@@ -470,14 +474,15 @@ Alpine.data('aktivity', () => ({
     }
     if (last === id) {
       if (!this.disabled && functor) functor.apply(this);
+    } else if (id === 'subject') {
+      this.$focus.focus(document.getElementById('description'));
     } else {
       this.$focus.next();
     }
   },
   focusFirstError() {
     let first = null;
-    if (this.errors.subjectError) { first = 'subject'; }
-    if (this.errors.descriptionError) { first = 'description'; }
+    if (this.errors.subjectError) { first = 'subject'; } else if (this.errors.descriptionError) { first = 'description'; }
     /* else if (this.emailError) { first = 'email'; }
     else if (this.passwordError) { first = 'password'; }
     else if (this.password2Error) { first = 'password2'; } */
@@ -511,6 +516,9 @@ Alpine.data('aktivity', () => ({
       this.focusFirstError();
       this.disabled = false;
     }
+  },
+  convertMD(s) {
+    return DOMPurify.sanitize(marked.parse(s));
   },
 }));
 
