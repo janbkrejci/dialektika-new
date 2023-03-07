@@ -419,6 +419,7 @@ Alpine.data('aktivity', () => ({
     orig.voters = await this.voters();
     orig.state = 'new';
     orig.created = new Date();
+    orig.author = this.user_id;
     this.selectedItem = orig;
     this.lastState = this.state;
     this.switchState('detail');
