@@ -54,34 +54,35 @@
     <!-- form -->
     <form class="space-y-4" action="" method="POST" novalidate @submit.prevent="">
       <!-- results -->
-      <div x-show="resetSuccess" class="alert success p-2 text-sm" x-text="resetSuccess">
+      <div x-show="errors.resetSuccess" class="alert success p-2 text-sm" x-text="errors.resetSuccess">
       </div>
-      <div x-show="loginError" class="alert error p-2 text-sm" x-text="loginError"></div>
-      <div x-show="registrationError" class="alert error p-2 text-sm" x-text="registrationError"></div>
-      <div x-show="resetError" class="alert error p-2 text-sm" x-text="resetError"></div>
+      <div x-show="errors.loginError" class="alert error p-2 text-sm" x-text="errors.loginError"></div>
+      <div x-show="errors.registrationError" class="alert error p-2 text-sm" x-text="errors.registrationError"></div>
+      <div x-show="errors.resetError" class="alert error p-2 text-sm" x-text="errors.resetError"></div>
       <!-- inputs -->
       <div x-show="form != 'reset'">
         <label for="alias">Uživatel *</label>
-        <input id="alias" :class="{'input': true, 'error': aliasError}" type="text" x-model="alias"
-          @input="alias = $el.value">
-        <div class="error-text" x-text="aliasError"></div>
+        <input id="alias" :class="{'input': true, 'error': errors.aliasError}" type="text" x-model="fields.alias"
+          @input="fields.alias = $el.value">
+        <div class="error-text" x-text="errors.aliasError"></div>
       </div>
       <div x-show="form != 'login'">
         <label for="email">E-mail *</label>
-        <input id="email" :class="{'input': true, 'error': emailError}" type="text" x-model="email"
-          :disabled="form == 'login'">
-        <div class="error-text" x-text="emailError"></div>
+        <input id="email" :class="{'input': true, 'error': errors.emailError}" type="text" x-model="fields.email"
+          :disabled="form == 'login'" @input="fields.email = $el.value">
+        <div class="error-text" x-text="errors.emailError"></div>
       </div>
       <div x-show="form != 'reset'">
         <label for="password">Heslo *</label>
-        <input id="password" :class="{'input': true, 'error': passwordError}" type="password" x-model="password"
-          @input="password = $el.value" />
-        <div class="error-text" x-text="passwordError"></div>
+        <input id="password" :class="{'input': true, 'error': errors.passwordError}" type="password"
+          x-model="fields.password" @input="fields.password = $el.value" />
+        <div class="error-text" x-text="errors.passwordError"></div>
       </div>
       <div x-show="form == 'register'">
         <label for="password2">Heslo podruhé *</label>
-        <input id="password2" :class="{'input': true, 'error': password2Error}" type="password" x-model="password2">
-        <div class="error-text" x-text="password2Error"></div>
+        <input id="password2" :class="{'input': true, 'error': errors.password2Error}" type="password"
+          x-model="fields.password2" @input="fields.password2 = $el.value">
+        <div class="error-text" x-text="errors.password2Error"></div>
       </div>
       <!-- submit buttons -->
       <div class="flex items-center justify-between">
