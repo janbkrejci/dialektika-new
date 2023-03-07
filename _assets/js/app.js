@@ -63,8 +63,8 @@ Alpine.data('login', () => ({
     this.reset();
     this.form = mode;
     this.$nextTick(() => {
-    if (mode !== 'reset') document.getElementById('alias').focus();
-    else document.getElementById('email').focus();
+      if (mode !== 'reset') document.getElementById('alias').focus();
+      else document.getElementById('email').focus();
     });
   },
   validate(id = null) {
@@ -282,12 +282,11 @@ Alpine.data('passwordReset', () => ({
         this.errors.resetSuccess = 'Heslo bylo změněno';
         this.disabled = false;
         this.$focus.first();
-        this.logout()
+        this.logout();
       } catch (err) {
-        console.log(JSON.stringify(err))
         this.errors.resetError = 'Heslo se nepodařilo změnit';
         if (err.response.data.token) {
-          this.errors.resetError = "Použitý odkaz je neplatný nebo starý"
+          this.errors.resetError = 'Použitý odkaz je neplatný nebo starý';
         }
         this.disabled = false;
         this.$focus.first();
