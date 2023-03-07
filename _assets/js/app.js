@@ -45,9 +45,9 @@ Alpine.data('user', () => ({
     this.init();
     // console.log("ref", this, localStorage.getItem('pocketbase_auth'))
   }, */
-  async init() {
+  init() {
     try {
-      await pb.collection('users').authRefresh();
+      pb.collection('users').authRefresh();
     } catch (e) {
       pb.authStore.clear();
     }
