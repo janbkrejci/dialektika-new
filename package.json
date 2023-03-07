@@ -10,11 +10,12 @@
         "format": "npm run lint -- --fix",
         "postinstall": "bundle config set --local path 'vendor/bundle'; bundle install --jobs=4 --retry=3"
     },
-  "dependencies": {
-        "alpinejs": "^3.2.3",
+    "dependencies": {
         "@alpinejs/focus": "^3.11.1",
+        "alpinejs": "^3.2.3",
+        "lodash": "^4.17.21",
         "pocketbase": "^0.12.0"
-  },
+    },
     "devDependencies": {
         "@symfony/webpack-encore": "^4.2.0",
         "@tailwindcss/forms": "^0.5.3",

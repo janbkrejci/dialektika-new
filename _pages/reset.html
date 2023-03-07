@@ -2,7 +2,7 @@
 permalink: /reset
 layout: dialogue
 ---
-<div @keyup.escape.window="back()" x-data="reset" @keydown.enter.prevent="next"
+<div @keyup.escape.window="back()" x-data="passwordReset" @keydown.enter.prevent="next"
   class="w-80 bg-white dark:bg-gray-800 rounded-lg shadow border dark:border-gray-700" sm:max-w-md>
   <div class="p-6 space-y-4">
     <!-- title -->
@@ -12,29 +12,30 @@ layout: dialogue
     <!-- form -->
     <form class="space-y-4" action="" method="POST" novalidate @submit.prevent="">
       <!-- results -->
-      <div x-show="resetSuccess" class="alert success p-2 text-sm" x-text="resetSuccess">
+      <div x-show="errors.resetSuccess" class="alert success p-2 text-sm" x-text="errors.resetSuccess">
       </div>
-      <div x-show="resetError" class="alert error p-2 text-sm" x-text="resetError"></div>
+      <div x-show="errors.resetError" class="alert error p-2 text-sm" x-text="errors.resetError"></div>
       <!-- inputs -->
       <div>
         <label for="password">Heslo *</label>
-        <input id="password" :class="{'input': true, 'error': passwordError}" type="password" x-model="password"
-          @input="password = $el.value" :disabled="disabled || resetSuccess" />
-        <div class="error-text" x-text="passwordError"></div>
+        <input id="password" :class="{'input': true, 'error': errors.passwordError}" type="password"
+          x-model="fields.password" @input="fields.password = $el.value"
+          :disabled="disabled || !!errors.resetSuccess" />
+        <div class="error-text" x-text="errors.passwordError"></div>
       </div>
       <div>
         <label for="password2">Heslo podruhé *</label>
-        <input id="password2" :class="{'input': true, 'error': password2Error}" type="password" x-model="password2"
-          :disabled="disabled || resetSuccess">
-        <div class="error-text" x-text="password2Error"></div>
+        <input id="password2" :class="{'input': true, 'error': errors.password2Error}" type="password"
+          x-model="fields.password2" :disabled="disabled || !!errors.resetSuccess">
+        <div class="error-text" x-text="errors.password2Error"></div>
       </div>
 
-      <button class="primary w-full" x-show="!resetSuccess" :disabled="disabled" @click="doReset">
+      <button class="primary w-full" x-show="!errors.resetSuccess" :disabled="disabled" @click="doReset">
         Resetovat heslo
       </button>
-      <button class="primary w-full" x-show="resetSuccess" :disabled="disabled"
-        @click="window.location.replace('/login');">
-        Přihlásit se
+      <button class="primary w-full" x-show="errors.resetSuccess" :disabled="disabled"
+        @click="window.location.replace('/');">
+        Na hlavní stránku
       </button>
 
     </form>

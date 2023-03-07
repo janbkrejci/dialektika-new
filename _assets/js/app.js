@@ -1,6 +1,7 @@
 import Alpine from 'alpinejs';
 import PocketBase from 'pocketbase';
 import focus from '@alpinejs/focus';
+import _ from 'lodash';
 import {
   required, validEmail, minLength, maxLength, equalStrings,
 } from './validators';
@@ -35,12 +36,12 @@ Alpine.data('user', () => ({
         this.user_model.id}/${this.user_model.avatar}`
       : null;
   },
-  async user_refresh() {
+  /* async user_refresh() {
     // TODO make user_name reactive?
     await pb.collection('users').authRefresh();
     this.init();
     // console.log("ref", this, localStorage.getItem('pocketbase_auth'))
-  },
+  }, */
   init() {
     this.user_model = (JSON.parse(localStorage.getItem('pocketbase_auth')))?.model;
   },
@@ -52,63 +53,38 @@ Alpine.data('user', () => ({
 
 Alpine.data('login', () => ({
   form: 'login',
-  loginError: null,
-  registrationError: null,
-  resetSuccess: null,
-  resetError: null,
-  alias: null,
-  password: null,
-  password2: null,
-  firstName: null,
-  surname: null,
-  email: null,
-  aliasError: null,
-  passwordError: null,
-  password2Error: null,
-  firstNameError: null,
-  surnameError: null,
-  emailError: null,
+  errors: {},
+  fields: {},
   disabled: false,
   reset() {
-    this.loginError = null;
-    this.registrationError = null;
-    this.resetSuccess = null;
-    this.aliasError = null;
-    this.passwordError = null;
-    this.password2Error = null;
-    this.firstNameError = null;
-    this.surnameError = null;
-    this.emailError = null;
-    this.birthDateError = null;
-    this.occupationError = null;
-    this.districtError = null;
+    this.errors = {};
   },
   switchForm(mode) {
     this.reset();
     this.form = mode;
     this.$nextTick(() => {
-      if (mode !== 'reset') document.getElementById('alias').focus();
-      else document.getElementById('email').focus();
+    if (mode !== 'reset') document.getElementById('alias').focus();
+    else document.getElementById('email').focus();
     });
   },
   validate(id = null) {
     if (id) {
       switch (id) {
         case 'alias':
-          this.aliasError = required(this.alias)
-            || minLength(this.alias, 3, 'Minimální délka jsou 3 znaky');
+          this.errors.aliasError = required(this.fields.alias)
+            || minLength(this.fields.alias, 3, 'Minimální délka jsou 3 znaky');
           break;
         case 'password':
-          this.passwordError = required(this.password)
-            || minLength(this.password, 6, 'Minimální délka hesla je 6 znaků')
-            || maxLength(this.password, 72, 'Maximální délka hesla je 72 znaků');
+          this.errors.passwordError = required(this.fields.password)
+            || minLength(this.fields.password, 6, 'Minimální délka hesla je 6 znaků')
+            || maxLength(this.fields.password, 72, 'Maximální délka hesla je 72 znaků');
           break;
         case 'password2':
-          this.password2Error = required(this.password2)
-            || equalStrings(this.password, this.password2, 'Hesla se neshodují');
+          this.errors.password2Error = required(this.fields.password2)
+            || equalStrings(this.fields.password, this.fields.password2, 'Hesla se neshodují');
           break;
         case 'email':
-          this.emailError = required(this.email) || validEmail(this.email);
+          this.errors.emailError = required(this.fields.email) || validEmail(this.fields.email);
           break;
         default:
           break;
@@ -133,7 +109,7 @@ Alpine.data('login', () => ({
           break;
       }
     }
-    return !(this.aliasError || this.emailError || this.passwordError || this.password2Error);
+    return _.isEmpty(_.omitBy(this.errors, _.isNil));
   },
   init() {
     this.$focus.first();
@@ -166,20 +142,23 @@ Alpine.data('login', () => ({
   },
   focusFirstError() {
     let first = null;
-    if (this.aliasError) { first = 'alias'; } else if (this.emailError) { first = 'email'; } else if (this.passwordError) { first = 'password'; } else if (this.password2Error) { first = 'password2'; }
+    if (this.errors.aliasError) { first = 'alias'; } else if (this.errors.emailError) { first = 'email'; } else if (this.errors.passwordError) { first = 'password'; } else if (this.errors.password2Error) { first = 'password2'; }
     if (first) {
       this.$focus.focus(document.getElementById(first));
+    } else {
+      this.$focus.first();
     }
   },
   async doLogin() {
     this.disabled = true;
     if (this.validate()) {
       try {
-        await pb.collection('users').authWithPassword(this.alias, this.password);
+        await pb.collection('users').authWithPassword(this.fields.alias, this.fields.password);
         window.location.replace(document.referrer);
       } catch (err) {
-        this.loginError = 'Neúspěšný pokus o přihlášení';
+        this.errors.loginError = 'Neúspěšný pokus o přihlášení';
         this.disabled = false;
+        this.$focus.first();
       }
     } else {
       this.focusFirstError();
@@ -190,12 +169,14 @@ Alpine.data('login', () => ({
     this.disabled = true;
     if (this.validate()) {
       try {
-        await pb.collection('users').requestPasswordReset(this.email);
-        this.resetSuccess = 'Odeslali jsme Vám odkaz pro reset hesla, podívejte se do e-mailu (a do nevyžádané pošty, pokud tam naše zpráva spadla).';
+        await pb.collection('users').requestPasswordReset(this.fields.email);
+        this.errors.resetSuccess = 'Odeslali jsme Vám odkaz pro reset hesla, podívejte se do e-mailu (a do nevyžádané pošty, pokud tam naše zpráva spadla).';
         this.disabled = false;
+        this.$focus.first();
       } catch (err) {
-        this.resetError = 'Něco se nepovedlo';
+        this.errors.resetError = 'Něco se nepovedlo';
         this.disabled = false;
+        this.$focus.first();
       }
     } else {
       this.focusFirstError();
@@ -207,25 +188,26 @@ Alpine.data('login', () => ({
     if (this.validate()) {
       try {
         await pb.collection('users').create({
-          username: this.alias,
-          email: this.email,
-          password: this.password,
-          passwordConfirm: this.password2,
+          username: this.fields.alias,
+          email: this.fields.email,
+          password: this.fields.password,
+          passwordConfirm: this.fields.password2,
         });
-        await pb.collection('users').authWithPassword(this.alias, this.password);
+        await pb.collection('users').authWithPassword(this.fields.alias, this.fields.password);
         window.location.replace(document.referrer);
       } catch (err) {
-        this.registrationError = 'Neúspěšná registrace';
+        this.errors.registrationError = 'Neúspěšná registrace';
         if (err.data.data.email) {
-          this.emailError = 'Neplatný nebo obsazený e-mail';
+          this.errors.emailError = 'Neplatný nebo obsazený e-mail';
         }
         if (err.data.data.username) {
-          this.aliasError = 'Neplatný nebo obsazený uživatel';
+          this.errors.aliasError = 'Neplatný nebo obsazený uživatel';
         }
         if (err.data.data.password) {
-          this.passwordError = 'Neplatné heslo';
+          this.errors.passwordError = 'Neplatné heslo';
         }
         this.disabled = false;
+        this.focusFirstError();
       }
     } else {
       this.focusFirstError();
@@ -234,33 +216,25 @@ Alpine.data('login', () => ({
   },
 }));
 
-Alpine.data('reset', () => ({
-  resetSuccess: null,
-  resetError: null,
-  passwordError: null,
-  password2Error: null,
-  password: null,
-  password2: null,
-  token: null,
+Alpine.data('passwordReset', () => ({
+  errors: {},
+  fields: {},
   disabled: false,
   reset() {
-    this.resetError = null;
-    this.resetSuccess = null;
-    this.passwordError = null;
-    this.password2Error = null;
+    this.errors = {};
   },
   validate(id = null) {
     if (id) {
       switch (id) {
         case 'password':
-          this.passwordError = required(this.password)
-            || minLength(this.password, 6, 'Minimální délka hesla je 6 znaků')
-            || maxLength(this.password, 72, 'Maximální délka hesla je 72 znaků');
-          return !this.passwordError;
+          this.errors.passwordError = required(this.fields.password)
+            || minLength(this.fields.password, 6, 'Minimální délka hesla je 6 znaků')
+            || maxLength(this.fields.password, 72, 'Maximální délka hesla je 72 znaků');
+          break;
         case 'password2':
-          this.password2Error = required(this.password2)
-            || equalStrings(this.password, this.password2, 'Hesla se neshodují');
-          return !this.password2Error;
+          this.errors.password2Error = required(this.fields.password2)
+            || equalStrings(this.fields.password, this.fields.password2, 'Hesla se neshodují');
+          break;
         default:
           break;
       }
@@ -268,13 +242,12 @@ Alpine.data('reset', () => ({
       this.reset();
       this.validate('password');
       this.validate('password2');
-      return !(this.passwordError || this.password2Error);
     }
-    return false;
+    return _.isEmpty(_.omitBy(this.errors, _.isNil));
   },
   init() {
-    this.token = window.location.hash.substring(1);
-    if (this.token === '') {
+    this.fields.token = window.location.hash.substring(1);
+    if (this.fields.token === '') {
       window.back();
     }
     this.$focus.first();
@@ -288,26 +261,34 @@ Alpine.data('reset', () => ({
       if (!this.disabled) {
         this.doReset();
       }
+    } else {
+      this.$focus.next();
     }
-    this.$focus.next();
   },
   focusFirstError() {
     let first = null;
-    if (this.passwordError) { first = 'password'; }
-    if (this.password2Error) { first = 'password2'; }
+    if (this.errors.passwordError) { first = 'password'; } else if (this.errors.password2Error) { first = 'password2'; }
     if (first) {
       this.$focus.focus(document.getElementById(first));
+    } else {
+      this.$focus.first();
     }
   },
   async doReset() {
     this.disabled = true;
     if (this.validate()) {
       try {
-        await pb.collection('users').confirmPasswordReset(this.token, this.password, this.password2);
-        this.resetSuccess = 'Heslo bylo změněno';
+        await pb.collection('users').confirmPasswordReset(this.fields.token, this.fields.password, this.fields.password2);
+        this.errors.resetSuccess = 'Heslo bylo změněno';
         this.disabled = false;
+        this.$focus.first();
+        this.logout()
       } catch (err) {
-        this.resetError = 'Heslo se nepodařilo změnit';
+        console.log(JSON.stringify(err))
+        this.errors.resetError = 'Heslo se nepodařilo změnit';
+        if (err.response.data.token) {
+          this.errors.resetError = "Použitý odkaz je neplatný nebo starý"
+        }
         this.disabled = false;
         this.$focus.first();
       }
