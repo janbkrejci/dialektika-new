@@ -2,11 +2,12 @@ import Alpine from 'alpinejs';
 import PocketBase from 'pocketbase';
 import focus from '@alpinejs/focus';
 import _ from 'lodash';
-import * as DOMPurify from 'dompurify';
-import { marked } from 'marked';
 import {
   required, validEmail, minLength, maxLength, equalStrings,
 } from './validators';
+import utils from './utils';
+
+window.utils = utils;
 
 Alpine.plugin(focus);
 
@@ -45,6 +46,11 @@ Alpine.data('user', () => ({
     // console.log("ref", this, localStorage.getItem('pocketbase_auth'))
   }, */
   init() {
+    try {
+      pb.collection('users').authRefresh();
+    } catch (e) {
+      pb.authStore.clear();
+    }
     this.user_model = (JSON.parse(localStorage.getItem('pocketbase_auth')))?.model;
   },
   logout() {
@@ -307,45 +313,68 @@ Alpine.data('aktivity', () => ({
   selectedItem: {},
   errors: {},
   items: {
-    H0: { id: 'H0', state: 'closed', subject: 'H0' },
-    H1: { id: 'H1', state: 'closed', subject: 'H1' },
-    H2: { id: 'H2', state: 'voting', subject: 'H2' },
+    H0: {
+      id: 'H0', state: 'closed', subject: 'H0', created: new Date(),
+    },
+    H1: {
+      id: 'H1', state: 'closed', subject: 'H1', created: new Date(),
+    },
+    H2: {
+      id: 'H2', state: 'voting', subject: 'H2', created: new Date(),
+    },
     H3: {
       id: 'H3',
       state: 'suggested',
       subject: 'H3',
-      description: 'test H3',
-      preselectors: ['kyqfosmd2ld162c'],
+      created: new Date(),
+      description: 'houba\n\n# test H3\n\nahoj',
+      voters: ['kyqfosmd2ld162c', 'test'],
       preselections: {
         // kyqfosmd2ld162c: false,
+        test: {
+          preselection: false,
+          preselectionActive: true,
+          preselectionDate: new Date(),
+        },
       },
     },
     H4: {
       id: 'H4',
       state: 'elaborating',
       subject: 'H4',
-      description: 'test H3',
-      preselectors: ['kyqfosmd2ld162c'],
+      created: new Date(),
+      description: '# test H4\nahoj',
+      voters: ['kyqfosmd2ld162c'],
       preselections: {
         // kyqfosmd2ld162c: false,
       },
     },
-    H5: { id: 'H5', state: 'rejected', subject: 'H5' },
-    H6: { id: 'H6', state: 'rejected', subject: 'H6' },
+    H5: {
+      id: 'H5', state: 'rejected', subject: 'H5', created: new Date(),
+    },
+    H6: {
+      id: 'H6', state: 'rejected', subject: 'H6', created: new Date(),
+    },
   },
+  disabled: false,
   suggestedItems() {
     return Object.values(this.items).filter((i) => i.state === 'suggested'
-        && [...(i.preselectors || [])].includes(this.user_id)
+        && [...(i.voters || [])].includes(this.user_id)
         && !(Object.keys(i.preselections || {})).includes(this.user_id));
   },
   elaboratingItems() {
     return Object.values(this.items).filter((i) => i.state === 'elaborating'
-        && [...(i.preselectors || [])].includes(this.user_id)
-        && !(Object.keys(i.preselections || {})).includes(this.user_id));
+        && [...(i.voters || [])].includes(this.user_id)
+        && (Object.keys(i.preselections || {})).includes(this.user_id));
   },
-  preselectors() {
+  rejectedItems() {
+    return Object.values(this.items).filter((i) => i.state === 'rejected'
+        && [...(i.voters || [])].includes(this.user_id));
+  },
+  async voters() {
     // TODO from users collection and scope
-    return [this.user_id];
+    const users = await pb.collection('users').getFullList();
+    return _.map(users, (u) => u.id);
   },
   switchState(s) {
     this.reset();
@@ -373,35 +402,56 @@ Alpine.data('aktivity', () => ({
     this.$focus.focus(this.firstInput());
   },
   hideDetail() {
+    if (!this.lastState) return;
     this.switchState(this.lastState);
     this.lastState = null;
-    this.selectedID = null;
-    this.selectedItem = {};
+    // this.selectedID = null;
+    // this.selectedItem = {};
   },
-  reOpen(id) {
+  async reOpen(id) {
     this.selectedID = null;
     const orig = { ...this.items[id] };
     delete orig.id;
-    delete orig.created;
+    orig.id = Math.floor(Math.random(100000));
     delete orig.updated;
     delete orig.preselections;
+    delete orig.preselectionClosed;
+    orig.voters = await this.voters();
     orig.state = 'new';
+    orig.created = new Date();
     this.selectedItem = orig;
     this.lastState = this.state;
     this.switchState('detail');
+    this.lastState = 'hlasovani';
     this.$focus.focus(this.firstInput());
   },
   vote(id, value) {
+    this.disabled = true;
     const item = this.items[id];
     if (item.state === 'suggested') {
-      if ((item.preselectors || []).includes(this.user_id)) {
+      if ((item.voters || []).includes(this.user_id)) {
         if (!item.preselections) {
           item.preselections = {};
         }
         if (!item.preselections[this.user_id]) {
-          item.preselections[this.user_id] = value;
-          // TODO item.save
+          item.preselections[this.user_id] = {
+            preselection: value,
+            preselectionActive: true,
+            preselectionDate: new Date(),
+          };
           // TODO close if last
+          const keys = Object.keys(item.preselections);
+          if (keys.length === item.voters.length) {
+            // TODO updating reactive items, do it better with DB
+            let positive = 0;
+            let negative = 0;
+            keys.forEach((key) => {
+              if (item.preselections[key]?.preselection) { positive += 1; } else { negative += 1; }
+            });
+            const st = negative > positive ? 'rejected' : 'elaborating';
+            this.items[item.id] = { ...item, state: st, preselectionClosed: new Date() };
+          }
+          // TODO item.save to DB
         }
       }
     } else if (item.state === 'voting') {
@@ -416,6 +466,8 @@ Alpine.data('aktivity', () => ({
         }
       }
     }
+    this.disabled = false;
+    this.hideDetail();
   },
   reset() {
     this.errors = {};
@@ -492,6 +544,7 @@ Alpine.data('aktivity', () => ({
   },
   async doCreateTopic() {
     this.disabled = true;
+    this.hideDetail();
     if (this.validate()) {
       try {
         // TODO delete when saving to DB
@@ -501,24 +554,22 @@ Alpine.data('aktivity', () => ({
         this.selectedItem.created = created;
 
         this.selectedItem.state = 'suggested';
-        this.selectedItem.preselectors = this.preselectors();
+        this.selectedItem.voters = await this.voters();
+        this.selectedItem.author = this.user_id;
 
         // TODO delete when saving to DB
         this.items[newId] = { id: newId, ...this.selectedItem };
         // await pb.collection('votes').create(this.selectedItem);
-
-        this.hideDetail();
       } catch (err) {
         this.errors.submitError = JSON.stringify(err, 2, null);
+      } finally {
         this.disabled = false;
+        this.hideDetail();
       }
     } else {
       this.focusFirstError();
       this.disabled = false;
     }
-  },
-  convertMD(s) {
-    return DOMPurify.sanitize(marked.parse(s));
   },
 }));
 
