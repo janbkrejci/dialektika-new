@@ -15,6 +15,7 @@ window.Alpine = Alpine;
 
 const BACKEND_SERVER = 'https://dialektika-server.janbkrejci.repl.co';
 const pb = new PocketBase(BACKEND_SERVER);
+pb.autoCancellation(false);
 
 // TODO delete later
 window.pb = pb;
@@ -46,12 +47,16 @@ Alpine.data('user', () => ({
     // console.log("ref", this, localStorage.getItem('pocketbase_auth'))
   }, */
   init() {
+    // console.log("authstore isvalid", pb.authStore.isValid);
+    // console.log("", pb.authStore.token);
+    // console.log(pb.authStore.model.id);
     try {
       pb.collection('users').authRefresh();
     } catch (e) {
       pb.authStore.clear();
     }
-    this.user_model = (JSON.parse(localStorage.getItem('pocketbase_auth')))?.model;
+    // this.user_model = (JSON.parse(localStorage.getItem('pocketbase_auth')))?.model;
+    this.user_model = pb.authStore.model;
   },
   logout() {
     pb.authStore.clear();
@@ -397,6 +402,7 @@ Alpine.data('aktivity', () => ({
   showDetail(id) {
     this.selectedID = id;
     this.selectedItem = this.items[id] || { state: 'new' };
+    // console.log('selected item', this.selectedItem);
     this.lastState = this.state;
     this.switchState('detail');
     this.$focus.focus(this.firstInput());
@@ -418,8 +424,6 @@ Alpine.data('aktivity', () => ({
     delete orig.preselectionClosed;
     orig.voters = await this.voters();
     orig.state = 'new';
-    orig.created = new Date();
-    orig.author = this.user_id;
     this.selectedItem = orig;
     this.lastState = this.state;
     this.switchState('detail');
