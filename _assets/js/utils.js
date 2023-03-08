@@ -19,6 +19,7 @@ export default {
     return DOMPurify.sanitize(marked.parse(s));
   },
   async userName(id) {
+    if (!id) return '...';
     try {
       const u = await window.pb.collection('users').getOne(id);
       const fullName = [u?.firstName, u?.lastName].join(' ').trim();

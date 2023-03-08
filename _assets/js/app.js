@@ -332,11 +332,12 @@ Alpine.data('aktivity', () => ({
       state: 'suggested',
       subject: 'H3',
       created: new Date(),
+      author: '8vtaf2cob3xndvf',
       description: 'houba\n\n# test H3\n\nahoj',
-      voters: ['kyqfosmd2ld162c', 'test'],
+      voters: ['kyqfosmd2ld162c', '8vtaf2cob3xndvf'],
       preselections: {
         // kyqfosmd2ld162c: false,
-        test: {
+        "8vtaf2cob3xndvf": {
           preselection: false,
           preselectionActive: true,
           preselectionDate: new Date(),
