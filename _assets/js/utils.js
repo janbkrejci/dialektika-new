@@ -8,7 +8,7 @@ export default {
     return (val ? ifTrue : ifFalse);
   },
   formatDate(val) {
-    return val ? val.toLocaleDateString() : '';
+    return val ? new Date(val).toLocaleDateString() : '';
   },
   addWeek(date) {
     const d = new Date(date || new Date());
@@ -18,15 +18,10 @@ export default {
   convertMD(s) {
     return DOMPurify.sanitize(marked.parse(s));
   },
-  async userName(id) {
+  userName(id) {
     if (!id) return '...';
-    try {
-      const u = await window.pb.collection('users').getOne(id);
-      const fullName = [u?.firstName, u?.lastName].join(' ').trim();
-      return fullName || u?.username;
-    } catch (e) {
-      // console.log('userName err', e);
-      return 'Anonym';
-    }
+    const u = _.find(this.collections.users, (usr) => usr.id === id);
+    const fullName = [u?.firstName, u?.lastName].join(' ').trim();
+    return fullName || u?.username || 'Anonym';
   },
 };

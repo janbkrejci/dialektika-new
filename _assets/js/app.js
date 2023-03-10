@@ -1,11 +1,11 @@
 import Alpine from 'alpinejs';
-import PocketBase from 'pocketbase';
 import focus from '@alpinejs/focus';
 import _ from 'lodash';
 import {
   required, validEmail, minLength, maxLength, equalStrings,
 } from './validators';
 import utils from './utils';
+import { pb, subscribe, BACKEND_SERVER } from './pocketbase';
 
 window.utils = utils;
 
@@ -13,17 +13,16 @@ Alpine.plugin(focus);
 
 window.Alpine = Alpine;
 
-const BACKEND_SERVER = 'https://dialektika-server.janbkrejci.repl.co';
-const pb = new PocketBase(BACKEND_SERVER);
-pb.autoCancellation(false);
-
-// TODO delete later
-window.pb = pb;
-
 Alpine.data('user', () => ({
   user_showMenu: false,
   user_showSidebar: false,
   user_model: null,
+  disabled: false,
+  collections: {},
+  errors: {},
+  reset() {
+    this.errors = {};
+  },
   get user_name() {
     const fullName = [this.user_model?.firstName, this.user_model?.lastName].join(' ').trim();
     return fullName || this.user_model?.username;
@@ -40,23 +39,24 @@ Alpine.data('user', () => ({
         this.user_model.id}/${this.user_model.avatar}`
       : null;
   },
-  /* async user_refresh() {
-    // TODO make user_name reactive?
-    await pb.collection('users').authRefresh();
-    this.init();
-    // console.log("ref", this, localStorage.getItem('pocketbase_auth'))
-  }, */
-  init() {
-    // console.log("authstore isvalid", pb.authStore.isValid);
-    // console.log("", pb.authStore.token);
-    // console.log(pb.authStore.model.id);
+  get sortedUsers() {
+    // return _.chain(this.collections.users).sortBy(['lastName', 'firstName']).value()
+    return _.chain(this.collections.users).sortBy('created').reverse().value();
+  },
+  async init() {
+    this.user_model = pb.authStore.model;
+    this.userName = utils.userName.bind(this);
+    this.subscribe = subscribe.bind(this);
+    this.subscribe('users');
     try {
-      pb.collection('users').authRefresh();
+      await pb.collection('users').authRefresh();
     } catch (e) {
       pb.authStore.clear();
     }
-    // this.user_model = (JSON.parse(localStorage.getItem('pocketbase_auth')))?.model;
-    this.user_model = pb.authStore.model;
+
+    this.userName = utils.userName.bind(this);
+    this.subscribe = subscribe.bind(this);
+    this.subscribe('users');
   },
   logout() {
     pb.authStore.clear();
@@ -66,12 +66,7 @@ Alpine.data('user', () => ({
 
 Alpine.data('login', () => ({
   form: 'login',
-  errors: {},
   fields: {},
-  disabled: false,
-  reset() {
-    this.errors = {};
-  },
   switchForm(mode) {
     this.reset();
     this.form = mode;
@@ -230,12 +225,7 @@ Alpine.data('login', () => ({
 }));
 
 Alpine.data('passwordReset', () => ({
-  errors: {},
   fields: {},
-  disabled: false,
-  reset() {
-    this.errors = {};
-  },
   validate(id = null) {
     if (id) {
       switch (id) {
@@ -312,79 +302,97 @@ Alpine.data('passwordReset', () => ({
 }));
 
 Alpine.data('aktivity', () => ({
-  state: 'hlasovani',
+  selectedItem: {},
+  state: null,
   lastState: null,
   selectedID: null,
-  selectedItem: {},
-  errors: {},
-  items: {
-    H0: {
-      id: 'H0', state: 'closed', subject: 'H0', created: new Date(),
-    },
-    H1: {
-      id: 'H1', state: 'closed', subject: 'H1', created: new Date(),
-    },
-    H2: {
-      id: 'H2', state: 'voting', subject: 'H2', created: new Date(),
-    },
-    H3: {
-      id: 'H3',
-      state: 'suggested',
-      subject: 'H3',
-      created: new Date(),
-      author: '8vtaf2cob3xndvf',
-      description: 'houba\n\n# test H3\n\nahoj',
-      voters: ['kyqfosmd2ld162c', '8vtaf2cob3xndvf'],
-      preselections: {
-        // kyqfosmd2ld162c: false,
-        "8vtaf2cob3xndvf": {
-          preselection: false,
-          preselectionActive: true,
-          preselectionDate: new Date(),
-        },
-      },
-    },
-    H4: {
-      id: 'H4',
-      state: 'elaborating',
-      subject: 'H4',
-      created: new Date(),
-      description: '# test H4\nahoj',
-      voters: ['kyqfosmd2ld162c'],
-      preselections: {
-        // kyqfosmd2ld162c: false,
-      },
-    },
-    H5: {
-      id: 'H5', state: 'rejected', subject: 'H5', created: new Date(),
-    },
-    H6: {
-      id: 'H6', state: 'rejected', subject: 'H6', created: new Date(),
-    },
+  async init() {
+    const s = new URLSearchParams(window.location.search);
+    this.selectedID = s.get('selectedID');
+    const action = s.get('action');
+
+    await this.subscribe('votings');
+    await this.subscribe('votes');
+    await this.subscribe('discussions');
+
+    if (this.selectedID) {
+      this.state = 'detail';
+      this.selectedItem = this.collections.votings.find((i) => i.id === this.selectedID) || {
+        state: 'new',
+      };
+      if (action === 'reopen') {
+        this.selectedID = null;
+        const orig = { ...this.selectedItem };
+        delete orig.id;
+        delete orig.updated;
+        delete orig.preselectionResult;
+        delete orig.preselectionClosed;
+        orig.state = 'new';
+        this.selectedItem = orig;
+        this.$focus.focus(this.firstInput());
+      }
+    } else {
+      this.state = s.get('state') || 'hlasovani';
+    }
+
+    this.$focus.focus(this.firstInput());
   },
-  disabled: false,
+  votersFor(voting) {
+    const { scope } = voting;
+    if (!scope) return [];
+    // TODO, to begin we accept every user for every voting
+    return _.map(this.collections.users, (u) => u.id);
+  },
+  votesFor(voting) {
+    const isVote = !voting.state === 'suggested';
+    const result = _.reject(
+      this.collections.votes,
+      (i) => (i.isVote !== isVote || i.voting !== voting.id),
+    );
+    return result;
+  },
+  positiveVotesFor(voting) {
+    return _.sumBy(this.votesFor(voting), (o) => (o.vote ? 1 : 0));
+  },
+  negativeVotesFor(voting) {
+    return _.sumBy(this.votesFor(voting), (o) => (o.vote ? 0 : 1));
+  },
+  voteOfFor(uid, voting) {
+    const isVote = !voting.state === 'suggested';
+    const functor = (i) => (i.isVote === isVote && i.voting === voting.id && i.user === uid);
+    const result = _.find(this.collections.votes, functor);
+    return result;
+  },
+  amIVoterFor(voting) {
+    return this.votersFor(voting).includes(this.user_id);
+  },
+  didIVoteFor(voting, finalVote) {
+    return !!_.find(
+      this.collections.votes || [],
+      (i) => i.user === this.user_id && i.isVote === finalVote && i.voting === voting.id,
+    );
+  },
   suggestedItems() {
-    return Object.values(this.items).filter((i) => i.state === 'suggested'
-        && [...(i.voters || [])].includes(this.user_id)
-        && !(Object.keys(i.preselections || {})).includes(this.user_id));
+    return Object.values(this.collections.votings || []).filter((i) => i.state === 'suggested'
+        && this.amIVoterFor(i)
+        && !this.didIVoteFor(i, false));
   },
   elaboratingItems() {
-    return Object.values(this.items).filter((i) => i.state === 'elaborating'
-        && [...(i.voters || [])].includes(this.user_id)
-        && (Object.keys(i.preselections || {})).includes(this.user_id));
+    return Object.values(this.collections.votings || {}).filter((i) => i.state === 'elaborating'
+        && this.amIVoterFor(i));
   },
   rejectedItems() {
-    return Object.values(this.items).filter((i) => i.state === 'rejected'
-        && [...(i.voters || [])].includes(this.user_id));
+    return _.chain(Object.values(this.collections.votings || {}).filter((i) => i.state === 'rejected'
+        && this.amIVoterFor(i))).sortBy("created").reverse().value();
   },
-  async voters() {
-    // TODO from users collection and scope
-    const users = await pb.collection('users').getFullList();
-    return _.map(users, (u) => u.id);
+  votingItems() {
+    return Object.values(this.collections.votings || {}).filter((i) => i.state === 'voting'
+        && this.amIVoterFor(i)
+        && !this.didIVoteFor(i, true));
   },
-  switchState(s) {
-    this.reset();
-    this.state = s;
+  closedItems() {
+    return Object.values(this.collections.votings || {}).filter((i) => i.state === 'closed'
+        && this.amIVoterFor(i));
   },
   firstInput() {
     function e(id) {
@@ -401,91 +409,66 @@ Alpine.data('aktivity', () => ({
     return result;
   },
   showDetail(id) {
-    this.selectedID = id;
-    this.selectedItem = this.items[id] || { state: 'new' };
-    // console.log('selected item', this.selectedItem);
-    this.lastState = this.state;
-    this.switchState('detail');
-    this.$focus.focus(this.firstInput());
+    const s = new URLSearchParams();
+    s.set('selectedID', id);
+    window.location.search = s.toString();
   },
   hideDetail() {
-    if (!this.lastState) return;
-    this.switchState(this.lastState);
-    this.lastState = null;
-    // this.selectedID = null;
-    // this.selectedItem = {};
+    window.history.back();
   },
   async reOpen(id) {
-    this.selectedID = null;
-    const orig = { ...this.items[id] };
-    delete orig.id;
-    orig.id = Math.floor(Math.random(100000));
-    delete orig.updated;
-    delete orig.preselections;
-    delete orig.preselectionClosed;
-    orig.voters = await this.voters();
-    orig.state = 'new';
-    this.selectedItem = orig;
-    this.lastState = this.state;
-    this.switchState('detail');
-    this.lastState = 'hlasovani';
-    this.$focus.focus(this.firstInput());
+    const s = new URLSearchParams();
+    s.set('selectedID', id);
+    s.set('action', 'reopen');
+    window.location.search = s.toString();
   },
-  vote(id, value) {
+  async vote(item, value) {
+    if (!item || _.isNil(value)) return;
     this.disabled = true;
-    const item = this.items[id];
-    if (item.state === 'suggested') {
-      if ((item.voters || []).includes(this.user_id)) {
-        if (!item.preselections) {
-          item.preselections = {};
+    const isVote = !item.state === 'suggested';
+    try {
+      await pb.collection('votes').create({
+        voting: item.id,
+        user: this.user_id,
+        isVote,
+        vote: value,
+        voteActive: true,
+      });
+      // check if this was a last vote
+      const votersCount = this.votersFor(item).length;
+      const votesCount = this.votesFor(item).length;
+      if (votesCount === votersCount) {
+        let result = false;
+        const updateObj = {};
+        if (item.state === 'suggested') {
+          result = this.positiveVotesFor(item) > this.negativeVotesFor(item);
+          updateObj.preselectionResult = result;
+          updateObj.state = result ? 'elaborating' : 'rejected';
+          updateObj.preselectionClosed = new Date();
+          updateObj.finalSubject = item.subject;
+          updateObj.finalDescription = item.description;
+        } else {
+          result = this.positiveVotesFor(item) >= this.negativeVotesFor(item);
+          updateObj.votingResult = result;
+          updateObj.state = 'closed';
+          updateObj.votingClosed = new Date();
         }
-        if (!item.preselections[this.user_id]) {
-          item.preselections[this.user_id] = {
-            preselection: value,
-            preselectionActive: true,
-            preselectionDate: new Date(),
-          };
-          // TODO close if last
-          const keys = Object.keys(item.preselections);
-          if (keys.length === item.voters.length) {
-            // TODO updating reactive items, do it better with DB
-            let positive = 0;
-            let negative = 0;
-            keys.forEach((key) => {
-              if (item.preselections[key]?.preselection) { positive += 1; } else { negative += 1; }
-            });
-            const st = negative > positive ? 'rejected' : 'elaborating';
-            this.items[item.id] = { ...item, state: st, preselectionClosed: new Date() };
-          }
-          // TODO item.save to DB
-        }
+        await pb.collection('votings').update(item.id, updateObj);
       }
-    } else if (item.state === 'voting') {
-      if ((item.voters || []).includes(this.user_id)) {
-        if (!item.votes) {
-          item.votes = {};
-        }
-        if (!item.votes[this.user_id]) {
-          item.votes[this.user_id] = value;
-          // TODO item.save
-          // TODO close if last
-        }
-      }
+    } catch (error) {
+      this.errors.submitError = 'Nepovedlo se...';
     }
     this.disabled = false;
-    this.hideDetail();
-  },
-  reset() {
-    this.errors = {};
+    if (this.selectedID) this.hideDetail();
   },
   validate(id = null) {
     if (id) {
       switch (id) {
         case 'subject':
-          this.errors.subjectError = required(this.selectedItem.subject);
+          this.errors.subjectError = required(this.selectedItem.subject?.trim());
           break;
         case 'description':
-          this.errors.descriptionError = required(this.selectedItem.description);
+          this.errors.descriptionError = required(this.selectedItem.description?.trim());
           break;
         /* case 'password':
           this.passwordError = required(this.password)
@@ -517,26 +500,25 @@ Alpine.data('aktivity', () => ({
     return !(this.errors.subjectError || this.errors.descriptionError);
   },
   next() {
-    const id = this.$focus.focused()?.id;
-    let last = null;
-    let functor = null;
+    const current = this.$focus.focused()?.id;
+    if (current) {
+      this.validate(current);
+    }
+    let nxt = null;
     switch (this.selectedItem.state) {
       case 'new':
-        last = document.getElementById('description').style.display === 'none'
-          ? 'subject'
-          : 'description';
-        functor = this.doCreateTopic;
+        switch (current) {
+          case 'subject':
+            nxt = 'description';
+            break;
+          default:
+            break;
+        }
         break;
       default:
         break;
     }
-    if (last === id) {
-      if (!this.disabled && functor) functor.apply(this);
-    } else if (id === 'subject') {
-      this.$focus.focus(document.getElementById('description'));
-    } else {
-      this.$focus.next();
-    }
+    if (nxt) this.$focus.focus(document.getElementById(nxt));
   },
   focusFirstError() {
     let first = null;
@@ -550,27 +532,18 @@ Alpine.data('aktivity', () => ({
   },
   async doCreateTopic() {
     this.disabled = true;
-    this.hideDetail();
     if (this.validate()) {
       try {
-        // TODO delete when saving to DB
-        const newId = Math.floor(Math.random() * 1000000);
-        const created = new Date();
-        this.selectedItem.id = newId;
-        this.selectedItem.created = created;
-
         this.selectedItem.state = 'suggested';
-        this.selectedItem.voters = await this.voters();
         this.selectedItem.author = this.user_id;
+        this.selectedItem.scope = 'bv6zy25qi4ijcv2'; // TODO let user select it
 
-        // TODO delete when saving to DB
-        this.items[newId] = { id: newId, ...this.selectedItem };
-        // await pb.collection('votes').create(this.selectedItem);
+        await pb.collection('votings').create(this.selectedItem);
+        sessionStorage.setItem('refresh', 'true');
       } catch (err) {
         this.errors.submitError = JSON.stringify(err, 2, null);
       } finally {
         this.disabled = false;
-        this.hideDetail();
       }
     } else {
       this.focusFirstError();

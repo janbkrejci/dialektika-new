@@ -53,6 +53,10 @@ footer {
   @apply bg-amber-200 dark:bg-amber-700;
 }
 
+.info {
+  @apply bg-blue-200 dark:bg-blue-700;
+}
+
 .error-text {
   @apply text-xs text-red-800 dark:text-red-500 mt-2;
 }

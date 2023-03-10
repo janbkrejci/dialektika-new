@@ -3,9 +3,9 @@ layout: page
 permalink: /aktivity
 ---
 <script>
-  // return back if already logged in
+  // return back if not logged in
   if (!localStorage.pocketbase_auth) {
-    back()
+    back();
   }
 </script>
 <div x-data="aktivity" x-show="user_id" x-effect="if (!user_id) back();">
@@ -13,18 +13,24 @@ permalink: /aktivity
 
   <!-- navigation -->
   <div class="flex grow justify-between">
-    <a href="" @click.prevent="switchState('hlasovani')">Hlasování</a>
-    <a href="" @click.prevent="switchState('vysledky')">Výsledky</a>
-    <a href="" @click.prevent="switchState('other')">Něco jiného...</a>
+    <a href="aktivity">Hlasování</a>
+    <a href="?state=vysledky" ">Výsledky</a>
   </div>
 
-  <div class="separator mt-8"></div>
+  <div class=" separator mt-8">
+  </div>
 
   <!-- results -->
   <div x-show="state === 'vysledky'">
-    <h2>Výsledky hlasování: TODO</h2>
+    <h2>Výsledky hlasování</h2>
 
-    <table class="table-auto">
+    <div x-show="!collections.votings" class="alert px-2 mb-8">
+      Nahrávám...
+    </div>
+    <div x-show="collections.votings && !closedItems().length" class="alert success px-2 mb-8">
+      V tuto chvíli zde žádná uzavřená témata nejsou.
+    </div>
+    <table class="table-auto" x-show="closedItems().length">
       <thead>
         <tr>
           <th>Odhlasováno</th>
@@ -33,26 +39,25 @@ permalink: /aktivity
         </tr>
       </thead>
       <tbody>
-        <tr id="H0" @click="showDetail($el.id)">
-          <td>31. 3. 2023</td>
-          <td>Úprava Stanov - zrušení čl. 2.2</td>
-          <td class="text-center">
-            <div class="btn success">Schváleno</div>
-          </td>
-        </tr>
-        <tr id="H1" @click="showDetail($el.id)">
-          <td>15. 3. 2023</td>
-          <td>Svolání mimořádné členské schůze</td>
-          <td class="text-center">
-            <div class="btn error">Zamítnuto</div>
-          </td>
-        </tr>
+        <template x-for="item in closedItems">
+          <tr :id="item.id" @click="showDetail(item.id)">
+            <td x-text="utils.formatDate(item.votingClosed)"></td>
+            <td x-text="item.finalSubject"></td>
+            <td>
+              <div x-show="item.votingResult" class="btn success">Schváleno</div>
+              <div x-show="!item.votingResult" class="btn error">Zamítnuto</div>
+            </td>
+          </tr>
+        </template>
       </tbody>
     </table>
 
-    <h2>Zamítnutá témata:</h2>
+    <h2>Zamítnutá témata</h2>
 
-    <div x-show="!rejectedItems().length" class="alert success px-2 mb-8">
+    <div x-show="!collections.votings" class="alert px-2 mb-8">
+      Nahrávám...
+    </div>
+    <div x-show="collections.votings && !rejectedItems().length" class="alert success px-2 mb-8">
       V tuto chvíli zde žádná zamítnutá témata nejsou.
     </div>
     <table x-show="rejectedItems().length">
@@ -80,32 +85,43 @@ permalink: /aktivity
 
   <!-- voting -->
   <div x-show="state === 'hlasovani'">
-    <h2>Moje hlasování TODO:</h2>
+    <h2>Moje hlasování</h2>
 
-    <table class="table-auto">
+    <div x-show="!collections.votings" class="alert px-2 mb-8">
+      Nahrávám...
+    </div>
+    <div x-show="collections.votings && !votingItems().length" class="alert success px-2 mb-8">
+      V tuto chvíli zde žádná hlasování nejsou.
+    </div>
+    <table x-show="votingItems().length">
       <thead>
         <tr>
           <th>Termín</th>
-          <th class="w-full">Návrh</th>
-          <th class="text-center">Hlasovat</th>
+          <th class="w-full">Předmět</th>
+          <th class="text-center">Pustit k diskusi</th>
         </tr>
       </thead>
       <tbody>
-        <tr id="H2" @click="showDetail($el.id)">
-          <td>31. 3. 2023</td>
-          <td>Aktualizace Stanov - čl. 2.3</td>
-          <td class="text-center">
-            <button class="success w-1/2" @click.stop="vote($el.id, true)">PRO</button>
-            <button class="error w-1/2" @click.stop="vote($el.id, false)">PROTI</button>
-          </td>
-        </tr>
+        <template x-for="item in votingItems">
+          <tr :id="item.id" @click="showDetail(item.id)">
+            <td x-text="utils.formatDate(utils.addWeek(item.preselectionClosed))"></td>
+            <td x-text="item.subject"></td>
+            <td class="text-center">
+              <button :disabled="disabled" class="success w-1/2" @click.stop="vote(item.id, true)">PRO</button>
+              <button :disabled="disabled" class="error w-1/2" @click.stop="vote(item.id, false)">PROTI</button>
+            </td>
+          </tr>
+        </template>
       </tbody>
     </table>
 
-    <h2>Témata v diskusi:</h2>
+    <h2>Témata v diskusi</h2>
 
-    <div x-show="!elaboratingItems().length" class="alert success px-2 mb-8">
-      V tuto chvíli žádná diskuse neprobíhá.
+    <div x-show="!collections.votings" class="alert px-2 mb-8">
+      Nahrávám...
+    </div>
+    <div x-show="collections.votings && !elaboratingItems().length" class="alert success px-2 mb-8">
+      V tuto chvíli zde žádná diskuse neprobíhá.
     </div>
     <table x-show="elaboratingItems().length">
       <thead>
@@ -124,9 +140,12 @@ permalink: /aktivity
       </tbody>
     </table>
 
-    <h2>Navržená témata:</h2>
+    <h2>Navržená témata</h2>
 
-    <div x-show="!suggestedItems().length" class="alert success px-2 mb-8">
+    <div x-show="!collections.votings" class="alert px-2 mb-8">
+      Nahrávám...
+    </div>
+    <div x-show="collections.votings && !suggestedItems().length" class="alert success px-2 mb-8">
       V tuto chvíli zde žádná navržená témata nejsou.
     </div>
     <table x-show="suggestedItems().length">
@@ -143,20 +162,19 @@ permalink: /aktivity
             <td x-text="utils.formatDate(utils.addWeek(item.created))"></td>
             <td x-text="item.subject"></td>
             <td class="text-center">
-              <button :disabled="disabled" class="success w-1/2" @click.stop="vote(item.id, true)">ANO</button>
-              <button :disabled="disabled" class="error w-1/2" @click.stop="vote(item.id, false)">NE</button>
+              <button :disabled="disabled" class="success w-1/2" @click.stop="vote(item, true)">ANO</button>
+              <button :disabled="disabled" class="error w-1/2" @click.stop="vote(item, false)">NE</button>
             </td>
           </tr>
         </template>
       </tbody>
     </table>
 
-    <button class="primary" @click="showDetail(null)">Navrhnout téma</button>
+    <button class="primary mt-8" @click="showDetail(null)">Navrhnout téma</button>
   </div>
 
   <!-- detail -->
-  <div x-show="state === 'detail'" @keyup.escape.window="hideDetail()" @keydown.enter.prevent="next"
-    @keyup.ctrl.enter.prevent="next">
+  <div x-show="state === 'detail'" @keyup.escape.window="hideDetail()" @keydown.enter.prevent="next">
     <button class="primary" @click="hideDetail()">&lt;&lt; Zpět</button>
     <h2 class="mt-4">
       <span x-show="selectedItem.state === 'closed'">Uzavřené hlasování</span>
@@ -189,7 +207,7 @@ permalink: /aktivity
         <textarea rows=10 id="description" style="resize: none" x-show="!preview"
           :class="{'input': true, 'error': errors.descriptionError, 'hidescrollbar': true}"
           x-model="selectedItem.description" @input="selectedItem.description = $el.value"
-          @keydown.enter.prevent="() => {}" @blur="validate($el.id)"></textarea>
+          @keydown.enter.stop="() => {}" @blur="validate($el.id)"></textarea>
         <div class="error-text" x-text="errors.descriptionError"></div>
         <div class="border rounded-lg shadow-md px-8 py-0" x-html="utils.convertMD(selectedItem?.description || '')"
           x-show="preview"></div>
@@ -200,50 +218,52 @@ permalink: /aktivity
     <div x-show="selectedItem.state === 'suggested'">
       <div class="border rounded-lg shadow-md px-8 py-0">
         <div class="flex justify-between text-sm pt-2">
-          <span>Navrhovatel: <span x-text="utils.userName(selectedItem.author)"></span></span>
+          <span>Navrhovatel: <span x-text="userName(selectedItem.author)"></span></span>
           <span>Navrženo: <span x-text="utils.formatDate(selectedItem.created)"></span></span>
         </div>
         <h1 class="pt-8" x-text="selectedItem.subject"></h1>
         <div x-html="utils.convertMD(selectedItem?.description || '')"></div>
       </div>
       <h2>Ostatní hlasující:</h2>
-      <div x-show="(selectedItem?.voters?.length || 0) < 2" class="alert success px-2 mb-8">
+      <div x-show="(votersFor(selectedItem).length || 0) < 2" class="alert success px-2 mb-8">
         Nikdo další nebude hlasovat.
       </div>
-      <table class="table-auto" x-show="(selectedItem?.voters?.length || 0) > 1">
+      <table class="table-auto" x-show="(votersFor(selectedItem).length || 0) > 1">
         <thead>
           <tr>
             <th class="w-full">Jméno</th>
             <th>Názor</th>
-            <th>Kontumační?</th>
             <th>Kdy</th>
           </tr>
         </thead>
         <tbody>
-          <template x-for="u in selectedItem.voters">
-            <tr x-show="u != user_id">
-              <td x-text="utils.userName(u)">Hledám...</td>
-              <td x-text="utils.boolToString((selectedItem.preselections || {})[u]?.preselection, 'ANO', 'NE', '')">
+          <template x-for="u in votersFor(selectedItem)">
+            <tr x-show="u !== user_id">
+              <td x-text="userName(u)">Hledám...</td>
+              <td x-text="utils.boolToString(voteOfFor(u, selectedItem)?.vote, 'ANO', 'NE', '')">
               </td>
-              <td
-                x-text="utils.boolToString((selectedItem.preselections || {})[u]?.preselectionActive, 'NE', 'ANO', '')">
-              </td>
-              <td x-text="utils.formatDate((selectedItem.preselections || {})[u]?.preselectionDate)"></td>
+              <td x-text="utils.formatDate(voteOfFor(u, selectedItem)?.created)"></td>
             </tr>
           </template>
         </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" class="text-right">Pro: <span x-text="positiveVotesFor(selectedItem)"></span>, Proti: <span
+                x-text="negativeVotesFor(selectedItem)"></span></td>
+          </tr>
+        </tfoot>
       </table>
       <h2>Pustit k diskusi? (termín <span x-text="utils.formatDate(utils.addWeek(selectedItem?.created))"></span>)</h2>
       <p>
-        <button :disabled="disabled" class="success w-20" @click="vote(selectedItem.id, true)">ANO</button>
-        <button :disabled="disabled" class="error w-20" @click="vote(selectedItem.id, false)">NE</button>
+        <button :disabled="disabled" class="success w-20" @click="vote(selectedItem, true)">ANO</button>
+        <button :disabled="disabled" class="error w-20" @click="vote(selectedItem, false)">NE</button>
       </p>
     </div>
 
     <div x-show="selectedItem.state === 'elaborating'">
       <div class="border rounded-lg shadow-md px-8 py-0">
         <div class="flex justify-between text-sm pt-2">
-          <span>Navrhovatel: <span x-text="utils.userName(selectedItem.author)"></span></span>
+          <span>Navrhovatel: <span x-text="userName(selectedItem.author)"></span></span>
           <span>Schváleno: <span x-text="utils.formatDate(selectedItem.preselectionClosed)"></span></span>
         </div>
         <h1 class="pt-8" x-text="selectedItem.subject"></h1>
@@ -262,7 +282,7 @@ permalink: /aktivity
         <tbody>
           <template x-for="u in selectedItem.voters">
             <tr>
-              <td x-text="u === user_id ? 'Já' : utils.userName(u)">Hledám...</td>
+              <td x-text="u === user_id ? 'Já' : userName(u)">Hledám...</td>
               <td x-text="utils.boolToString((selectedItem.preselections || {})[u]?.preselection, 'ANO', 'NE', '')">
               </td>
               <td
@@ -286,7 +306,7 @@ permalink: /aktivity
     <div x-show="selectedItem.state === 'rejected'">
       <div class="border rounded-lg shadow-md px-8 py-0">
         <div class="flex justify-between text-sm pt-2">
-          <span>Navrhovatel: <span x-text="utils.userName(selectedItem.author)"></span></span>
+          <span>Navrhovatel: <span x-text="userName(selectedItem.author)"></span></span>
           <span>Zamítnuto: <span x-text="utils.formatDate(selectedItem.preselectionClosed)"></span></span>
         </div>
         <h1 class="pt-8" x-text="selectedItem.subject"></h1>
@@ -303,23 +323,21 @@ permalink: /aktivity
           </tr>
         </thead>
         <tbody>
-          <template x-for="u in selectedItem.voters">
+          <template x-for="u in votersFor(selectedItem)">
             <tr>
-              <td x-text="u === user_id ? 'Já' : utils.userName(u)">Hledám...</td>
-              <td x-text="utils.boolToString((selectedItem.preselections || {})[u]?.preselection, 'ANO', 'NE', '')">
+              <td x-text="u === user_id ? 'Já' : userName(u)">Hledám...</td>
+              <td x-text="utils.boolToString(voteOfFor(u, selectedItem)?.vote, 'ANO', 'NE', '')">
               </td>
-              <td
-                x-text="utils.boolToString((selectedItem.preselections || {})[u]?.preselectionActive, 'NE', 'ANO', '')">
+              <td x-text="utils.boolToString(voteOfFor(u, selectedItem)?.voteActive, 'NE', 'ANO', '')">
               </td>
-              <td x-text="utils.formatDate((selectedItem.preselections || {})[u]?.preselectionDate)"></td>
+              <td x-text="utils.formatDate(voteOfFor(u, selectedItem)?.created)"></td>
             </tr>
           </template>
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="4">
-              Pro: TODO, Proti: TODO
-            </td>
+            <td colspan="4" class="text-right">Pro: <span x-text="positiveVotesFor(selectedItem)"></span>, Proti: <span
+                x-text="negativeVotesFor(selectedItem)"></span></td>
           </tr>
         </tfoot>
       </table>
@@ -327,11 +345,6 @@ permalink: /aktivity
       <p>
         <button :disabled="disabled" class="primary" @click="reOpen(selectedItem.id)">Znovu otevřít</button>
       </p>
-    </div>
-
-
-    <div x-show="state === 'other'">
-      <h2>Něco jiného</h2>
     </div>
 
   </div>

@@ -9,7 +9,7 @@ layout: dialogue
   }
 </script>
 
-<div @keyup.escape.window="back()" x-data="login" @keydown.enter.prevent="next"
+<div x-cloak @keyup.escape.window="back()" x-data="login" @keydown.enter.prevent="next"
   class="w-80 bg-white dark:bg-gray-800 rounded-lg shadow border dark:border-gray-700" sm:max-w-md>
   <div class="p-6 space-y-4">
     <!-- title -->
