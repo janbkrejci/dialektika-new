@@ -2,6 +2,9 @@
 <html lang="cs">
 
 <head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
@@ -23,6 +26,9 @@
     src='https://platform-api.sharethis.com/js/sharethis.js#property=602a9e560cf79300112b0f9c&product=inline-share-buttons'
     async='async'></script>
   <script>
+    if (sessionStorage.getItem("refresh") == "true") {
+      sessionStorage.removeItem("refresh"); window.location.reload()
+    }
     function back() {
       let target = document.referrer;
       if (!target || target.match(window.location.href)) target = '/';
@@ -32,8 +38,8 @@
   </script>
 </head>
 
-<body x-cloak x-data="user">
-  <header class="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">
+<body x-data="user">
+  <header x-cloak class="print:hidden text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">
   <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Globální navigace">
     <div class="flex lg:flex-1">
       <a href="/" class="-m-1.5 p-1.5">
@@ -123,10 +129,10 @@
       </div>
     </div>
   </div>
-</header><main>
+</header><main x-cloak>
   <h1 id="organizace">Organizace</h1>
 
-</main><footer>
+</main><footer x-cloak class="print:hidden">
   <!-- ShareThis BEGIN -->
   <div class="sharethis-inline-share-buttons grow"></div>
   <!-- ShareThis END -->

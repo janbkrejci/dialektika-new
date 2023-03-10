@@ -2,6 +2,9 @@
 <html lang="cs">
 
 <head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
@@ -23,6 +26,9 @@
     src='https://platform-api.sharethis.com/js/sharethis.js#property=602a9e560cf79300112b0f9c&product=inline-share-buttons'
     async='async'></script>
   <script>
+    if (sessionStorage.getItem("refresh") == "true") {
+      sessionStorage.removeItem("refresh"); window.location.reload()
+    }
     function back() {
       let target = document.referrer;
       if (!target || target.match(window.location.href)) target = '/';
@@ -32,7 +38,7 @@
   </script>
 </head>
 
-<body x-cloak x-data="user">
+<body x-data="user">
   <main class="grid place-content-center h-full">
 
   <script>
@@ -42,7 +48,7 @@
   }
 </script>
 
-<div @keyup.escape.window="back()" x-data="login" @keydown.enter.prevent="next"
+<div x-cloak @keyup.escape.window="back()" x-data="login" @keydown.enter.prevent="next"
   class="w-80 bg-white dark:bg-gray-800 rounded-lg shadow border dark:border-gray-700" sm:max-w-md>
   <div class="p-6 space-y-4">
     <!-- title -->
