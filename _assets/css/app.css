@@ -37,6 +37,10 @@ footer {
   @apply drop-shadow-md rounded-lg;
 }
 
+.alert .title {
+  @apply text-2xl font-bold;
+}
+
 .error {
   @apply bg-red-200 dark:bg-red-700;
 }
@@ -73,9 +77,6 @@ label {
   @apply block mb-2 text-sm font-medium text-gray-900 dark:text-white;
 }
 
-.alert .title {
-  @apply text-2xl font-bold;
-}
 
 /*
 thead tr {
@@ -84,24 +85,29 @@ thead tr {
 */
 
 td, th {
-  @apply whitespace-nowrap p-2 items-center;
+  @apply p-2 items-center;
 }
 
 tbody tr {
   cursor: pointer;
-  @apply hover:bg-gray-100 dark:hover:bg-gray-800 whitespace-nowrap;
+  @apply hover:bg-gray-100 dark:hover:bg-gray-800;
 }
 
 .separator {
   -webkit-mask: url(../img/separator.svg) no-repeat center;
   mask: url(../img/separator.svg) no-repeat center;
-  @apply  bg-gray-200 dark:bg-gray-800 h-8;
+  @apply bg-gray-300 dark:bg-gray-700 h-8;
 }
 
 .logo {
   -webkit-mask: url(../img/logo.svg) no-repeat center;
   mask: url(../img/logo.svg) no-repeat center;
+}
 
+.questionmark {
+  -webkit-mask: url(../img/questionmark.svg) no-repeat center;
+  mask: url(../img/questionmark.svg) no-repeat center;
+  @apply bg-gray-700 dark:bg-gray-300 w-5 h-5;
 }
 
 .btn {

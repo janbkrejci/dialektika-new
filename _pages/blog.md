@@ -3,7 +3,6 @@ layout: page
 title: Blog
 permalink: /blog
 ---
-
 # Články
 
 <div class="separator"></div>

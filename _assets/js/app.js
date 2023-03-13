@@ -6,6 +6,7 @@ import {
 } from './validators';
 import utils from './utils';
 import { pb, subscribe, BACKEND_SERVER } from './pocketbase';
+import 'flowbite';
 
 window.utils = utils;
 
@@ -42,6 +43,12 @@ Alpine.data('user', () => ({
   get sortedUsers() {
     // return _.chain(this.collections.users).sortBy(['lastName', 'firstName']).value()
     return _.chain(this.collections.users).sortBy('created').reverse().value();
+  },
+  setPropertiesFromHash() {
+    const u = new URLSearchParams(window.location.hash.substring(1));
+    u.forEach((v, k) => {
+      this[k] = v;
+    }, this);
   },
   async init() {
     this.user_model = pb.authStore.model;
@@ -302,26 +309,27 @@ Alpine.data('passwordReset', () => ({
 }));
 
 Alpine.data('aktivity', () => ({
-  selectedItem: {},
   state: null,
   lastState: null,
+  action: null,
   selectedID: null,
-  async init() {
-    const s = new URLSearchParams(window.location.search);
-    this.selectedID = s.get('selectedID');
-    const action = s.get('action');
+  selectedItem: {},
+  renewSelectedItem() {
+    this.selectedItem = this.collections.votings.find((i) => i.id === this.selectedID) || {
+      state: 'new',
+    };
+  },
+  renew() {
+    this.state = null;
+    this.selectedID = null;
+    this.selectedItem = {};
+    this.action = null;
 
-    await this.subscribe('votings');
-    await this.subscribe('votes');
-    await this.subscribe('discussions');
+    this.setPropertiesFromHash();
 
     if (this.selectedID) {
-      this.state = 'detail';
-      this.selectedItem = this.collections.votings.find((i) => i.id === this.selectedID) || {
-        state: 'new',
-      };
-      if (action === 'reopen') {
-        this.selectedID = null;
+      this.renewSelectedItem();
+      if (this.action === 'reOpen') {
         const orig = { ...this.selectedItem };
         delete orig.id;
         delete orig.updated;
@@ -329,19 +337,41 @@ Alpine.data('aktivity', () => ({
         delete orig.preselectionClosed;
         orig.state = 'new';
         this.selectedItem = orig;
-        this.$focus.focus(this.firstInput());
       }
-    } else {
-      this.state = s.get('state') || 'hlasovani';
+    } else if (!this.state) {
+      window.location.replace('/aktivity#state=hlasovani');
     }
+    this.$nextTick(() => {
+      this.$focus.focus(this.firstInput());
+    });
+  },
+  async init() {
+    const self = this;
 
-    this.$focus.focus(this.firstInput());
+    await this.subscribe('votings', (x) => !!x, {
+      postDelete(item) {
+        if (item.id === self.selectedID) {
+          const s = new URLSearchParams(window.location.hash.substring(1));
+          s.delete('selectedID');
+          s.set('state', self.lastState || "hlasovani");
+          self.lastState = null;
+          window.location.hash = s.toString();
+        }
+      },
+    });
+    await this.subscribe('votes');
+    await this.subscribe('discussions');
+
+    window.addEventListener('hashchange', () => {
+      self.renew();
+    }, false);
+    this.renew();
   },
   votersFor(voting) {
     const { scope } = voting;
     if (!scope) return [];
     // TODO, to begin we accept every user for every voting
-    return _.map(this.collections.users, (u) => u.id);
+    return _.chain(this.collections.users).sortBy(['lastName', 'firstName']).map((u) => u.id).value();
   },
   votesFor(voting) {
     const isVote = !voting.state === 'suggested';
@@ -352,10 +382,10 @@ Alpine.data('aktivity', () => ({
     return result;
   },
   positiveVotesFor(voting) {
-    return _.sumBy(this.votesFor(voting), (o) => (o.vote ? 1 : 0));
+    return _.sumBy(this.votesFor(voting), (o) => (o.vote ? 1 : 0)) || 0;
   },
   negativeVotesFor(voting) {
-    return _.sumBy(this.votesFor(voting), (o) => (o.vote ? 0 : 1));
+    return _.sumBy(this.votesFor(voting), (o) => (o.vote ? 0 : 1)) || 0;
   },
   voteOfFor(uid, voting) {
     const isVote = !voting.state === 'suggested';
@@ -367,8 +397,7 @@ Alpine.data('aktivity', () => ({
     return this.votersFor(voting).includes(this.user_id);
   },
   didIVoteFor(voting, finalVote) {
-    return !!_.find(
-      this.collections.votes || [],
+    return !!(this.collections.votes || []).find(
       (i) => i.user === this.user_id && i.isVote === finalVote && i.voting === voting.id,
     );
   },
@@ -383,7 +412,7 @@ Alpine.data('aktivity', () => ({
   },
   rejectedItems() {
     return _.chain(Object.values(this.collections.votings || {}).filter((i) => i.state === 'rejected'
-        && this.amIVoterFor(i))).sortBy("created").reverse().value();
+        && this.amIVoterFor(i))).sortBy('preselectionClosed').reverse().value();
   },
   votingItems() {
     return Object.values(this.collections.votings || {}).filter((i) => i.state === 'voting'
@@ -391,8 +420,8 @@ Alpine.data('aktivity', () => ({
         && !this.didIVoteFor(i, true));
   },
   closedItems() {
-    return Object.values(this.collections.votings || {}).filter((i) => i.state === 'closed'
-        && this.amIVoterFor(i));
+    return _.chain(Object.values(this.collections.votings || {}).filter((i) => i.state === 'closed'
+        && this.amIVoterFor(i))).sortBy('votingClosed').reverse().value();
   },
   firstInput() {
     function e(id) {
@@ -409,37 +438,51 @@ Alpine.data('aktivity', () => ({
     return result;
   },
   showDetail(id) {
-    const s = new URLSearchParams();
+    this.lastState = this.state;
+    const s = new URLSearchParams(window.location.hash.substring(1));
+    s.set('state', 'detail');
     s.set('selectedID', id);
-    window.location.search = s.toString();
+    window.location.hash = s.toString();
   },
   hideDetail() {
+    const s = new URLSearchParams();
+    s.set('state', this.lastState || 'hlasovani');
+    this.lastState = null;
     window.history.back();
   },
   async reOpen(id) {
-    const s = new URLSearchParams();
-    s.set('selectedID', id);
-    s.set('action', 'reopen');
-    window.location.search = s.toString();
+    // TODO
+    this.selectedID = id
+    this.renewSelectedItem()
+    delete this.selectedItem.preselectionClosed
+    this.preselectionResult = false
+    this.selectedItem.author = this.user_id
+    this.selectedItem.state = "new"
+    delete this.selectedItem.created
+    delete this.selectedItem.updated
+    window.location.hash = "state=detail"
+    this.$focus.focus(this.firstInput())
   },
   async vote(item, value) {
     if (!item || _.isNil(value)) return;
     this.disabled = true;
     const isVote = !item.state === 'suggested';
     try {
-      await pb.collection('votes').create({
+      const result = {
         voting: item.id,
         user: this.user_id,
         isVote,
         vote: value,
         voteActive: true,
-      });
+      };
+      this.collections.votes.push(result);
+      await pb.collection('votes').create(result);
       // check if this was a last vote
       const votersCount = this.votersFor(item).length;
       const votesCount = this.votesFor(item).length;
-      if (votesCount === votersCount) {
+      if (votesCount >= votersCount) {
         let result = false;
-        const updateObj = {};
+        const updateObj = {...item};
         if (item.state === 'suggested') {
           result = this.positiveVotesFor(item) > this.negativeVotesFor(item);
           updateObj.preselectionResult = result;
@@ -456,10 +499,10 @@ Alpine.data('aktivity', () => ({
         await pb.collection('votings').update(item.id, updateObj);
       }
     } catch (error) {
+      console.log(error);
       this.errors.submitError = 'Nepovedlo se...';
     }
     this.disabled = false;
-    if (this.selectedID) this.hideDetail();
   },
   validate(id = null) {
     if (id) {
@@ -538,9 +581,25 @@ Alpine.data('aktivity', () => ({
         this.selectedItem.author = this.user_id;
         this.selectedItem.scope = 'bv6zy25qi4ijcv2'; // TODO let user select it
 
-        await pb.collection('votings').create(this.selectedItem);
-        sessionStorage.setItem('refresh', 'true');
+        const newItem = await pb.collection('votings').create(this.selectedItem);
+        this.collections.votings.push(newItem);
+
+        window.location.replace(`/aktivity#state=detail&selectedID=${newItem.id}`);
+        // sessionStorage.setItem('refresh', 'true');
+
+        /* if (window.history.replaceState) {
+          console.log("replace url")
+          const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?selectedID=${newItem.id}`;
+          window.history.replaceState(null, '', newurl);
+
+        } else {
+          console.log("redirect")
+          const s = new URLSearchParams();
+          s.set('selectedID', newItem.id);
+          window.location.search = s.toString();
+        } */
       } catch (err) {
+        console.log(err);
         this.errors.submitError = JSON.stringify(err, 2, null);
       } finally {
         this.disabled = false;

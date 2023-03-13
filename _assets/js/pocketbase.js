@@ -33,13 +33,17 @@ async function subscribe(colName, filter = (x) => !!x, hooks = {}) {
       let r = rec;
       if (hooks.preCreate) r = hooks.preCreate(r);
       if (!!r && filter(r)) {
-        self.collections[colName].push(r);
+        if (!self.collections[colName].find((i) => i.id === r.id)) {
+          self.collections[colName].push(r);
+        }
         if (hooks.postCreate) r = hooks.postCreate(r);
       }
       return r;
     }
     function tryDelete(rec) {
+      if (hooks.preDelete) hooks.preDelete(rec);
       _.remove(self.collections[colName], (x) => x.id === rec.id);
+      if (hooks.postDelete) hooks.postDelete(rec);
       return rec;
     }
     function tryUpdate(orig, rec) {

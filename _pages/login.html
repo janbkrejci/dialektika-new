@@ -19,7 +19,8 @@ layout: dialogue
       <span x-show="form == 'reset'">Obnova hesla</span>
     </h1>
     <!-- form -->
-    <form class="space-y-4" action="" method="POST" novalidate @submit.prevent="">
+    <form class="space-y-4" action="" method="POST" novalidate autocomplete="off" @submit.prevent="">
+      <input type="hidden" autocomplete="false">
       <!-- results -->
       <div x-show="errors.resetSuccess" class="alert success p-2 text-sm" x-text="errors.resetSuccess">
       </div>

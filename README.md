@@ -6,12 +6,15 @@
 - ~~naučit se MD~~
 - ~~přenést obsah titulní stránky~~
 - ~~stránka 404~~
-- stránka /blog autogenerovaná
+- ~~stránka /blog autogenerovaná~~
 - ~~layout postu~~
 - triggery v databázi, cron job
 - stránka /program - autogenerovaná z databáze
 - stránka /stanovy - autogenerovaná z databáze
-- ostatní stránky
+- permalinky na články
+- kategorie článků a jejich procházení
+- chyba autofill safari login form
+- chyba autofocus create new
 - ~~language server HTML, JS, CSS~~
 
 {APP_URL}/_/#/auth/confirm-password-reset/{TOKEN}

@@ -1,8 +1,10 @@
 module.exports = {
+  darkMode: 'media',
   content: [
     './**/*.html',
     './**/*.md',
     './_assets/**/*.js',
+    "./node_modules/flowbite/**/*.js"
   ],
   theme: {
     extend: {
@@ -17,5 +19,6 @@ module.exports = {
   plugins: [
     require('@tailwindcss/typography'),
     require('@tailwindcss/forms'),
+    require('flowbite/plugin'),
   ],
 };
