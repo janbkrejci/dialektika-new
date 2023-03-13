@@ -24,7 +24,7 @@
         "@tailwindcss/typography": "^0.5.9",
         "autoprefixer": "^10.4.14",
         "concurrently": "^7.6.0",
-        "eslint": "^8.35.0",
+        "eslint": "^8.36.0",
         "eslint-config-airbnb-base": "^15.0.0",
         "eslint-plugin-import": "^2.23.4",
         "file-loader": "^6.2.0",
