@@ -8,7 +8,7 @@ sources:
   - "[1] https://www.ceskenoviny.cz/zpravy/fiala-demonstraci-v-praze-svolaly-sily-ktere-se-hlasi-k-proruske-orientaci/2251523"
   - "[2] https://www.idnes.cz/zpravy/domaci/demonstrace-zasah-policie-obvineni-vytrznictvi-vlada-namesti.A230313_094108_domaci_lisv"
 ---
-Tak jsme dnes zaslechli, při vší té hromadě práce, která se sama neudělá, že někdo demonstroval na Václaváku. A že se tam někdo popral. A že někdo se snažil sundat ukrajinskou vlajku z Národního muzea. A koukáme se s vámi na video, kde tzv. "muž v hnědé kukle" řekne něco policistům a ti pak jdou strkat do lidí, kteří se, jak se zdá, do té doby s nikým aktivně nepostrkují. A co si o tom myslíme?
+Tak jsme dnes zaslechli, při vší té hromadě práce, která se sama neudělá, že někdo demonstroval na Václaváku. A že někdo se snažil sundat ukrajinskou vlajku z Národního muzea. A že se tam někdo popral. A někdo někomu poničil auto. A koukáme se s vámi na video, kde tzv. "muž v hnědé kukle" řekne něco policistům a ti pak jdou strkat do lidí, kteří se, jak se zdá, do té doby s nikým aktivně nepostrkují. Co si o tom myslíme?
 
 Kromě výše řečeného také ještě čteme ve zprávách, že podle některých politiků demonstraci svolaly proruské živly (mimochodem, za takové "nálepkující" prohlášení kritizoval jistý pan Středula jistého pana Fialu už před rokem [1]).
 
@@ -20,7 +20,7 @@ Proč chce někdo sundavat ukrajinskou vlajku z Národního muzea? Opravdu proto
 
 Od teď budeme mluvit jen a jen za sebe - následující řádky nereprezentují názor nikoho jiného, než nás dvou.
 
-**Nesouhlasíme s napadením Ukrajiny Ruskem. Nevíme, proč přesně k tomu došlo. Jsme přesvědčeni, že pravdu zná jen Rusko samo. My nejspíš ne. Nic to nemění na tom, že se nám to nelíbí.**
+**Nesouhlasíme s napadením Ukrajiny Ruskem. Nevíme, proč přesně k němu došlo. Jsme přesvědčeni, že celou pravdu zná jen Rusko samo. My nejspíš ne. Nic to nemění na tom, že se nám to nelíbí.**
 
 **Cítíme solidaritu s lidem země, která se brání vpádu cizí armády. Osobně jsme finančně přispěli už v době, kdy to bylo celé ještě hodně čerstvé.**
 
@@ -32,16 +32,20 @@ A ZÁROVEŇ se nám strašně nelíbí vyvěšování ukrajinské vlajky na nár
 
 2) jestli ale někdo vyvěsí vlajku kteréhokoli jiného státu, než je Česká republika, na Pražský hrad, na libovolný státní úřad, nebo na národní kulturní instituci, tak to musí mít hodně dobrý důvod.
 
-Důvodem pro vyvěšení cizí státní vlajky na objekty uvedené v bodě 2 je podle našeho názoru návštěva vysoké státní delegace v daném objektu, konání nějaké společné akce obou zemí v objektu, nebo něco podobně explicitního a zřejmého.
+Důvodem pro vyvěšení cizí státní vlajky na veřejné objekty je podle našeho názoru návštěva vysoké státní delegace v daném objektu, konání nějaké společné akce obou zemí v objektu, nebo něco podobně explicitního a zřejmého.
 
-Solidarita s lidem, kterému je ubližováno, podle našeho názoru takovým důvodem není.
+Solidarita s lidem, kterému je ubližováno, podle našeho názoru takovým důvodem není. Neztotožňujeme se s názorem, že modrožlutá vlajka je symbolem boje za svobodu, taková prohlášení nám připadají falešná a servilní.
 
-Jsme snad pro tento názor proruskými živly? Nemyslíme si... Necháme se rádi přesvědčit - jen nám prosím někdo zkuste vysvětlit, jak přesně a konkrétně takové gesto Ukrajině pomůže. My v tom nemáme jasno, žádný reálný přínos, než proklamaci bez obsahu v tom neumíme najít. Rádi se přesvědčíme, že se mýlíme. Jestli nám někdo dokáže, že díky tomu, že na národních objektech ČR visí ukrajinská vlajka, válka skončí dřív, tak se s tím smíříme. Jestli ne, tak vězte, že nás to fakt štve a nepřejeme si to. A možná, že si to s námi nepřeje i spousta jiných lidí, aniž by při tom byli zastánci ruského vpádu, nebo podporovatelé Ruska v probíhajícím konfliktu.
+Jsme snad pro tento názor proruskými živly? Nemyslíme si... Necháme se rádi přesvědčit - jen nám prosím někdo zkuste vysvětlit, jak přesně a konkrétně takové gesto Ukrajině pomůže. My v tom nemáme jasno, žádný reálný přínos, než proklamaci bez obsahu v tom neumíme najít. Rádi se přesvědčíme, že se mýlíme. Jestli nám někdo dokáže, že díky tomu, že na českých veřejných budovách visí ukrajinská vlajka, válka skončí dřív, tak se s tím smíříme. Jestli ne, tak vězte, že nás to fakt štve a nepřejeme si to. A možná, že si to s námi nepřeje ani spousta jiných lidí, aniž by při tom byli zastánci ruského vpádu, nebo podporovatelé Ruska v probíhajícím konfliktu. Jenže ani nás, ani jich se nikdo neptá a prostě si vyhlásíme, že to tak je.
 
 Na videu z internetu vidíme strkanici vyvolanou lidmi, kteří vypadají jako pořádkové síly. A ano, někdo v článku [2] napsal, že na videu nevidíme všechno. A víte co? Nás to vlastně vůbec nezajímá.
 
 Co nás zajímá, a co by podle nás mělo zajímat i vás, je to, proč k celému tomu cirkusu došlo. Ve skutečnosti si myslíme, že konflikt nevyvolali ani demonstrující, ani policisté, ale ten, kdo na Národní muzeum vyvěsil cizí státní symbol, aniž by vzal v potaz to, že se nejedná o jeho soukromý majetek, a to, že jeho názor se nemusí vůbec shodovat s názorem někoho jiného.
 
-Lidi, prosím Vás, hlavou! A s rozumem! Jestli budeme takhle pokračovat, tak tu za chvíli uvidíme pogromy na naprosto nevinné Ukrajince i Rusy, kteří za nic nemůžou, jen chtějí normálně žít, pracovat, milovat se a vychovávat děti.
+Lidi, prosím Vás, hlavou! A s rozumem!
+
+Hysterie a násilí mají vždycky tendenci eskalovat. A důvody a pohnutky se rády míchají a zaměňují. Nejdřív někdo vyvěsí vlajku, pak je poblíž demonstrace. Někdo z demonstrujících se rozhodne, že ho ta vlajka dráždí, pak se policie postrkuje s demonstranty, z nichž někteří možná přišli proto, že mají drahou elektřinu, bojí se inflace a mají existenční problémy. Pak někdo někomu poškodí auto s ukrajinskou SPZ...
+
+Jestli budeme takhle pokračovat, tak tu za chvíli uvidíme pogromy na naprosto nevinné Ukrajince i Rusy, kteří za nic nemůžou, jen chtějí normálně žít, pracovat, milovat se a vychovávat děti. A kvůli čemu?
 
 Díky...
